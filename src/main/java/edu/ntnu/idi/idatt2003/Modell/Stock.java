@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt2003;
+package edu.ntnu.idi.idatt2003.Modell;
 
 import java.util.List;
 import java.math.BigDecimal;
