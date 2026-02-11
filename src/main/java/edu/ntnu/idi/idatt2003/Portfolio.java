@@ -4,5 +4,5 @@ import java.util.List;
 
 public class Portfolio {
     private List<Share> shares;
-    
+
 }
