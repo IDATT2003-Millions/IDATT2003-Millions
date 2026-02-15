@@ -1,4 +1,4 @@
-package ModellTest;
+package modelTest;
 
 import edu.ntnu.idi.idatt2003.model.Stock;
 import org.junit.jupiter.api.Test;
