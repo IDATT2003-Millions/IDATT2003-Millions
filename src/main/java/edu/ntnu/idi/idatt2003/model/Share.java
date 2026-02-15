@@ -13,44 +13,44 @@ import java.math.BigDecimal;
  */
 
 public class Share {
-    private final Stock stock;
-    private final BigDecimal quantity;
-    private final BigDecimal purchasePrice;
+  private final Stock stock;
+  private final BigDecimal quantity;
+  private final BigDecimal purchasePrice;
 
-    /**
-     * Crates a new share representing a stock purchase.
-     *
-     * @param stock is the stock that was purchased, cannot be {@code null}
-     * @param quantity the number of stocks that was purchased, cannot be {@code negative}
-     * @param purchasePrice the price of the purchase, must be {@code positive}
-     * @throws IllegalArgumentException if stock is {@code null}, or if quantity or
-     purchase is {@code null} or {@code positive}
-     */
-    public Share(Stock stock, BigDecimal quantity, BigDecimal purchasePrice) {
+  /**
+   * Crates a new share representing a stock purchase.
+   *
+   * @param stock is the stock that was purchased, cannot be {@code null}
+   * @param quantity the number of stocks that was purchased, cannot be {@code negative}
+   * @param purchasePrice the price of the purchase, must be {@code positive}
+   * @throws IllegalArgumentException if stock is {@code null}, or if quantity or
+  purchase is {@code null} or {@code positive}
+   */
+  public Share(Stock stock, BigDecimal quantity, BigDecimal purchasePrice) {
 
-            if (stock == null) {
-                throw new IllegalArgumentException("Stock cannot be null");
-            }
-            if (quantity == null || quantity.compareTo(BigDecimal.ZERO) <= 0) {
-                throw new IllegalArgumentException("Quantity must be positive");
-            }
-            if (purchasePrice == null || purchasePrice.compareTo(BigDecimal.ZERO) <= 0) {
-                throw new IllegalArgumentException("Purchase price must be positive");
-            }
-        this.stock = stock;
-        this.quantity = quantity;
-        this.purchasePrice = purchasePrice;
+    if (stock == null) {
+      throw new IllegalArgumentException("Stock cannot be null");
     }
-
-    public Stock getStock() {
-        return stock;
+    if (quantity == null || quantity.compareTo(BigDecimal.ZERO) <= 0) {
+      throw new IllegalArgumentException("Quantity must be positive");
     }
-
-    public BigDecimal getQuantity() {
-        return quantity;
+    if (purchasePrice == null || purchasePrice.compareTo(BigDecimal.ZERO) <= 0) {
+      throw new IllegalArgumentException("Purchase price must be positive");
     }
+    this.stock = stock;
+    this.quantity = quantity;
+    this.purchasePrice = purchasePrice;
+  }
 
-    public BigDecimal getPurchasePrice() {
-        return purchasePrice;
-    }
+  public Stock getStock() {
+    return stock;
+  }
+
+  public BigDecimal getQuantity() {
+    return quantity;
+  }
+
+  public BigDecimal getPurchasePrice() {
+    return purchasePrice;
+  }
 }
