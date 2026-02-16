@@ -35,6 +35,7 @@ public class PurchaseCalculator implements TransactionCalculator {
    *
    * @return the gross value
    */
+  @Override
   public BigDecimal calculateGross() {
     return purchasePrice.multiply(quantity);
   }
@@ -45,6 +46,7 @@ public class PurchaseCalculator implements TransactionCalculator {
    *
    * @return the commission amount
    */
+  @Override
   public BigDecimal calculateCommission() {
     return calculateGross().multiply(commission_rate);
   }
@@ -55,6 +57,7 @@ public class PurchaseCalculator implements TransactionCalculator {
    *
    * @return {@code zero}
    */
+  @Override
   public BigDecimal calculateTax() {
     return zero;
   }
@@ -65,6 +68,7 @@ public class PurchaseCalculator implements TransactionCalculator {
    *
    * @return the total purchase cost
    */
+  @Override
   public BigDecimal calculateTotal() {
     return calculateGross().add(calculateCommission()).add(calculateTax());
   }
