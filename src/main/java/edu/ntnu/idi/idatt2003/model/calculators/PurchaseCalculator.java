@@ -1,38 +1,71 @@
 package edu.ntnu.idi.idatt2003.model.calculators;
 
 import edu.ntnu.idi.idatt2003.model.Share;
-
 import java.math.BigDecimal;
-
 import java.util.Objects;
 
+/**
+ * Calculates financial values for purchasing transaction.
+ * Commission rate for a purchase is 0.5% of the gross value.
+ * There is no tax when purchasing a share.
+ */
 public class PurchaseCalculator implements TransactionCalculator {
 
-    private static final BigDecimal commission_rate = new BigDecimal("0.005");
-    private static final BigDecimal zero = BigDecimal.ZERO;
+  private static final BigDecimal commission_rate = new BigDecimal("0.005");
+  private static final BigDecimal zero = BigDecimal.ZERO;
 
-    private final BigDecimal purchasePrice;
-    private final BigDecimal quantity;
+  private final BigDecimal purchasePrice;
+  private final BigDecimal quantity;
 
-    public PurchaseCalculator(Share share) {
-        Objects.requireNonNull(share, "share must not be null");
-        this.purchasePrice = share.getPurchasePrice();
-        this.quantity = share.getQuantity();
-    }
+  /**
+   * Constructs a purchase calculater for the given share.
+   *
+   * @param share the share that is involved in the purchase
+   * @throws NullPointerException if share is {@code null}
+   */
+  public PurchaseCalculator(Share share) {
+    Objects.requireNonNull(share, "share must not be null");
+    this.purchasePrice = share.getPurchasePrice();
+    this.quantity = share.getQuantity();
+  }
 
-    public BigDecimal calculateGross() {
-        return purchasePrice.multiply(quantity);
-    }
+  /**
+   * Calculates the gross value of the purchase.
+   * The gross value is calculated by quantity x purchase price
+   *
+   * @return the gross value
+   */
+  public BigDecimal calculateGross() {
+    return purchasePrice.multiply(quantity);
+  }
 
-    public BigDecimal calculateCommission() {
-        return calculateGross().multiply(commission_rate);
-    }
+  /**
+   * Calculates the commission fee.
+   * The fee is 0.5% of the gross value
+   *
+   * @return the commission amount
+   */
+  public BigDecimal calculateCommission() {
+    return calculateGross().multiply(commission_rate);
+  }
     
-    public BigDecimal calculateTax() {
-        return zero;
-    }
+  /**
+   * Calulates tax of the purchase.
+   * There is no tax for purchasing a share
+   *
+   * @return {@code zero}
+   */
+  public BigDecimal calculateTax() {
+    return zero;
+  }
 
-    public BigDecimal calculateTotal() {
-        return calculateGross().add(calculateCommission()).add(calculateTax());
-    }
+  /**
+   * Calculates the total purchase cost.
+   * The total is gross value + commission fee + tax
+   *
+   * @return the total purchase cost
+   */
+  public BigDecimal calculateTotal() {
+    return calculateGross().add(calculateCommission()).add(calculateTax());
+  }
 }
