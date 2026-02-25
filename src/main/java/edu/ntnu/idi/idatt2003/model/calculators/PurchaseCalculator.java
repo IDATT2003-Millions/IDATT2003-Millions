@@ -6,8 +6,9 @@ import java.util.Objects;
 
 /**
  * Calculates financial values for purchasing transaction.
- * Commission rate for a purchase is 0.5% of the gross value.
- * There is no tax when purchasing a share.
+ *
+ * <p>Commission rate for a purchase is 0.5% of the gross value.
+ * There is no tax when purchasing a share.</p>
  */
 public class PurchaseCalculator implements TransactionCalculator {
 
@@ -18,7 +19,7 @@ public class PurchaseCalculator implements TransactionCalculator {
   private final BigDecimal quantity;
 
   /**
-   * Constructs a purchase calculater for the given share.
+   * Constructs a purchase calculator for the given share.
    *
    * @param share the share that is involved in the purchase
    * @throws NullPointerException if share is {@code null}
@@ -31,7 +32,8 @@ public class PurchaseCalculator implements TransactionCalculator {
 
   /**
    * Calculates the gross value of the purchase.
-   * The gross value is calculated by quantity x purchase price
+   *
+   * <p>The gross value is calculated by quantity x purchase price</p>
    *
    * @return the gross value
    */
@@ -42,7 +44,8 @@ public class PurchaseCalculator implements TransactionCalculator {
 
   /**
    * Calculates the commission fee.
-   * The fee is 0.5% of the gross value
+   *
+   *  <p>The fee is 0.5% of the gross value</p>
    *
    * @return the commission amount
    */
@@ -52,8 +55,9 @@ public class PurchaseCalculator implements TransactionCalculator {
   }
     
   /**
-   * Calulates tax of the purchase.
-   * There is no tax for purchasing a share
+   * Calculates tax of the purchase.
+   *
+   *  <p>There is no tax for purchasing a share</p>
    *
    * @return {@code zero}
    */
@@ -64,7 +68,8 @@ public class PurchaseCalculator implements TransactionCalculator {
 
   /**
    * Calculates the total purchase cost.
-   * The total is gross value + commission fee + tax
+   *
+   * <p>The total is gross value + commission fee + tax</p>
    *
    * @return the total purchase cost
    */
