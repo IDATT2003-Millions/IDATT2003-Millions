@@ -1,5 +1,9 @@
 package edu.ntnu.idi.idatt2003.model;
 
+import edu.ntnu.idi.idatt2003.model.transactions.Purchase;
+import edu.ntnu.idi.idatt2003.model.transactions.Sale;
+import edu.ntnu.idi.idatt2003.model.transactions.Transaction;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

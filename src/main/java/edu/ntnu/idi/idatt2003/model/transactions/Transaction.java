@@ -1,6 +1,7 @@
 package edu.ntnu.idi.idatt2003.model.transactions;
 
 import edu.ntnu.idi.idatt2003.model.Share;
+import edu.ntnu.idi.idatt2003.model.Player;
 import edu.ntnu.idi.idatt2003.model.calculators.TransactionCalculator;
 
 public abstract class Transaction {
