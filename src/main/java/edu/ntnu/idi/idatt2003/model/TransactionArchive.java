@@ -6,11 +6,10 @@ import edu.ntnu.idi.idatt2003.model.transactions.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.Set;
+
 
 public class TransactionArchive {
-    private List<Transaction> transactions;
+    private final List<Transaction> transactions;
     public TransactionArchive() {
         this.transactions = new ArrayList<>();
     }
@@ -32,7 +31,7 @@ public class TransactionArchive {
         }
         return transactions.stream()
                 .filter(transaction -> transaction.getWeek() == week)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<Purchase> getPurchases(int week) {
@@ -42,7 +41,7 @@ public class TransactionArchive {
         return transactions.stream()
                 .filter(transaction -> transaction instanceof Purchase && transaction.getWeek() == week)
                 .map(transaction -> (Purchase) transaction)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<Sale> getSales(int week) {
@@ -52,9 +51,13 @@ public class TransactionArchive {
         return transactions.stream()
                 .filter(transaction -> transaction instanceof Sale && transaction.getWeek() == week)
                 .map(transaction -> (Sale) transaction)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public int countDistinctWeeks() {
+        return (int) transactions.stream()
+                .map(Transaction::getWeek)
+                .distinct()
+                .count();
     }
 }

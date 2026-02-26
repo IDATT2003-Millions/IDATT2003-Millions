@@ -2,7 +2,6 @@ package edu.ntnu.idi.idatt2003.model;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class Portfolio {
     private List<Share> shares;
@@ -35,7 +34,7 @@ public class Portfolio {
         }
         return shares.stream()
                 .filter(s -> s.getStock().getSymbol().equalsIgnoreCase(symbol))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public boolean contains(Share share){
