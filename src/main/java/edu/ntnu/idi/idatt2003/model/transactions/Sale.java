@@ -1,6 +1,5 @@
 package edu.ntnu.idi.idatt2003.model.transactions;
 
-import edu.ntnu.idi.idatt2003.model.Player;
 import edu.ntnu.idi.idatt2003.model.Share;
 import edu.ntnu.idi.idatt2003.model.calculators.SaleCalculator;
 
@@ -21,12 +20,11 @@ public class Sale extends Transaction {
             throw new IllegalArgumentException("Player does not own the share attempted to be sold");
         }
 
-        var totalProceeds = getCalculator().calculateTotal();
+        java.math.BigDecimal totalProceeds = getCalculator().calculateTotal();
 
         player.addMoney(totalProceeds);
         player.getPortfolio().removeShare(getShare());
-        player.getTransactionArchive().add(this);
-
         setCommitted();
+        player.getTransactionArchive().add(this);
     }
 }
