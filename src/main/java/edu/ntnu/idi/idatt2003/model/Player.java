@@ -41,12 +41,12 @@ public class Player {
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Addable money must be positive number.");
         }
-        this.money = this.money.add(amount)
+        this.money = this.money.add(amount);
     }
 
     public void withdrawMoney(BigDecimal amount) {
-        if (amount == null || amount.compareTo(BigDecimal.Zero) <= 0) {
-            throw new IllegalArgumentException("Withdrawable money must be a positive number.")
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Withdrawable money must be a positive number.");
         }
         if (this.money.compareTo(amount) < 0) {
             throw new IllegalArgumentException("Insufficient funds: cannot withdraw " + amount + ". Balance is currently" + money + ".");
