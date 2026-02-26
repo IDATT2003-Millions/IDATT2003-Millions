@@ -1,15 +1,15 @@
-package edu.ntnu.idi.idatt2003.model;
-import edu.ntnu.idi.idatt2003.model.transactions.Transaction;
+package edu.ntnu.idi.idatt2003.model.transactions;
+import edu.ntnu.idi.idatt2003.model.Portfolio;
+import edu.ntnu.idi.idatt2003.model.TransactionArchive;
 
-import javax.sql.rowset.spi.TransactionalWriter;
 import java.math.BigDecimal;
 
 public class Player {
-    private String name;
-    private BigDecimal startingMoney;
+    private final String name;
+    private final BigDecimal startingMoney;
     private BigDecimal money;
-    private Portfolio portfolio;
-    private TransactionArchive transactionArchive;
+    private final Portfolio portfolio;
+    private final TransactionArchive transactionArchive;
 
     public Player(String name, BigDecimal startingMoney) {
         if (name == null || name.isBlank()) {
@@ -41,12 +41,12 @@ public class Player {
         if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Addable money must be positive number.");
         }
-        this.money = this.money.add(amount)
+        this.money = this.money.add(amount);
     }
 
     public void withdrawMoney(BigDecimal amount) {
-        if (amount == null || amount.compareTo(BigDecimal.Zero) <= 0) {
-            throw new IllegalArgumentException("Withdrawable money must be a positive number.")
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Withdrawable money must be a positive number.");
         }
         if (this.money.compareTo(amount) < 0) {
             throw new IllegalArgumentException("Insufficient funds: cannot withdraw " + amount + ". Balance is currently" + money + ".");

@@ -4,9 +4,9 @@ import edu.ntnu.idi.idatt2003.model.Share;
 import edu.ntnu.idi.idatt2003.model.calculators.TransactionCalculator;
 
 public abstract class Transaction {
-    private Share share;
-    private int week;
-    private TransactionCalculator calculator;
+    private final Share share;
+    private final int week;
+    private final TransactionCalculator calculator;
     private boolean committed;
 
     protected Transaction(Share share, int week, TransactionCalculator calculator) {
@@ -44,6 +44,7 @@ public abstract class Transaction {
     protected void setCommitted() {
         this.committed = true;
     }
+
     public abstract void commit(Player player);
 }
 

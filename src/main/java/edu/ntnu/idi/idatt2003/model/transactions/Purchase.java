@@ -1,6 +1,5 @@
 package edu.ntnu.idi.idatt2003.model.transactions;
 
-import edu.ntnu.idi.idatt2003.model.Player;
 import edu.ntnu.idi.idatt2003.model.Share;
 import edu.ntnu.idi.idatt2003.model.calculators.PurchaseCalculator;
 
@@ -18,7 +17,7 @@ public class Purchase extends Transaction{
             throw new IllegalStateException("This purchase has already been committed,");
         }
 
-        var totalCost = getCalculator().calculateTotal();
+        java.math.BigDecimal totalCost = getCalculator().calculateTotal();
 
         if (player.getMoney().compareTo(totalCost) < 0) {
             throw new IllegalStateException("Insufficient funds");
@@ -26,8 +25,7 @@ public class Purchase extends Transaction{
 
         player.withdrawMoney(totalCost);
         player.getPortfolio().addShare(getShare());
-        player.getTransactionArchive().add(this);
-
         setCommitted();
+        player.getTransactionArchive().add(this);
     }
 }
