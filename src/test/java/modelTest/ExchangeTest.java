@@ -1,9 +1,9 @@
 package modelTest;
 
-import edu.ntnu.idi.idatt2003.model.Exchange;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
-import edu.ntnu.idi.idatt2003.model.Share;
-import edu.ntnu.idi.idatt2003.model.Stock;
+import edu.ntnu.idi.idatt2003.model.core.Exchange;
+import edu.ntnu.idi.idatt2003.model.core.Share;
+import edu.ntnu.idi.idatt2003.model.core.Stock;
 import edu.ntnu.idi.idatt2003.model.transactions.Purchase;
 import edu.ntnu.idi.idatt2003.model.transactions.Sale;
 import edu.ntnu.idi.idatt2003.model.transactions.Transaction;

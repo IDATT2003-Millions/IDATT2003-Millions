@@ -1,7 +1,8 @@
 package edu.ntnu.idi.idatt2003.model.transactions;
 
-import edu.ntnu.idi.idatt2003.model.Portfolio;
-import edu.ntnu.idi.idatt2003.model.TransactionArchive;
+import edu.ntnu.idi.idatt2003.model.core.Portfolio;
+import edu.ntnu.idi.idatt2003.model.core.TransactionArchive;
+
 import java.math.BigDecimal;
 
 /**

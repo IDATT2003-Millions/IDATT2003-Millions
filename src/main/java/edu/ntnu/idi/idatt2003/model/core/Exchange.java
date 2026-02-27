@@ -1,4 +1,4 @@
-package edu.ntnu.idi.idatt2003.model;
+package edu.ntnu.idi.idatt2003.model.core;
 import edu.ntnu.idi.idatt2003.model.transactions.Purchase;
 import edu.ntnu.idi.idatt2003.model.transactions.Sale;
 import edu.ntnu.idi.idatt2003.model.transactions.Transaction;

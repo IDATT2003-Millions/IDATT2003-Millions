@@ -1,7 +1,7 @@
 package edu.ntnu.idi.idatt2003.model.transactions;
 
-import edu.ntnu.idi.idatt2003.model.Share;
 import edu.ntnu.idi.idatt2003.model.calculators.TransactionCalculator;
+import edu.ntnu.idi.idatt2003.model.core.Share;
 
 /**
  * Represents a financial transaction in the stock market.

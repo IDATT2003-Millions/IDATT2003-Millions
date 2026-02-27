@@ -1,7 +1,8 @@
 package modelTest;
 
-import edu.ntnu.idi.idatt2003.model.Stock;
 import org.junit.jupiter.api.Test;
+
+import edu.ntnu.idi.idatt2003.model.core.Stock;
 
 import java.math.BigDecimal;
 

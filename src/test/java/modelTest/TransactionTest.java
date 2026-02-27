@@ -1,8 +1,8 @@
 package modelTest;
 
-import edu.ntnu.idi.idatt2003.model.Share;
-import edu.ntnu.idi.idatt2003.model.Stock;
 import edu.ntnu.idi.idatt2003.model.calculators.TransactionCalculator;
+import edu.ntnu.idi.idatt2003.model.core.Share;
+import edu.ntnu.idi.idatt2003.model.core.Stock;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import edu.ntnu.idi.idatt2003.model.transactions.Transaction;
 import org.junit.jupiter.api.BeforeEach;

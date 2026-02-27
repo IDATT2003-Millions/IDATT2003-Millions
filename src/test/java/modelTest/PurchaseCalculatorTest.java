@@ -8,9 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
-import edu.ntnu.idi.idatt2003.model.Share;
-import edu.ntnu.idi.idatt2003.model.Stock;
+
 import edu.ntnu.idi.idatt2003.model.calculators.PurchaseCalculator;
+import edu.ntnu.idi.idatt2003.model.core.Share;
+import edu.ntnu.idi.idatt2003.model.core.Stock;
 
 public class PurchaseCalculatorTest {
     

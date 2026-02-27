@@ -1,7 +1,7 @@
 package modelTest;
 
-import edu.ntnu.idi.idatt2003.model.Portfolio;
-import edu.ntnu.idi.idatt2003.model.TransactionArchive;
+import edu.ntnu.idi.idatt2003.model.core.Portfolio;
+import edu.ntnu.idi.idatt2003.model.core.TransactionArchive;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
