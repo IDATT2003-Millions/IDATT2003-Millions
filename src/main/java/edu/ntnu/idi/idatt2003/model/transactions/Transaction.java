@@ -19,7 +19,7 @@ public abstract class Transaction {
   private final Share share;
   private final int week;
   private final TransactionCalculator calculator;
-  private boolean committed;
+  protected boolean committed;
 
   /**
    * Creates a new transaction.
