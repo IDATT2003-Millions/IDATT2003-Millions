@@ -97,6 +97,6 @@ public class Stock {
     if (prices.size() < 2) {
       return BigDecimal.ZERO;
     }
-    return getSalesPrice().subtract(prices.get(prices.size() - 1));
+    return getSalesPrice().subtract(prices.get(prices.size() - 2));
   }
 }
