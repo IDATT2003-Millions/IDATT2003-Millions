@@ -1,9 +1,9 @@
 package edu.ntnu.idi.idatt2003.model.core;
+
 import edu.ntnu.idi.idatt2003.model.transactions.Purchase;
 import edu.ntnu.idi.idatt2003.model.transactions.Sale;
 import edu.ntnu.idi.idatt2003.model.transactions.Transaction;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -182,4 +182,28 @@ public class Exchange {
             stock.addNewSalesPrice(newPrice);
         }
     }
+
+  public List<Stock> getGainers(int limit) {
+      if (limit < 1) {
+          return List.of();
+      }
+    return stockMap.values().stream()
+            .filter(stock -> stock.getLatestPriceChange().compareTo(BigDecimal.ZERO) > 0)
+            .sorted(Comparator.comparing(Stock::getLatestPriceChange).reversed())
+      .limit(limit)
+
+      .toList();
+  }
+
+  public List<Stock> getLosers(int limit) {
+    if  (limit < 1) {
+        return List.of();
+    }
+     return stockMap.values().stream()
+             .filter(stock -> stock.getLatestPriceChange().compareTo(BigDecimal.ZERO) < 0)
+             .sorted(Comparator.comparing(Stock::getLatestPriceChange))
+             .limit(limit)
+             .toList();
+  }
 }
+
