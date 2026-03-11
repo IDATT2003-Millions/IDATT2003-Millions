@@ -3,6 +3,7 @@ package edu.ntnu.idi.idatt2003.model.file;
 import edu.ntnu.idi.idatt2003.model.core.Stock;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
@@ -39,6 +40,18 @@ public class StockCsvRepository {
     }
 
     public void save(Path path, Collection<Stock> stocks) throws IOException {
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
 
+            for (Stock stock : stocks) {
+
+                writer.write(
+                        stock.getSymbol() + "," +
+                                stock.getCompany() + "," +
+                                stock.getSalesPrice()
+                );
+
+                writer.newLine();
+            }
+        }
     }
 }
