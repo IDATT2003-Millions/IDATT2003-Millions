@@ -18,24 +18,35 @@ public class StockCsvRepository {
         List<Stock> stocks = new ArrayList<>();
 
         try (BufferedReader reader = Files.newBufferedReader(path)) {
-
             String line;
+
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
+
                 if (line.isEmpty() || line.startsWith("#")) {
                     continue;
                 }
-            String[] parts = line.split(",");
+
+                String[] parts = line.split(",");
+
                 if (parts.length != 3) {
                     throw new IOException("Invalid CSV line: " + line);
                 }
+
                 String symbol = parts[0].trim();
                 String company = parts[1].trim();
-                BigDecimal price = new BigDecimal(parts[2].trim());
+
+                BigDecimal price;
+                try {
+                    price = new BigDecimal(parts[2].trim());
+                } catch (NumberFormatException e) {
+                    throw new IOException("Invalid price in CSV line: " + line, e);
+                }
 
                 stocks.add(new Stock(symbol, company, price));
             }
         }
+
         return stocks;
     }
 
