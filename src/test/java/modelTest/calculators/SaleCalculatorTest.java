@@ -1,4 +1,4 @@
-package modelTest;
+package modelTest.calculators;
 
 import edu.ntnu.idi.idatt2003.model.calculators.SaleCalculator;
 import edu.ntnu.idi.idatt2003.model.core.Share;
