@@ -2,6 +2,7 @@ package edu.ntnu.idi.idatt2003.model.core;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -69,5 +70,33 @@ public class Stock {
       throw new IllegalArgumentException("Price must be positive");
     }
     prices.add(price);
+  }
+
+  public List<BigDecimal> getHistoricalPrices() {
+    return List.copyOf(prices);
+  }
+
+  public BigDecimal getHighestPrice() {
+    return Collections.max(prices);
+  }
+
+  public BigDecimal getLowestPrice() {
+    return Collections.min(prices);
+  }
+
+  /**
+   * Gets and calculates the latest change in price.
+   *
+   * <p>If there ar no or one registered price the change will
+   * just return zero</p>
+   *
+   * @return the difference in the two last prices
+   */
+  public BigDecimal getLatestPriceChange() {
+
+    if (prices.size() < 2) {
+      return BigDecimal.ZERO;
+    }
+    return getSalesPrice().subtract(prices.get(prices.size() - 2));
   }
 }

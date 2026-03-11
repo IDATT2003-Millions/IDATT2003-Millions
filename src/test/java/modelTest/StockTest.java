@@ -119,4 +119,34 @@ public class StockTest {
         () -> stock.addNewSalesPrice(new BigDecimal("-0.01")));
   }
 
+
+  @Test
+  void useGetLatestChangePriceWillReturnZero() {
+    Stock stock = new Stock("TEST", "Test", new BigDecimal("100"));
+
+    stock.getLatestPriceChange();
+    assertEquals(BigDecimal.ZERO, stock.getLatestPriceChange());
+  }
+
+ @Test
+ void latestChangePriceWillReturnTheExpectedPositivePrice() {
+    Stock stock = new Stock("TEST", "Test", new BigDecimal("100"));
+    stock.addNewSalesPrice(new BigDecimal("150"));
+    assertEquals(new BigDecimal("50"), stock.getLatestPriceChange());
+ }
+
+ @Test
+ void latestChangePriceWillReturnTheExpectedNegativePrice() {
+     Stock stock = new Stock("TEST", "Test", new BigDecimal("100"));
+     stock.addNewSalesPrice(new BigDecimal("90"));
+     assertEquals(new BigDecimal("-10"), stock.getLatestPriceChange());
+ }
+
+    @Test
+    void latestChangePriceWillReturnTheExpectedZeroPrice() {
+        Stock stock = new Stock("TEST", "Test", new BigDecimal("100"));
+        stock.addNewSalesPrice(new BigDecimal("100"));
+        assertEquals(BigDecimal.ZERO, stock.getLatestPriceChange());
+    }
+
 }
