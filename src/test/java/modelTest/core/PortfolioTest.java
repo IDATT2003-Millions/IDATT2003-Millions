@@ -1,4 +1,4 @@
-package modelTest;
+package modelTest.core;
 
 import edu.ntnu.idi.idatt2003.model.core.Portfolio;
 import edu.ntnu.idi.idatt2003.model.core.Share;
