@@ -12,8 +12,25 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Handles persistence of {@link Stock} data in CSV format.
+ *
+ * <p>Each non-comment line in the CSV must have the format
+ * {@code symbol,company,salesPrice}. Blank lines and lines that start with
+ * {@code #} are ignored when loading.
+ */
 public class StockCsvRepository {
 
+    /**
+     * Loads stocks from a CSV file.
+     *
+     * <p>The method skips blank lines and comment lines that start with {@code #}.</p>
+     *
+     * @param path the path to the CSV file
+     * @return a list of stocks loaded from the file
+     * @throws IOException if the file cannot be read, if a line has invalid CSV format,
+     *         or if a sales price cannot be parsed
+     */
     public List<Stock> load(Path path) throws IOException {
         List<Stock> stocks = new ArrayList<>();
 
@@ -50,6 +67,15 @@ public class StockCsvRepository {
         return stocks;
     }
 
+    /**
+     * Saves stocks to a CSV file.
+     *
+     * <p>Each stock is written in the format {@code symbol,company,salesPrice}.</p>
+     *
+     * @param path the path to the target CSV file
+     * @param stocks the stocks to write
+     * @throws IOException if the file cannot be written
+     */
     public void save(Path path, Collection<Stock> stocks) throws IOException {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
 
