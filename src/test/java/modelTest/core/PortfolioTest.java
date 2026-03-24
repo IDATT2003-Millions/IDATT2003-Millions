@@ -85,4 +85,40 @@ public class PortfolioTest {
     void contains_nullShare_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> portfolio.contains(null));
     }
+
+    @Test
+    void getNetWorth_emptyPortfolio_returnsZero() {
+        assertEquals(0, BigDecimal.ZERO.compareTo(portfolio.getNetWorth()));
+    }
+
+    @Test
+    void getNetWorth_singleShare_returnSaleTotal() {
+        portfolio.addShare(appleShare);
+        BigDecimal netWorth = portfolio.getNetWorth();
+        assertTrue(netWorth.compareTo(BigDecimal.ZERO) > 0, "Net worth should be positive with a share with value");
+    }
+
+    @Test
+    void getNetWorth_multipleShares_returnsSum() {
+        portfolio.addShare(appleShare);
+        portfolio.addShare(teslaShare);
+
+        BigDecimal withBoth = portfolio.getNetWorth();
+        Portfolio singlePortfolio = new Portfolio();
+        singlePortfolio.addShare(appleShare);
+        BigDecimal withOne = singlePortfolio.getNetWorth();
+
+        assertTrue(withBoth.compareTo(withOne) > 0, "Net worth with two shares should exceed net worth with one share");
+    }
+
+    @Test
+    void getNetWorth_priceIncreases_netWorthIncreases() {
+        portfolio.addShare(appleShare);
+        BigDecimal beforeIncrease= portfolio.getNetWorth();
+
+        appleShare.getStock().addNewSalesPrice(new BigDecimal("1000.00"));
+        BigDecimal afterIncrease = portfolio.getNetWorth();
+
+        assertTrue(afterIncrease.compareTo(beforeIncrease) > 0, "Net worth should increase after stock price rises");
+    }
 }
