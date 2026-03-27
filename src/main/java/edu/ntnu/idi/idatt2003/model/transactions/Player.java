@@ -96,10 +96,18 @@ public class Player {
     return transactionArchive;
   }
 
+  /**
+   * Returns the player's total net worth.
+   * @return current net worth
+   */
   public BigDecimal getNetWorth() {
     return money.add(portfolio.getNetWorth());
   }
 
+  /**
+   * Returns the player's current status based on trading history and net-worth growth.
+   * @return the player's status
+   */
   public PlayerStatus getStatus() {
     int weeksTraded = transactionArchive.countDistinctWeeks();
     BigDecimal netWorth = getNetWorth();
