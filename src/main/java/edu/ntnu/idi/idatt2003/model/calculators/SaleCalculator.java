@@ -1,9 +1,9 @@
 package edu.ntnu.idi.idatt2003.model.calculators;
 
+import edu.ntnu.idi.idatt2003.model.core.Share;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-import edu.ntnu.idi.idatt2003.model.core.Share;
 
 /**
  *Calculates financial values for sale transactions.

@@ -95,4 +95,33 @@ public class Player {
   public TransactionArchive getTransactionArchive() {
     return transactionArchive;
   }
+
+  /**
+   * Returns the player's total net worth.
+   * @return current net worth
+   */
+  public BigDecimal getNetWorth() {
+    return money.add(portfolio.getNetWorth());
+  }
+
+  /**
+   * Returns the player's current status based on trading history and net-worth growth.
+   * @return the player's status
+   */
+  public PlayerStatus getStatus() {
+    int weeksTraded = transactionArchive.countDistinctWeeks();
+    BigDecimal netWorth = getNetWorth();
+    BigDecimal doubleGrowth = startingMoney.multiply(new BigDecimal("2"));
+    BigDecimal twentyPercentGrowth = startingMoney.multiply(new BigDecimal("1.2"));
+
+    if (weeksTraded >= 20 && netWorth.compareTo(doubleGrowth) >= 0) {
+      return PlayerStatus.SPECULATOR;
+    }
+    else if (weeksTraded >= 10 && netWorth.compareTo(twentyPercentGrowth) >= 0) {
+      return PlayerStatus.INVESTOR;
+    }
+    else {
+      return PlayerStatus.NOVICE;
+    }
+  }
 }

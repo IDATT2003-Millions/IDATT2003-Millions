@@ -1,4 +1,4 @@
-package modelTest;
+package modelTest.core;
 
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import edu.ntnu.idi.idatt2003.model.core.Exchange;
@@ -153,5 +153,51 @@ public class ExchangeTest {
         assertTrue(appleAfter.compareTo(new BigDecimal("47.50")) >= 0);
         assertTrue(appleAfter.compareTo(new BigDecimal("52.50")) <= 0);
         assertTrue(teslaAfter.compareTo(teslaBefore) != 0 || appleAfter.compareTo(appleBefore) != 0);
+    }
+
+    @Test
+    void getGainers_returnsPositiveChangesInDescendingOrderWithLimit() {
+        Stock winner = new Stock("WIN", "Winner Corp", new BigDecimal("100.00"));
+        winner.addNewSalesPrice(new BigDecimal("112.00")); // +12.00
+        Stock runnerUp = new Stock("RUN", "RunnerUp Corp", new BigDecimal("80.00"));
+        runnerUp.addNewSalesPrice(new BigDecimal("85.00")); // +5.00
+        Stock flat = new Stock("FLT", "Flat Corp", new BigDecimal("42.00"));
+        flat.addNewSalesPrice(new BigDecimal("42.00")); // +0.00
+        Stock loser = new Stock("LOS", "Loser Corp", new BigDecimal("60.00"));
+        loser.addNewSalesPrice(new BigDecimal("55.00")); // -5.00
+
+        Exchange localExchange = new Exchange("TEST", List.of(winner, runnerUp, flat, loser));
+
+        List<Stock> gainers = localExchange.getGainers(2);
+
+        assertEquals(2, gainers.size());
+        assertEquals("WIN", gainers.get(0).getSymbol());
+        assertEquals("RUN", gainers.get(1).getSymbol());
+    }
+
+    @Test
+    void getLosers_returnsNegativeChangesInAscendingOrderWithLimit() {
+        Stock biggestDrop = new Stock("BIGD", "Big Drop", new BigDecimal("200.00"));
+        biggestDrop.addNewSalesPrice(new BigDecimal("180.00")); 
+        Stock smallerDrop = new Stock("SMAL", "Smaller Drop", new BigDecimal("90.00"));
+        smallerDrop.addNewSalesPrice(new BigDecimal("85.00")); 
+        Stock gainer = new Stock("GAIN", "Gainer", new BigDecimal("30.00"));
+        gainer.addNewSalesPrice(new BigDecimal("35.00")); 
+
+        Exchange localExchange = new Exchange("TEST", List.of(biggestDrop, smallerDrop, gainer));
+
+        List<Stock> losers = localExchange.getLosers(2);
+
+        assertEquals(2, losers.size());
+        assertEquals("BIGD", losers.get(0).getSymbol());
+        assertEquals("SMAL", losers.get(1).getSymbol());
+    }
+
+    @Test
+    void getGainersAndLosers_nonPositiveLimit_returnsEmptyList() {
+        assertTrue(exchange.getGainers(0).isEmpty());
+        assertTrue(exchange.getGainers(-1).isEmpty());
+        assertTrue(exchange.getLosers(0).isEmpty());
+        assertTrue(exchange.getLosers(-1).isEmpty());
     }
 }
