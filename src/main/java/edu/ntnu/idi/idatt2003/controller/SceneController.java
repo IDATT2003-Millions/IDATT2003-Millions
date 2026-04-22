@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 public class SceneController {
 
   private static final String APP_TITLE = "Millions";
+  private static final String GLOBAL_CSS = "/css_files/global.css";
   private final Stage stage;
 
   public SceneController(Stage stage) {
@@ -24,12 +25,18 @@ public class SceneController {
         this::onLoadGame,
         Platform::exit
     );
+    applyGlobalStyles(scene);
 
     stage.setTitle(APP_TITLE);
     stage.setMinWidth(900);
     stage.setMinHeight(600);
     stage.setScene(scene);
     stage.show();
+  }
+
+  private void applyGlobalStyles(Scene scene) {
+    String stylesheet = getClass().getResource(GLOBAL_CSS).toExternalForm();
+    scene.getStylesheets().add(stylesheet);
   }
 
   private void onNewGame() {
