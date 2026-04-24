@@ -1,0 +1,99 @@
+/* ===============================
+   Global Theme (all scenes)
+   =============================== */
+.root {
+    -color-bg-top: #112850;
+    -color-bg-bottom: #112850;
+    -color-primary: #1f5eff;
+    -color-primary-hover: #184ad0;
+    -color-primary-pressed: #1239a7;
+    -color-secondary: #ffffff;
+    -color-secondary-hover: #eef4ff;
+    -color-secondary-pressed: #dce8ff;
+    -color-exit: #d6334f;
+    -color-exit-hover: #ba2943;
+    -color-exit-pressed: #961f35;
+    -color-text-main: #dee0e6;
+    -color-text-soft: #42526b;
+    -color-text-on-dark: #ffffff;
+    -fx-font-family: "Segoe UI", "Verdana", "Arial";
+    -fx-background-color: linear-gradient(to bottom, -color-bg-top, -color-bg-bottom);
+}
+
+/* ===============================
+   Launch Page
+   =============================== */
+.launch-root {
+    -fx-alignment: center;
+    -fx-spacing: 14;
+    -fx-padding: 40 48 40 48;
+}
+
+.title {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 56px;
+    -fx-font-weight: 800;
+}
+
+.subtitle {
+    -fx-text-fill: -color-text-soft;
+    -fx-font-size: 19px;
+    -fx-padding: 0 0 10 0;
+}
+
+.action-button {
+    -fx-pref-width: 240;
+    -fx-pref-height: 48;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-cursor: hand;
+}
+
+.action-button:focused {
+    -fx-border-color: rgba(17, 24, 39, 0.45);
+}
+
+.primary-button {
+    -fx-background-color: -color-primary;
+    -fx-border-color: transparent;
+    -fx-text-fill: -color-text-on-dark;
+}
+
+.primary-button:hover {
+    -fx-background-color: -color-primary-hover;
+}
+
+.primary-button:pressed {
+    -fx-background-color: -color-primary-pressed;
+}
+
+.secondary-button {
+    -fx-background-color: -color-secondary;
+    -fx-border-color: #c6d8ff;
+    -fx-text-fill: -color-text-soft;
+}
+
+.secondary-button:hover {
+    -fx-background-color: -color-secondary-hover;
+}
+
+.secondary-button:pressed {
+    -fx-background-color: -color-secondary-pressed;
+}
+
+.exit-button {
+    -fx-background-color: -color-exit;
+    -fx-border-color: transparent;
+    -fx-text-fill: -color-text-on-dark;
+}
+
+.exit-button:hover {
+    -fx-background-color: -color-exit-hover;
+}
+
+.exit-button:pressed {
+    -fx-background-color: -color-exit-pressed;
+}
