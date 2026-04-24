@@ -1,6 +1,7 @@
 package edu.ntnu.idi.idatt2003.model.core;
 
 import edu.ntnu.idi.idatt2003.model.observer.ExchangeObserver;
+import edu.ntnu.idi.idatt2003.model.observer.Subject;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import edu.ntnu.idi.idatt2003.model.transactions.Transaction;
 import edu.ntnu.idi.idatt2003.model.transactions.TransactionFactory;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  * <p>The exchange can look up and search stocks, create buy and sell transactions, and advance
  * to the next week by applying random price changes to all listed stocks.
  */
-public class Exchange {
+public class Exchange implements Subject {
 
   private final String name;
   private int week;
@@ -216,10 +217,12 @@ public class Exchange {
              .toList();
   }
 
+  @Override
   public void addObserver(ExchangeObserver observer) {
     observers.add(observer);
   }
 
+  @Override
   public void removeObserver(ExchangeObserver observer) {
     observers.remove(observer);
   }
