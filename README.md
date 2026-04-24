@@ -1,3 +1,3 @@
 
 GUI design:
-https://www.figma.com/design/I96Xuzsg4RQmrkqmUXysbG/Untitled?node-id=0-1&p=f&t=0EMLsfKSHfMMI4QD-0
+https://www.figma.com/make/oeWxalEfJpe6atVNQsUGRS/Untitled--Copy-?t=3I2L8Xa0pwHLn2gL-20&fullscreen=1
