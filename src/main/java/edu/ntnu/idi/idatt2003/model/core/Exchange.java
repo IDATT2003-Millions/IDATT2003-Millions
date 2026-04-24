@@ -1,9 +1,9 @@
 package edu.ntnu.idi.idatt2003.model.core;
 
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
-import edu.ntnu.idi.idatt2003.model.transactions.Purchase;
-import edu.ntnu.idi.idatt2003.model.transactions.Sale;
 import edu.ntnu.idi.idatt2003.model.transactions.Transaction;
+import edu.ntnu.idi.idatt2003.model.transactions.TransactionFactory;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -124,7 +124,7 @@ public class Exchange {
     Stock stock = getStock(symbol);
     BigDecimal purchasePrice = stock.getSalesPrice();
     Share share = new Share(stock, quantity, purchasePrice);
-    return new Purchase(share, week);
+    return TransactionFactory.createPurchase(share, week);
   }
 
   /**
@@ -147,7 +147,7 @@ public class Exchange {
       throw new IllegalArgumentException("Stock not listed");
     }
 
-    return new Sale(share, week);
+    return TransactionFactory.createSale(share, week);
   }
 
   /**
