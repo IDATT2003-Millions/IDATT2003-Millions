@@ -1,5 +1,6 @@
 package edu.ntnu.idi.idatt2003.model.core;
 
+import edu.ntnu.idi.idatt2003.model.observer.ExchangeObserver;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import edu.ntnu.idi.idatt2003.model.transactions.Purchase;
 import edu.ntnu.idi.idatt2003.model.transactions.Sale;
@@ -21,6 +22,7 @@ public class Exchange {
   private int week;
   private final Map<String, Stock> stockMap;
   private final Random random = new Random();
+  private final List<ExchangeObserver> observers = new ArrayList<>();
 
   /**
    * Creates a new exchange with a name and an initial list of stocks.
@@ -177,6 +179,7 @@ public class Exchange {
 
       stock.addNewSalesPrice(newPrice);
     }
+    notifyObservers();
   }
 
   /**
@@ -211,6 +214,30 @@ public class Exchange {
              .sorted(Comparator.comparing(Stock::getLatestPriceChange))
              .limit(limit)
              .toList();
+  }
+
+  public void addObserver(ExchangeObserver observer) {
+    observers.add(observer);
+  }
+
+  public void removeObserver(ExchangeObserver observer) {
+    observers.remove(observer);
+  }
+
+  private void notifyObservers() {
+    for (ExchangeObserver observer : observers) {
+      observer.onExchangeUpdated(this);
+    }
+  }
+
+  /**
+   * Notifies all registered observers of a state change.
+   *
+   * <p>Call this after committing a transaction so the view reflects
+   * the updated portfolio and player balance.
+   */
+  public void refresh() {
+    notifyObservers();
   }
 }
 
