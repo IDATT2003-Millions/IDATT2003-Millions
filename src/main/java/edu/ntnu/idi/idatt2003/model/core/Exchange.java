@@ -1,9 +1,11 @@
 package edu.ntnu.idi.idatt2003.model.core;
 
+import edu.ntnu.idi.idatt2003.model.observer.ExchangeObserver;
+import edu.ntnu.idi.idatt2003.model.observer.Subject;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
-import edu.ntnu.idi.idatt2003.model.transactions.Purchase;
-import edu.ntnu.idi.idatt2003.model.transactions.Sale;
 import edu.ntnu.idi.idatt2003.model.transactions.Transaction;
+import edu.ntnu.idi.idatt2003.model.transactions.TransactionFactory;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -15,12 +17,13 @@ import java.util.stream.Collectors;
  * <p>The exchange can look up and search stocks, create buy and sell transactions, and advance
  * to the next week by applying random price changes to all listed stocks.
  */
-public class Exchange {
+public class Exchange implements Subject {
 
   private final String name;
   private int week;
   private final Map<String, Stock> stockMap;
   private final Random random = new Random();
+  private final List<ExchangeObserver> observers = new ArrayList<>();
 
   /**
    * Creates a new exchange with a name and an initial list of stocks.
@@ -124,7 +127,7 @@ public class Exchange {
     Stock stock = getStock(symbol);
     BigDecimal purchasePrice = stock.getSalesPrice();
     Share share = new Share(stock, quantity, purchasePrice);
-    return new Purchase(share, week);
+    return TransactionFactory.createPurchase(share, week);
   }
 
   /**
@@ -147,7 +150,7 @@ public class Exchange {
       throw new IllegalArgumentException("Stock not listed");
     }
 
-    return new Sale(share, week);
+    return TransactionFactory.createSale(share, week);
   }
 
   /**
@@ -177,6 +180,7 @@ public class Exchange {
 
       stock.addNewSalesPrice(newPrice);
     }
+    notifyObservers();
   }
 
   /**
@@ -211,6 +215,32 @@ public class Exchange {
              .sorted(Comparator.comparing(Stock::getLatestPriceChange))
              .limit(limit)
              .toList();
+  }
+
+  @Override
+  public void addObserver(ExchangeObserver observer) {
+    observers.add(observer);
+  }
+
+  @Override
+  public void removeObserver(ExchangeObserver observer) {
+    observers.remove(observer);
+  }
+
+  private void notifyObservers() {
+    for (ExchangeObserver observer : observers) {
+      observer.onExchangeUpdated(this);
+    }
+  }
+
+  /**
+   * Notifies all registered observers of a state change.
+   *
+   * <p>Call this after committing a transaction so the view reflects
+   * the updated portfolio and player balance.
+   */
+  public void refresh() {
+    notifyObservers();
   }
 }
 
