@@ -97,3 +97,212 @@
 .exit-button:pressed {
     -fx-background-color: -color-exit-pressed;
 }
+
+
+/* ===============================
+   New Game Page
+   =============================== */
+.new-game-root {
+    -fx-alignment: center;
+    -fx-spacing: 16;
+    -fx-padding: 40 48 40 48;
+}
+
+.input-bar {
+    -fx-pref-width: 360;
+    -fx-pref-height: 48;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #c6d8ff;
+    -fx-border-width: 1;
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-text-fill: -color-text-main;
+    -fx-prompt-text-fill: -color-text-soft;
+    -fx-font-size: 15px;
+    -fx-padding: 0 14 0 14;
+}
+
+.input-bar:focused {
+    -fx-border-color: -color-primary;
+}
+
+.file-bar {
+    -fx-pref-width: 360;
+    -fx-pref-height: 48;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #c6d8ff;
+    -fx-border-width: 1;
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-padding: 0 8 0 14;
+    -fx-alignment: center-left;
+}
+
+.file-label {
+    -fx-text-fill: -color-text-soft;
+    -fx-font-size: 14px;
+}
+
+/* ===============================
+   Sidebar
+   =============================== */
+.sidebar {
+    -fx-pref-width: 200;
+    -fx-min-width: 180;
+    -fx-background-color: rgba(0,0,0,0.25);
+    -fx-padding: 24 20 24 20;
+    -fx-spacing: 10;
+}
+
+.sidebar-app-title {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 22px;
+    -fx-font-weight: 800;
+    -fx-padding: 0 0 4 0;
+}
+
+.sidebar-section-label {
+    -fx-text-fill: -color-text-soft;
+    -fx-font-size: 10px;
+    -fx-font-weight: 700;
+    -fx-padding: 6 0 0 0;
+}
+
+.sidebar-value {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+}
+
+.sidebar-value-primary {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 17px;
+    -fx-font-weight: 700;
+}
+
+.sidebar-value-week {
+    -fx-text-fill: -color-primary;
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+}
+
+/* ===============================
+   Stock Market Page
+   =============================== */
+.market-root {
+    -fx-background-color: transparent;
+}
+
+.market-center {
+    -fx-padding: 20 24 20 24;
+    -fx-spacing: 12;
+}
+
+.top-bar {
+    -fx-alignment: center-left;
+    -fx-spacing: 12;
+}
+
+.search-field {
+    -fx-pref-height: 40;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #c6d8ff;
+    -fx-border-width: 1;
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-text-fill: -color-text-main;
+    -fx-prompt-text-fill: -color-text-soft;
+    -fx-font-size: 14px;
+    -fx-padding: 0 12 0 12;
+}
+
+.search-field:focused {
+    -fx-border-color: -color-primary;
+}
+
+.stock-table {
+    -fx-background-color: rgba(0,0,0,0.18);
+    -fx-table-cell-border-color: transparent;
+}
+
+.stock-table .column-header-background {
+    -fx-background-color: rgba(0,0,0,0.3);
+}
+
+.stock-table .column-header .label {
+    -fx-text-fill: -color-text-soft;
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+}
+
+.stock-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text-main;
+}
+
+.stock-table .table-row-cell:odd {
+    -fx-background-color: rgba(255,255,255,0.03);
+}
+
+.stock-table .table-row-cell:selected {
+    -fx-background-color: rgba(31,94,255,0.25);
+}
+
+.stock-table .table-cell {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 14px;
+}
+
+.positive-change {
+    -fx-text-fill: #34d399;
+    -fx-font-weight: 700;
+}
+
+.negative-change {
+    -fx-text-fill: #f87171;
+    -fx-font-weight: 700;
+}
+
+.bottom-panel {
+    -fx-pref-height: 180;
+    -fx-min-height: 150;
+    -fx-spacing: 16;
+}
+
+.mini-panel {
+    -fx-background-color: rgba(0,0,0,0.22);
+    -fx-background-radius: 10;
+    -fx-padding: 14 16 14 16;
+    -fx-spacing: 6;
+}
+
+.panel-header {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-padding: 0 0 4 0;
+}
+
+.mini-row {
+    -fx-alignment: center-left;
+    -fx-padding: 2 0 2 0;
+}
+
+.mini-symbol {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-min-width: 60;
+}
+
+.mini-price {
+    -fx-text-fill: -color-text-soft;
+    -fx-font-size: 13px;
+}
+
+/* ===============================
+   Dialog helpers
+   =============================== */
+.dialog-info {
+    -fx-font-size: 13px;
+}
