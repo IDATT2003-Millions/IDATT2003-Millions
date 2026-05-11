@@ -1,13 +1,20 @@
 package edu.ntnu.idi.idatt2003.controller;
 
+import edu.ntnu.idi.idatt2003.model.core.Exchange;
+import edu.ntnu.idi.idatt2003.model.file.StockCsvRepository;
+import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import edu.ntnu.idi.idatt2003.view.LaunchGameView;
+import edu.ntnu.idi.idatt2003.view.NewGameView;
+import edu.ntnu.idi.idatt2003.view.StockMarketView;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /**
- * Owns scene switching. Start with launch page and expand as more views are added.
+ Owns scene switching. Add showXxxPage() methods here as new views are created.
  */
 public class SceneController {
 
@@ -21,7 +28,7 @@ public class SceneController {
 
   public void showLaunchPage() {
     Scene scene = new LaunchGameView().createScene(
-        this::onNewGame,
+        this::showNewGamePage,
         this::onLoadGame,
         Platform::exit
     );
@@ -34,18 +41,49 @@ public class SceneController {
     stage.show();
   }
 
-  private void applyGlobalStyles(Scene scene) {
-    String stylesheet = getClass().getResource(GLOBAL_CSS).toExternalForm();
-    scene.getStylesheets().add(stylesheet);
+  public void showNewGamePage() {
+    Scene scene = new NewGameView().createScene(stage, data -> {
+      try {
+        var stocks = new StockCsvRepository().load(data.csvPath());
+        if (stocks.isEmpty()) {
+          showError("The selected CSV file contains no valid stocks.");
+          return;
+        }
+        Player player = new Player(data.username(), data.money());
+        Exchange exchange = new Exchange("Millions Exchange", stocks);
+        showStockMarketPage(player, exchange);
+      } catch (IOException e) {
+        showError("Could not read CSV file:\n" + e.getMessage());
+      } catch (IllegalArgumentException e) {
+        showError("Invalid game setup:\n" + e.getMessage());
+      }
+    });
+    applyGlobalStyles(scene);
+    stage.setScene(scene);
   }
 
-  private void onNewGame() {
-    showPlaceholder("New Game", "Hook this button to your game setup scene.");
+  public void showStockMarketPage(Player player, Exchange exchange) {
+    StockMarketView view = new StockMarketView(player, exchange, stage);
+    Scene scene = view.createScene(this::onPortfolio);
+    applyGlobalStyles(scene);
+    stage.setScene(scene);
   }
 
   private void onLoadGame() {
     showPlaceholder("Load Game", "Hook this button to your save/load flow.");
   }
+
+  private void onPortfolio() {
+    showPlaceholder("My Portfolio", "Portfolio view coming soon.");
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+
+  private void applyGlobalStyles(Scene scene) {
+    String stylesheet = getClass().getResource(GLOBAL_CSS).toExternalForm();
+    scene.getStylesheets().add(stylesheet);
+  }
+
 
   private void showPlaceholder(String header, String content) {
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -53,6 +91,14 @@ public class SceneController {
     alert.setTitle(APP_TITLE);
     alert.setHeaderText(header);
     alert.setContentText(content);
+    alert.showAndWait();
+  }
+  private void showError(String message) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.initOwner(stage);
+    alert.setTitle(APP_TITLE);
+    alert.setHeaderText("Error");
+    alert.setContentText(message);
     alert.showAndWait();
   }
 }
