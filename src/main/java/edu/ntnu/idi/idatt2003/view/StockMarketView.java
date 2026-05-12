@@ -9,7 +9,7 @@ import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -18,6 +18,8 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * Main stock market screen.
@@ -34,6 +36,9 @@ public class StockMarketView implements ExchangeObserver {
     private VBox gainersBox;
     private VBox losersBox;
 
+    private BiConsumer<Stock, BigDecimal> onBuy;
+    private Consumer<Share> onSell;
+
     public StockMarketView(Player player, Exchange exchange, Stage stage) {
         this.player = player;
         this.exchange = exchange;
@@ -41,8 +46,10 @@ public class StockMarketView implements ExchangeObserver {
         exchange.addObserver(this);
     }
 
-    public Scene createScene(Runnable onPortfolio) {
-        Sidebar sidebar = new Sidebar(player, exchange);
+    public Node buildContent(Runnable onAdvanceWeek,
+                             BiConsumer<Stock, BigDecimal> onBuy, Consumer<Share> onSell) {
+        this.onBuy = onBuy;
+        this.onSell = onSell;
 
         TextField searchField = new TextField();
         searchField.setPromptText("Search stocks…");
@@ -51,15 +58,11 @@ public class StockMarketView implements ExchangeObserver {
 
         Button nextWeekBtn = new Button("Next Week ▶");
         nextWeekBtn.getStyleClass().addAll("action-button", "primary-button");
-        nextWeekBtn.setOnAction(e -> exchange.advance());
-
-        Button portfolioBtn = new Button("My Portfolio");
-        portfolioBtn.getStyleClass().addAll("action-button", "secondary-button");
-        portfolioBtn.setOnAction(e -> onPortfolio.run());
+        nextWeekBtn.setOnAction(e -> onAdvanceWeek.run());
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
-        HBox topBar = new HBox(12, searchField, spacer, nextWeekBtn, portfolioBtn);
+        HBox topBar = new HBox(12, searchField, spacer, nextWeekBtn);
         HBox.setHgrow(searchField, Priority.ALWAYS);
         topBar.getStyleClass().add("top-bar");
 
@@ -79,12 +82,7 @@ public class StockMarketView implements ExchangeObserver {
         center.getStyleClass().add("market-center");
         VBox.setVgrow(table, Priority.ALWAYS);
 
-        BorderPane root = new BorderPane();
-        root.setLeft(sidebar);
-        root.setCenter(center);
-        root.getStyleClass().add("market-root");
-
-        return new Scene(root, 1200, 700);
+        return center;
     }
 
 // ── Table ────────────────────────────────────────────────────────────────
@@ -224,15 +222,13 @@ public class StockMarketView implements ExchangeObserver {
                 if (qty.signum() <= 0) throw new NumberFormatException("Must be positive");
 
                 if (result == buyType) {
-                    exchange.buy(stock.getSymbol(), qty, player).commit(player);
-                    exchange.refresh();
+                    onBuy.accept(stock, qty);
                 } else if (result == sellType) {
                     if (owned.isEmpty()) {
                         showError("You don't own any shares of " + stock.getSymbol() + ".");
                         return;
                     }
-                    exchange.sell(owned.get(0), player).commit(player);
-                    exchange.refresh();
+                    onSell.accept(owned.get(0));
                 }
             } catch (NumberFormatException ex) {
                 showError("Please enter a valid positive number for quantity.");
