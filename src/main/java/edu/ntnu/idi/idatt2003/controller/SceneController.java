@@ -5,10 +5,11 @@ import edu.ntnu.idi.idatt2003.model.file.StockCsvRepository;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import edu.ntnu.idi.idatt2003.view.LaunchGameView;
 import edu.ntnu.idi.idatt2003.view.NewGameView;
-import edu.ntnu.idi.idatt2003.view.StockMarketView;
+import edu.ntnu.idi.idatt2003.view.Sidebar;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,6 +22,9 @@ public class SceneController {
   private static final String APP_TITLE = "Millions";
   private static final String GLOBAL_CSS = "/css_files/global.css";
   private final Stage stage;
+
+  private BorderPane gameRoot;
+  private Scene gameScene;
 
   public SceneController(Stage stage) {
     this.stage = stage;
@@ -63,18 +67,43 @@ public class SceneController {
   }
 
   public void showStockMarketPage(Player player, Exchange exchange) {
-    StockMarketView view = new StockMarketView(player, exchange, stage);
-    Scene scene = view.createScene(this::onPortfolio);
-    applyGlobalStyles(scene);
-    stage.setScene(scene);
+    initGameSceneIfNeeded(player, exchange);
+    gameRoot.setCenter(new StockMarketController(exchange, player, stage).buildContent());
   }
 
+  public void showPortfolioPage(Player player, Exchange exchange) {
+    initGameSceneIfNeeded(player, exchange);
+    gameRoot.setCenter(new PortfolioController(exchange, player, stage).buildContent());
+  }
+
+  public void showTransactionsPage(Player player, Exchange exchange) {
+    initGameSceneIfNeeded(player, exchange);
+    gameRoot.setCenter(new TransactionsController(exchange, player).buildContent());
+  }
+
+  public void showStatisticsPage(Player player, Exchange exchange) {
+    initGameSceneIfNeeded(player, exchange);
+    gameRoot.setCenter(new StatisticsController(exchange, player).buildContent());
+  }
+
+  private void initGameSceneIfNeeded(Player player, Exchange exchange) {
+    if (gameScene != null) return;
+    gameRoot = new BorderPane();
+    gameRoot.getStyleClass().add("market-root");
+    Sidebar sidebar = new Sidebar(
+        player, exchange,
+        () -> showStockMarketPage(player, exchange),
+        () -> showPortfolioPage(player, exchange),
+        () -> showTransactionsPage(player, exchange),
+        () -> showStatisticsPage(player, exchange)
+    );
+    gameRoot.setLeft(sidebar);
+    gameScene = new Scene(gameRoot);
+    applyGlobalStyles(gameScene);
+    stage.setScene(gameScene);
+  }
   private void onLoadGame() {
     showPlaceholder("Load Game", "Hook this button to your save/load flow.");
-  }
-
-  private void onPortfolio() {
-    showPlaceholder("My Portfolio", "Portfolio view coming soon.");
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
