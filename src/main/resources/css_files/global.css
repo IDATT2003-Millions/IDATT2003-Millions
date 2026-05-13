@@ -2,22 +2,24 @@
    Global Theme (all scenes)
    =============================== */
 .root {
-    -color-bg-top: #112850;
-    -color-bg-bottom: #112850;
-    -color-primary: #1f5eff;
-    -color-primary-hover: #184ad0;
-    -color-primary-pressed: #1239a7;
-    -color-secondary: #ffffff;
-    -color-secondary-hover: #eef4ff;
-    -color-secondary-pressed: #dce8ff;
-    -color-exit: #d6334f;
-    -color-exit-hover: #ba2943;
-    -color-exit-pressed: #961f35;
-    -color-text-main: #dee0e6;
-    -color-text-soft: #42526b;
-    -color-text-on-dark: #ffffff;
+    -color-bg:              #0f1923;
+    -color-sidebar-bg:      #162030;
+    -color-surface:         #1a2535;
+    -color-primary:         #3b82f6;
+    -color-primary-hover:   #2563eb;
+    -color-primary-pressed: #1d4ed8;
+    -color-exit:            #d6334f;
+    -color-exit-hover:      #ba2943;
+    -color-exit-pressed:    #961f35;
+    -color-text-main:       #e2e8f0;
+    -color-text-soft:       #64748b;
+    -color-text-on-dark:    #ffffff;
+    -color-winner-bg:       #1a3328;
+    -color-loser-bg:        #3a1c22;
+    -color-winner-text:     #4ade80;
+    -color-loser-text:      #f87171;
     -fx-font-family: "Segoe UI", "Verdana", "Arial";
-    -fx-background-color: linear-gradient(to bottom, -color-bg-top, -color-bg-bottom);
+    -fx-background-color: -color-bg;
 }
 
 /* ===============================
@@ -71,17 +73,17 @@
 }
 
 .secondary-button {
-    -fx-background-color: -color-secondary;
-    -fx-border-color: #c6d8ff;
-    -fx-text-fill: -color-text-soft;
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-border-color: rgba(255,255,255,0.12);
+    -fx-text-fill: -color-text-main;
 }
 
 .secondary-button:hover {
-    -fx-background-color: -color-secondary-hover;
+    -fx-background-color: rgba(255,255,255,0.10);
 }
 
 .secondary-button:pressed {
-    -fx-background-color: -color-secondary-pressed;
+    -fx-background-color: rgba(255,255,255,0.16);
 }
 
 .exit-button {
@@ -147,9 +149,11 @@
    Sidebar
    =============================== */
 .sidebar {
-    -fx-pref-width: 200;
+    -fx-pref-width: 220;
     -fx-min-width: 180;
-    -fx-background-color: rgba(0,0,0,0.25);
+    -fx-background-color: -color-sidebar-bg;
+    -fx-border-color: transparent rgba(255,255,255,0.06) transparent transparent;
+    -fx-border-width: 1;
     -fx-padding: 24 20 24 20;
     -fx-spacing: 10;
 }
@@ -221,12 +225,13 @@
 }
 
 .stock-table {
-    -fx-background-color: rgba(0,0,0,0.18);
+    -fx-background-color: -color-surface;
+    -fx-background-radius: 10;
     -fx-table-cell-border-color: transparent;
 }
 
 .stock-table .column-header-background {
-    -fx-background-color: rgba(0,0,0,0.3);
+    -fx-background-color: rgba(255,255,255,0.05);
 }
 
 .stock-table .column-header .label {
@@ -254,12 +259,12 @@
 }
 
 .positive-change {
-    -fx-text-fill: #34d399;
+    -fx-text-fill: -color-winner-text;
     -fx-font-weight: 700;
 }
 
 .negative-change {
-    -fx-text-fill: #f87171;
+    -fx-text-fill: -color-loser-text;
     -fx-font-weight: 700;
 }
 
@@ -270,10 +275,33 @@
 }
 
 .mini-panel {
-    -fx-background-color: rgba(0,0,0,0.22);
+    -fx-background-color: -color-surface;
+    -fx-border-color: rgba(255,255,255,0.06);
+    -fx-border-width: 1;
     -fx-background-radius: 10;
+    -fx-border-radius: 10;
     -fx-padding: 14 16 14 16;
     -fx-spacing: 6;
+}
+
+.mini-panel-winner {
+    -fx-background-color: -color-winner-bg;
+    -fx-border-color: rgba(74,222,128,0.2);
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 14 16 14 16;
+    -fx-spacing: 4;
+}
+
+.mini-panel-loser {
+    -fx-background-color: -color-loser-bg;
+    -fx-border-color: rgba(248,113,113,0.2);
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 14 16 14 16;
+    -fx-spacing: 4;
 }
 
 .panel-header {
@@ -298,6 +326,66 @@
 .mini-price {
     -fx-text-fill: -color-text-soft;
     -fx-font-size: 13px;
+}
+
+/* ===============================
+   Page title
+   =============================== */
+.page-title {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 22px;
+    -fx-font-weight: 800;
+}
+
+/* ===============================
+   Transaction type badges
+   =============================== */
+.type-badge {
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+
+.badge-buy {
+    -fx-background-color: rgba(59,130,246,0.18);
+    -fx-text-fill: #60a5fa;
+    -fx-border-color: rgba(59,130,246,0.35);
+    -fx-border-width: 1;
+}
+
+.badge-sell {
+    -fx-background-color: rgba(248,113,113,0.18);
+    -fx-text-fill: #f87171;
+    -fx-border-color: rgba(248,113,113,0.35);
+    -fx-border-width: 1;
+}
+
+/* ===============================
+   Statistics cards
+   =============================== */
+.stat-card {
+    -fx-background-color: -color-surface;
+    -fx-border-color: rgba(255,255,255,0.06);
+    -fx-border-width: 1;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 18 20 18 20;
+    -fx-spacing: 8;
+}
+
+.stat-card-header {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-padding: 0 0 6 0;
+}
+
+.stat-card-value {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
 }
 
 /* ===============================

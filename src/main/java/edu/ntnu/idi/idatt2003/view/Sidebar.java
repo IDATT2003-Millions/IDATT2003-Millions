@@ -2,7 +2,9 @@ package edu.ntnu.idi.idatt2003.view;
 
 import edu.ntnu.idi.idatt2003.model.core.Exchange;
 import edu.ntnu.idi.idatt2003.model.observer.ExchangeObserver;
+import edu.ntnu.idi.idatt2003.model.core.Portfolio;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.VBox;
@@ -22,7 +24,12 @@ public class Sidebar extends VBox implements ExchangeObserver {
     private final Label netWorthLabel;
     private final Label weekLabel;
 
-    public Sidebar(Player player, Exchange exchange) {
+
+    public Sidebar(Player player, Exchange exchange,
+                   Runnable onStockMarket,
+                   Runnable onPortfolio,
+                   Runnable onTransactions,
+                   Runnable onStatistics) {
         this.player = player;
         getStyleClass().add("sidebar");
 
@@ -52,7 +59,20 @@ public class Sidebar extends VBox implements ExchangeObserver {
 
         weekLabel = new Label(String.valueOf(exchange.getWeek()));
         weekLabel.getStyleClass().add("sidebar-value-week");
+        Button btnMarket       = new Button("Stock Market");
+        Button btnPortfolio    = new Button("My Portfolio");
+        Button btnTransactions = new Button("Transactions");
+        Button btnStatistics   = new Button("Statistics");
 
+      btnMarket.setMaxWidth(Double.MAX_VALUE);
+      btnPortfolio.setMaxWidth(Double.MAX_VALUE);
+      btnTransactions.setMaxWidth(Double.MAX_VALUE);
+      btnStatistics.setMaxWidth(Double.MAX_VALUE);
+
+      btnMarket.setOnAction(e       -> onStockMarket.run());
+      btnPortfolio.setOnAction(e    -> onPortfolio.run());
+      btnTransactions.setOnAction(e -> onTransactions.run());
+      btnStatistics.setOnAction(e   -> onStatistics.run());
         getChildren().addAll(
                 appTitle,
                 new Separator(),
@@ -61,7 +81,9 @@ public class Sidebar extends VBox implements ExchangeObserver {
                 cashSection, cashLabel,
                 netWorthSection, netWorthLabel,
                 new Separator(),
-                weekSection, weekLabel
+                weekSection, weekLabel,
+                new Separator(),
+            btnMarket, btnPortfolio,btnStatistics,btnTransactions
         );
 
         exchange.addObserver(this);
