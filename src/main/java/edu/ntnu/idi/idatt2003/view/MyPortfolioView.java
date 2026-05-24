@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class MyPortfolioView implements ExchangeObserver {
@@ -26,6 +27,7 @@ public class MyPortfolioView implements ExchangeObserver {
   private final Stage stage;
   private final ObservableList<Share> shareList = FXCollections.observableArrayList();
   private Consumer<Share> onSell;
+  private Runnable onSellAll;
 
   public MyPortfolioView(Player player, Exchange exchange, Stage stage) {
     this.player = player;
@@ -34,17 +36,38 @@ public class MyPortfolioView implements ExchangeObserver {
     exchange.addObserver(this);
   }
 
-  public Node buildContent(Consumer<Share> onSell) {
+  public Node buildContent(Consumer<Share> onSell, Runnable onSellAll) {
     this.onSell = onSell;
+    this.onSellAll = onSellAll;
 
-    Label title = new Label("My portfolio");
+    Label title = new Label("My Portfolio");
     title.getStyleClass().add("page-title");
+
+    Button sellAllBtn = new Button("Sell All");
+    sellAllBtn.getStyleClass().addAll("action-button", "exit-button");
+    sellAllBtn.setStyle("-fx-pref-height: 36; -fx-font-size: 13px;");
+    sellAllBtn.setOnAction(e -> {
+      if (player.getPortfolio().getShares().isEmpty()) return;
+      Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+      confirm.setTitle("Sell All Shares");
+      confirm.setHeaderText("Are you sure?");
+      confirm.setContentText("This will sell all your shares immediately at the current market price.");
+      Optional<ButtonType> result = confirm.showAndWait();
+      if (result.isPresent() && result.get() == ButtonType.OK) {
+        onSellAll.run();
+      }
+    });
+
+    HBox topBar = new HBox(title, new javafx.scene.layout.Region(), sellAllBtn);
+    HBox.setHgrow(topBar.getChildren().get(1), Priority.ALWAYS);
+    topBar.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+    topBar.setSpacing(12);
 
     TableView<Share> table = buildTable();
     VBox.setVgrow(table, Priority.ALWAYS);
     table.setMaxHeight(Double.MAX_VALUE);
 
-    VBox center = new VBox(16, title, table);
+    VBox center = new VBox(16, topBar, table);
     center.getStyleClass().add("market-center");
     VBox.setVgrow(center, Priority.ALWAYS);
 
