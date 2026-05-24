@@ -27,6 +27,23 @@ public class StatisticsController {
   }
 
   public Node buildContent() {
+    Summary summary = buildSummary();
+    return view.buildContent(
+        player.getStartingMoney(),
+        player.getMoney(),
+        player.getPortfolio().getNetWorth(),
+        summary.sharesOwned(),
+        summary.uniqueStocks(),
+        exchange.getWeek(),
+        summary.totalTransactions(),
+        summary.totalBuys(),
+        summary.totalSells(),
+        summary.totalBought(),
+        summary.totalSold()
+    );
+  }
+
+  Summary buildSummary() {
     List<Transaction> all = new ArrayList<>();
     for (int w = 1; w <= exchange.getWeek(); w++) {
       all.addAll(player.getTransactionArchive().getTransactions(w));
@@ -55,18 +72,25 @@ public class StatisticsController {
       uniqueSymbols.add(s.getStock().getSymbol());
     }
 
-    return view.buildContent(
-        player.getStartingMoney(),
-        player.getMoney(),
-        player.getPortfolio().getNetWorth(),
+    return new Summary(
         shares.size(),
         uniqueSymbols.size(),
-        exchange.getWeek(),
         all.size(),
         totalBuys,
         totalSells,
         totalBought,
         totalSold
     );
+  }
+
+  record Summary(
+      int sharesOwned,
+      int uniqueStocks,
+      int totalTransactions,
+      int totalBuys,
+      int totalSells,
+      BigDecimal totalBought,
+      BigDecimal totalSold
+  ) {
   }
 }
