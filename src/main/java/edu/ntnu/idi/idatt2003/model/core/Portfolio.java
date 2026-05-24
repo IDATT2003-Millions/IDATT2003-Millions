@@ -1,6 +1,5 @@
 package edu.ntnu.idi.idatt2003.model.core;
 
-import edu.ntnu.idi.idatt2003.model.calculators.SaleCalculator;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -89,12 +88,15 @@ public class Portfolio {
   }
 
   /**
-   * Calculates and returns the total sale value of all shares in this portfolio.
-   * @return total portfolio value as the sum of all shares' sale totals
+   * Calculates and returns the current market value of all shares in this portfolio.
+   * The value is based on the current sales price of each stock multiplied by quantity,
+   * without deducting any commissions or taxes.
+   *
+   * @return total market value of all shares
    */
   public BigDecimal getNetWorth() {
     return shares.stream()
-            .map(share -> new SaleCalculator(share).calculateTotal())
+            .map(share -> share.getStock().getSalesPrice().multiply(share.getQuantity()))
             .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 }
