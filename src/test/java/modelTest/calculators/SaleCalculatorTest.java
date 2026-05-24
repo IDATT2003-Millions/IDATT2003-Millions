@@ -67,10 +67,9 @@ public class SaleCalculatorTest {
     }
 
     @Test
-    void calculateTotal_shouldMatchImplementation() {
-        // OBS: Tester koden din slik den er nå:
-        // total = gross + commission + tax = 1500 + 15 + 145.5 = 1660.5
-        assertEquals(0, sc.calculateTotal().compareTo(new BigDecimal("1660.5")));
+    void calculateTotal_shouldReturnGrossMinusCommissionAndTax() {
+        // total = gross - commission - tax = 1500 - 15 - 145.5 = 1339.5
+        assertEquals(0, sc.calculateTotal().compareTo(new BigDecimal("1339.5")));
     }
 
     @Test
@@ -79,8 +78,7 @@ public class SaleCalculatorTest {
     }
 
     @Test
-    void calculateTotal_shouldBeGreaterThanGross_withCurrentImplementation() {
-        // Gjelder fordi du legger til avgift+skatt i total()
-        assertTrue(sc.calculateTotal().compareTo(sc.calculateGross()) > 0);
+    void calculateTotal_shouldBeLessThanGross() {
+        assertTrue(sc.calculateTotal().compareTo(sc.calculateGross()) < 0);
     }
 }
