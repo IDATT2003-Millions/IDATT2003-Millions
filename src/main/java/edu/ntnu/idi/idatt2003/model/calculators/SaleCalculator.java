@@ -83,16 +83,16 @@ public class SaleCalculator implements TransactionCalculator {
   }
 
   /**
-   *Calculates the total sales cost.
+   *Calculates the net proceeds from the sale.
    *
-   * <p>The total is gross value + commission fee + tax</p>
+   * <p>The proceeds are the gross value minus commission fee and tax.</p>
    *
-   * @return the total sales price
+   * @return the net amount the player receives after costs
    */
   @Override
   public BigDecimal calculateTotal() {
     return calculateGross()
-            .add(calculateCommission())
-            .add(calculateTax());
+            .subtract(calculateCommission())
+            .subtract(calculateTax());
   }
 }
