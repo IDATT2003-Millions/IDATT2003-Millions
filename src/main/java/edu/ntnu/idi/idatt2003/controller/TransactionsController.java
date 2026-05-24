@@ -22,10 +22,14 @@ public class TransactionsController {
   }
 
   public Node buildContent() {
+    return view.buildContent(collectAllTransactions());
+  }
+
+  List<Transaction> collectAllTransactions() {
     List<Transaction> all = new ArrayList<>();
     for (int w = 1; w <= exchange.getWeek(); w++) {
       all.addAll(player.getTransactionArchive().getTransactions(w));
     }
-    return view.buildContent(all);
+    return all;
   }
 }
