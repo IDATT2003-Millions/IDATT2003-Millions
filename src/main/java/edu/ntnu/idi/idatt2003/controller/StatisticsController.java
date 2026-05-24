@@ -55,14 +55,13 @@ public class StatisticsController {
     BigDecimal totalSold = BigDecimal.ZERO;
 
     for (Transaction t : all) {
-      Share share = t.getShare();
-      BigDecimal total = share.getPurchasePrice().multiply(share.getQuantity());
+      BigDecimal gross = t.getCalculator().calculateGross();
       if (t instanceof Purchase) {
         totalBuys++;
-        totalBought = totalBought.add(total);
+        totalBought = totalBought.add(gross);
       } else {
         totalSells++;
-        totalSold = totalSold.add(total);
+        totalSold = totalSold.add(gross);
       }
     }
 
