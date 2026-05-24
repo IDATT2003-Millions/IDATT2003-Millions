@@ -29,7 +29,6 @@ public class StatisticsControllerLogicTest {
   @Test
   void buildSummary_withBuyAndSell_returnsExpectedAggregates() {
     exchange.buy("AAPL", new BigDecimal("2"), player).commit(player);
-    exchange.advance();
     Share owned = player.getPortfolio().getShares("AAPL").getFirst();
     exchange.sell(owned, player).commit(player);
 

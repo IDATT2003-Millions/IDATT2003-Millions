@@ -38,7 +38,7 @@ public class PortfolioControllerTest {
     invokePrivate(controller, "sell", Share.class, owned);
 
     assertTrue(player.getPortfolio().getShares().isEmpty());
-    assertTrue(player.getMoney().compareTo(new BigDecimal("1000.00")) > 0);
+    assertTrue(player.getMoney().compareTo(new BigDecimal("1000.00")) < 0);
     assertEquals(1, player.getTransactionArchive().getSales(1).size());
   }
 

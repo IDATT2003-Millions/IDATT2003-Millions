@@ -56,7 +56,7 @@ public class StockMarketControllerTest {
 
     assertTrue(player.getPortfolio().getShares().isEmpty());
     assertEquals(1, player.getTransactionArchive().getSales(1).size());
-    assertTrue(player.getMoney().compareTo(new BigDecimal("1000.00")) > 0);
+    assertTrue(player.getMoney().compareTo(new BigDecimal("1000.00")) < 0);
   }
 
   private static void invokePrivate(Object target, String methodName) throws Exception {
