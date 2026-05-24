@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 
 import java.math.BigDecimal;
@@ -79,6 +80,13 @@ public class Sidebar extends VBox implements ExchangeObserver {
 
     statusLabel = new Label(player.getStatus().name());
     statusLabel.getStyleClass().add("sidebar-value");
+    Tooltip statusTip = new Tooltip(
+        "NOVICE     — starting level\n"
+        + "INVESTOR   — ≥10 weeks traded & net worth grew ≥20%\n"
+        + "SPECULATOR — ≥20 weeks traded & net worth at least doubled"
+    );
+    statusTip.setStyle("-fx-font-size: 12px;");
+    Tooltip.install(statusLabel, statusTip);
 
     Button btnMarket       = new Button("Stock Market");
     Button btnPortfolio    = new Button("My Portfolio");
@@ -86,12 +94,15 @@ public class Sidebar extends VBox implements ExchangeObserver {
     Button btnStatistics   = new Button("Statistics");
     Button btnSellAll      = new Button("Sell All & Quit");
 
-    btnMarket.setMaxWidth(Double.MAX_VALUE);
-    btnPortfolio.setMaxWidth(Double.MAX_VALUE);
-    btnTransactions.setMaxWidth(Double.MAX_VALUE);
-    btnStatistics.setMaxWidth(Double.MAX_VALUE);
+    for (Button btn : new Button[]{btnMarket, btnPortfolio, btnTransactions, btnStatistics}) {
+      btn.getStyleClass().add("sidebar-nav-btn");
+      btn.setMaxWidth(Double.MAX_VALUE);
+    }
     btnSellAll.setMaxWidth(Double.MAX_VALUE);
-    btnSellAll.setStyle("-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold;");
+    btnSellAll.setStyle(
+        "-fx-background-color: #c0392b; -fx-text-fill: white;"
+        + " -fx-font-weight: bold; -fx-background-radius: 8;"
+        + " -fx-border-radius: 8; -fx-padding: 8 12 8 12; -fx-cursor: hand;");
 
     btnMarket.setOnAction(e       -> onStockMarket.run());
     btnPortfolio.setOnAction(e    -> onPortfolio.run());
