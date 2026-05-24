@@ -56,10 +56,10 @@ public class SaleTest {
     }
 
     @Test
-    void commit_twice_throwsIllegalArgumentException() {
+    void commit_twice_throwsIllegalStateException() {
         sale.commit(player);
 
-        assertThrows(IllegalArgumentException.class, () -> sale.commit(player));
+        assertThrows(IllegalStateException.class, () -> sale.commit(player));
     }
 
     @Test
