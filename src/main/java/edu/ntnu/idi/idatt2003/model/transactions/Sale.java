@@ -35,7 +35,7 @@ public class Sale extends Transaction {
     }
 
     if (isCommitted()) {
-      throw new IllegalArgumentException("This sale has already been committed.");
+      throw new IllegalStateException("This sale has already been committed.");
     }
 
     if (!player.getPortfolio().contains(getShare())) {
