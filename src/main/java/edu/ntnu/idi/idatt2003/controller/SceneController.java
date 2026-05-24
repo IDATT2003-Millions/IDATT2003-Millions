@@ -1,8 +1,11 @@
 package edu.ntnu.idi.idatt2003.controller;
 
 import edu.ntnu.idi.idatt2003.model.core.Exchange;
+import edu.ntnu.idi.idatt2003.model.core.Share;
 import edu.ntnu.idi.idatt2003.model.file.StockCsvRepository;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
+
+import java.util.List;
 import edu.ntnu.idi.idatt2003.view.LaunchGameView;
 import edu.ntnu.idi.idatt2003.view.NewGameView;
 import edu.ntnu.idi.idatt2003.view.Sidebar;
@@ -25,6 +28,11 @@ public class SceneController {
 
   private BorderPane gameRoot;
   private Scene gameScene;
+
+  private StockMarketController stockMarketController;
+  private PortfolioController portfolioController;
+  private TransactionsController transactionsController;
+  private StatisticsController statisticsController;
 
   public SceneController(Stage stage) {
     this.stage = stage;
@@ -68,26 +76,32 @@ public class SceneController {
 
   public void showStockMarketPage(Player player, Exchange exchange) {
     initGameSceneIfNeeded(player, exchange);
-    gameRoot.setCenter(new StockMarketController(exchange, player, stage).buildContent());
+    gameRoot.setCenter(stockMarketController.buildContent());
   }
 
   public void showPortfolioPage(Player player, Exchange exchange) {
     initGameSceneIfNeeded(player, exchange);
-    gameRoot.setCenter(new PortfolioController(exchange, player, stage).buildContent());
+    gameRoot.setCenter(portfolioController.buildContent());
   }
 
   public void showTransactionsPage(Player player, Exchange exchange) {
     initGameSceneIfNeeded(player, exchange);
-    gameRoot.setCenter(new TransactionsController(exchange, player).buildContent());
+    gameRoot.setCenter(transactionsController.buildContent());
   }
 
   public void showStatisticsPage(Player player, Exchange exchange) {
     initGameSceneIfNeeded(player, exchange);
-    gameRoot.setCenter(new StatisticsController(exchange, player).buildContent());
+    gameRoot.setCenter(statisticsController.buildContent());
   }
 
   private void initGameSceneIfNeeded(Player player, Exchange exchange) {
     if (gameScene != null) return;
+
+    stockMarketController  = new StockMarketController(exchange, player, stage);
+    portfolioController    = new PortfolioController(exchange, player, stage);
+    transactionsController = new TransactionsController(exchange, player);
+    statisticsController   = new StatisticsController(exchange, player);
+
     gameRoot = new BorderPane();
     gameRoot.getStyleClass().add("market-root");
     Sidebar sidebar = new Sidebar(
@@ -95,13 +109,22 @@ public class SceneController {
         () -> showStockMarketPage(player, exchange),
         () -> showPortfolioPage(player, exchange),
         () -> showTransactionsPage(player, exchange),
-        () -> showStatisticsPage(player, exchange)
+        () -> showStatisticsPage(player, exchange),
+        () -> sellAllAndQuit(player, exchange)
     );
     gameRoot.setLeft(sidebar);
     gameScene = new Scene(gameRoot);
     applyGlobalStyles(gameScene);
     stage.setScene(gameScene);
   }
+  private void sellAllAndQuit(Player player, Exchange exchange) {
+    List<Share> shares = List.copyOf(player.getPortfolio().getShares());
+    for (Share share : shares) {
+      exchange.sell(share, player).commit(player);
+    }
+    Platform.exit();
+  }
+
   private void onLoadGame() {
     showPlaceholder("Load Game", "Hook this button to your save/load flow.");
   }
