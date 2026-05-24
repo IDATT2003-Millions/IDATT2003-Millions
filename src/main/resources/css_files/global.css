@@ -389,6 +389,39 @@
 }
 
 /* ===============================
+   Sidebar nav buttons
+   =============================== */
+.sidebar-nav-btn {
+    -fx-background-color: rgba(255,255,255,0.07);
+    -fx-border-color: rgba(255,255,255,0.10);
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+    -fx-padding: 8 12 8 12;
+}
+
+.sidebar-nav-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.13);
+    -fx-border-color: rgba(255,255,255,0.20);
+}
+
+.sidebar-nav-btn:pressed {
+    -fx-background-color: -color-primary;
+    -fx-text-fill: white;
+}
+
+/* ===============================
+   Table selected-row text fix
+   =============================== */
+.stock-table .table-row-cell:selected .table-cell {
+    -fx-text-fill: white;
+}
+
+/* ===============================
    Dialog helpers
    =============================== */
 .dialog-info {
