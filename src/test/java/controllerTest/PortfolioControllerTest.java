@@ -2,7 +2,6 @@ package controllerTest;
 
 import edu.ntnu.idi.idatt2003.controller.PortfolioController;
 import edu.ntnu.idi.idatt2003.model.core.Exchange;
-import edu.ntnu.idi.idatt2003.model.core.Share;
 import edu.ntnu.idi.idatt2003.model.core.Stock;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,19 +32,19 @@ public class PortfolioControllerTest {
   @Test
   void sell_ownedShare_commitsTransactionAndRefreshesPlayerState() throws Exception {
     exchange.buy("TSLA", BigDecimal.ONE, player).commit(player);
-    Share owned = player.getPortfolio().getShares("TSLA").getFirst();
 
-    invokePrivate(controller, "sell", Share.class, owned);
+    invokePrivate(controller, "sellQuantity", String.class, BigDecimal.class, "TSLA", BigDecimal.ONE);
 
     assertTrue(player.getPortfolio().getShares().isEmpty());
     assertTrue(player.getMoney().compareTo(new BigDecimal("1000.00")) < 0);
     assertEquals(1, player.getTransactionArchive().getSales(1).size());
   }
 
-  private static void invokePrivate(Object target, String methodName, Class<?> paramType, Object arg)
+  private static void invokePrivate(Object target, String methodName,
+                                    Class<?> p1, Class<?> p2, Object a1, Object a2)
       throws Exception {
-    Method method = target.getClass().getDeclaredMethod(methodName, paramType);
+    Method method = target.getClass().getDeclaredMethod(methodName, p1, p2);
     method.setAccessible(true);
-    method.invoke(target, arg);
+    method.invoke(target, a1, a2);
   }
 }
