@@ -12,12 +12,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.paint.CycleMethod;
 import javafx.stage.Stage;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.BiConsumer;
@@ -38,6 +45,8 @@ public class StockMarketView implements ExchangeObserver {
   private VBox gainersBox;
   private VBox losersBox;
   private TextField searchField;
+
+  private static final String GLOBAL_CSS = "/css_files/global.css";
 
   private BiConsumer<Stock, BigDecimal> onBuy;
   private Consumer<Share> onSell;
@@ -193,9 +202,10 @@ public class StockMarketView implements ExchangeObserver {
     addInfoRow(grid, 3, "Last Change",    signedFmt(stock.getLatestPriceChange()));
 
     Label historyTitle = new Label("Price History");
-    historyTitle.setStyle("-fx-font-weight: bold; -fx-padding: 8 0 4 0;");
+    historyTitle.getStyleClass().add("info-section-title");
 
     ListView<String> historyList = new ListView<>();
+    historyList.getStyleClass().add("history-list");
     List<BigDecimal> prices = stock.getHistoricalPrices();
     for (int i = 0; i < prices.size(); i++) {
       historyList.getItems().add("Week " + (i + 1) + ":  " + fmt(prices.get(i)));
@@ -203,19 +213,21 @@ public class StockMarketView implements ExchangeObserver {
     historyList.setPrefHeight(150);
     historyList.setMaxWidth(300);
 
-    VBox content = new VBox(8, grid, historyTitle, historyList);
+    Canvas chart = buildPriceChart(stock.getHistoricalPrices(), 320, 110);
+    VBox content = new VBox(8, grid, chart, historyTitle, historyList);
     content.setMinWidth(320);
     dialog.getDialogPane().setContent(content);
     dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+    applyTheme(dialog.getDialogPane());
 
     dialog.showAndWait();
   }
 
   private void addInfoRow(GridPane grid, int row, String key, String value) {
     Label keyLabel = new Label(key + ":");
-    keyLabel.setStyle("-fx-text-fill: #888; -fx-font-size: 12px;");
+    keyLabel.getStyleClass().add("info-key");
     Label valueLabel = new Label(value);
-    valueLabel.setStyle("-fx-font-weight: bold;");
+    valueLabel.getStyleClass().add("info-value");
     grid.add(keyLabel, 0, row);
     grid.add(valueLabel, 1, row);
   }
@@ -246,27 +258,27 @@ public class StockMarketView implements ExchangeObserver {
 
     // ── Buy preview ──
     Label buyTitle = new Label("Buy cost estimate:");
-    buyTitle.setStyle("-fx-font-weight: bold;");
+    buyTitle.getStyleClass().add("info-value");
     Label buyGross      = new Label();
     Label buyCommission = new Label();
     Label buyTotal      = new Label();
-    buyTotal.setStyle("-fx-font-weight: bold;");
+    buyTotal.getStyleClass().add("info-value");
     VBox buyPreview = new VBox(3, buyTitle, buyGross, buyCommission, buyTotal);
-    buyPreview.setStyle("-fx-background-color: #f0f8ff; -fx-padding: 8; -fx-background-radius: 4;");
+    buyPreview.getStyleClass().add("buy-preview");
 
     // ── Sell preview (first owned lot) ──
     VBox sellPreview = new VBox(3);
-    sellPreview.setStyle("-fx-background-color: #fff8f0; -fx-padding: 8; -fx-background-radius: 4;");
+    sellPreview.getStyleClass().add("sell-preview");
     if (!owned.isEmpty()) {
       Share firstLot = owned.getFirst();
       Label sellTitle      = new Label("Sell estimate (your " + firstLot.getQuantity().toPlainString() + " shares):");
-      sellTitle.setStyle("-fx-font-weight: bold;");
+      sellTitle.getStyleClass().add("info-value");
       SaleCalculator sellCalc = new SaleCalculator(firstLot);
       Label sellGross      = new Label("Market value:  " + fmt(sellCalc.calculateGross()));
       Label sellCommission = new Label("Commission (1%):  -" + fmt(sellCalc.calculateCommission()));
       Label sellTax        = new Label("Tax (30% profit):  -" + fmt(sellCalc.calculateTax()));
       Label sellTotal      = new Label("You receive:  " + fmt(sellCalc.calculateTotal()));
-      sellTotal.setStyle("-fx-font-weight: bold;");
+      sellTotal.getStyleClass().add("info-value");
       sellPreview.getChildren().addAll(sellTitle, sellGross, sellCommission, sellTax, sellTotal);
     }
 
@@ -288,14 +300,17 @@ public class StockMarketView implements ExchangeObserver {
       }
     });
 
+    Canvas chart = buildPriceChart(stock.getHistoricalPrices(), 320, 100);
     VBox content = new VBox(10, cashInfo, ownedInfo,
         new Separator(),
+        chart,
         new Label("Quantity to buy:"), qtyField, buyPreview);
     if (!owned.isEmpty()) {
       content.getChildren().addAll(new Separator(), sellPreview);
     }
     content.setMinWidth(340);
     dialog.getDialogPane().setContent(content);
+    applyTheme(dialog.getDialogPane());
 
     ButtonType buyType  = new ButtonType("Buy",  ButtonBar.ButtonData.OK_DONE);
     ButtonType sellType = new ButtonType("Sell", ButtonBar.ButtonData.OTHER);
@@ -354,6 +369,7 @@ public class StockMarketView implements ExchangeObserver {
         "Total paid",   fmt(calc.calculateTotal())
     );
     receipt.getDialogPane().setContent(grid);
+    applyTheme(receipt.getDialogPane());
     receipt.showAndWait();
   }
 
@@ -375,6 +391,7 @@ public class StockMarketView implements ExchangeObserver {
         "You received",     fmt(calc.calculateTotal())
     );
     receipt.getDialogPane().setContent(grid);
+    applyTheme(receipt.getDialogPane());
     receipt.showAndWait();
   }
 
@@ -385,9 +402,9 @@ public class StockMarketView implements ExchangeObserver {
     grid.setPadding(new Insets(12));
     for (int i = 0; i < keyValues.length - 1; i += 2) {
       Label key = new Label(keyValues[i] + ":");
-      key.setStyle("-fx-text-fill: #888; -fx-font-size: 12px;");
+      key.getStyleClass().add("info-key");
       Label val = new Label(keyValues[i + 1]);
-      val.setStyle("-fx-font-weight: bold;");
+      val.getStyleClass().add("info-value");
       grid.add(key, 0, i / 2);
       grid.add(val, 1, i / 2);
     }
@@ -451,12 +468,89 @@ public class StockMarketView implements ExchangeObserver {
     stockList.setAll(exchange.findStocks(filter == null ? "" : filter));
   }
 
+  // ── Price chart ──────────────────────────────────────────────────────────
+
+  private Canvas buildPriceChart(List<BigDecimal> prices, double width, double height) {
+    Canvas canvas = new Canvas(width, height);
+    GraphicsContext gc = canvas.getGraphicsContext2D();
+
+    Color bg   = Color.web("#0f1923");
+    Color line = Color.web("#3b82f6");
+    Color grid = Color.web("#162030");
+
+    gc.setFill(bg);
+    gc.fillRoundRect(0, 0, width, height, 8, 8);
+
+    if (prices.size() < 2) {
+      gc.setFill(Color.web("#64748b"));
+      gc.fillText("Not enough data yet", width / 2 - 60, height / 2 + 4);
+      return canvas;
+    }
+
+    double pad   = 14;
+    double cw    = width  - pad * 2;
+    double ch    = height - pad * 2;
+    int    n     = prices.size();
+
+    double min = prices.stream().mapToDouble(BigDecimal::doubleValue).min().orElse(0);
+    double max = prices.stream().mapToDouble(BigDecimal::doubleValue).max().orElse(1);
+    double range = max - min == 0 ? 1 : max - min;
+
+    double[] xs = new double[n];
+    double[] ys = new double[n];
+    for (int i = 0; i < n; i++) {
+      xs[i] = pad + cw * i / (n - 1);
+      ys[i] = pad + ch * (1 - (prices.get(i).doubleValue() - min) / range);
+    }
+
+    // Grid lines
+    gc.setStroke(grid);
+    gc.setLineWidth(1);
+    for (int i = 1; i < 4; i++) {
+      double y = pad + ch * i / 4;
+      gc.strokeLine(pad, y, width - pad, y);
+    }
+
+    // Area fill under the line
+    double[] areaXs = new double[n + 2];
+    double[] areaYs = new double[n + 2];
+    System.arraycopy(xs, 0, areaXs, 0, n);
+    areaXs[n]     = xs[n - 1];
+    areaXs[n + 1] = xs[0];
+    System.arraycopy(ys, 0, areaYs, 0, n);
+    areaYs[n]     = pad + ch;
+    areaYs[n + 1] = pad + ch;
+    gc.setFill(new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE,
+        new Stop(0, Color.web("#3b82f6", 0.25)),
+        new Stop(1, Color.web("#3b82f6", 0.02))));
+    gc.fillPolygon(areaXs, areaYs, n + 2);
+
+    // Line
+    gc.setStroke(line);
+    gc.setLineWidth(2);
+    gc.beginPath();
+    gc.moveTo(xs[0], ys[0]);
+    for (int i = 1; i < n; i++) gc.lineTo(xs[i], ys[i]);
+    gc.stroke();
+
+    // Dots
+    gc.setFill(line);
+    for (int i = 0; i < n; i++) gc.fillOval(xs[i] - 3, ys[i] - 3, 6, 6);
+
+    return canvas;
+  }
+
   private void showError(String message) {
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.initOwner(stage);
     alert.setHeaderText("Error");
     alert.setContentText(message);
+    applyTheme(alert.getDialogPane());
     alert.showAndWait();
+  }
+
+  private void applyTheme(javafx.scene.control.DialogPane pane) {
+    pane.getStylesheets().add(getClass().getResource(GLOBAL_CSS).toExternalForm());
   }
 
   private String fmt(BigDecimal amount) {

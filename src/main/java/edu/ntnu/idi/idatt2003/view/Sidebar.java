@@ -98,11 +98,8 @@ public class Sidebar extends VBox implements ExchangeObserver {
       btn.getStyleClass().add("sidebar-nav-btn");
       btn.setMaxWidth(Double.MAX_VALUE);
     }
+    btnSellAll.getStyleClass().addAll("sidebar-nav-btn", "sidebar-exit-btn");
     btnSellAll.setMaxWidth(Double.MAX_VALUE);
-    btnSellAll.setStyle(
-        "-fx-background-color: #c0392b; -fx-text-fill: white;"
-        + " -fx-font-weight: bold; -fx-background-radius: 8;"
-        + " -fx-border-radius: 8; -fx-padding: 8 12 8 12; -fx-cursor: hand;");
 
     btnMarket.setOnAction(e       -> onStockMarket.run());
     btnPortfolio.setOnAction(e    -> onPortfolio.run());
@@ -113,6 +110,8 @@ public class Sidebar extends VBox implements ExchangeObserver {
       confirm.setTitle("Sell All & Quit");
       confirm.setHeaderText("Are you sure?");
       confirm.setContentText("This will sell all your shares and exit the game.");
+      confirm.getDialogPane().getStylesheets().add(
+          getClass().getResource("/css_files/global.css").toExternalForm());
       Optional<ButtonType> result = confirm.showAndWait();
       if (result.isPresent() && result.get() == ButtonType.OK) {
         onSellAllAndQuit.run();
