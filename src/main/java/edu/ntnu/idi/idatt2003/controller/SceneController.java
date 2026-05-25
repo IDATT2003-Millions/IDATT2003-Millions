@@ -2,10 +2,15 @@ package edu.ntnu.idi.idatt2003.controller;
 
 import edu.ntnu.idi.idatt2003.model.core.Exchange;
 import edu.ntnu.idi.idatt2003.model.core.Share;
+import edu.ntnu.idi.idatt2003.model.file.GameStateSerializer;
 import edu.ntnu.idi.idatt2003.model.file.StockCsvRepository;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
+
 import edu.ntnu.idi.idatt2003.view.LaunchGameView;
 import edu.ntnu.idi.idatt2003.view.NewGameView;
 import edu.ntnu.idi.idatt2003.view.Sidebar;
@@ -13,12 +18,11 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 /**
- Owns scene switching. Add showXxxPage() methods here as new views are created.
+ * Owns scene switching. Add showXxxPage() methods here as new views are created.
  */
 public class SceneController {
 
@@ -110,6 +114,7 @@ public class SceneController {
         () -> showPortfolioPage(player, exchange),
         () -> showTransactionsPage(player, exchange),
         () -> showStatisticsPage(player, exchange),
+        () -> saveGame(player, exchange),
         () -> sellAllAndQuit(player, exchange)
     );
     gameRoot.setLeft(sidebar);
@@ -117,16 +122,56 @@ public class SceneController {
     applyGlobalStyles(gameScene);
     stage.setScene(gameScene);
   }
+
+  // ── Save / Load ───────────────────────────────────────────────────────────
+
+  private void saveGame(Player player, Exchange exchange) {
+    FileChooser chooser = new FileChooser();
+    chooser.setTitle("Save Game");
+    chooser.getExtensionFilters().add(
+        new FileChooser.ExtensionFilter("Millions Save File", "*.json"));
+    chooser.setInitialFileName("millions-save.json");
+
+    File file = chooser.showSaveDialog(stage);
+    if (file == null) return;
+
+    try {
+      new GameStateSerializer().save(player, exchange, file.toPath());
+      showInfo("Game saved successfully!");
+    } catch (IOException e) {
+      showError("Could not save game:\n" + e.getMessage());
+    }
+  }
+
+  private void onLoadGame() {
+    FileChooser chooser = new FileChooser();
+    chooser.setTitle("Load Game");
+    chooser.getExtensionFilters().add(
+        new FileChooser.ExtensionFilter("Millions Save File", "*.json"));
+
+    File file = chooser.showOpenDialog(stage);
+    if (file == null) return;
+
+    try {
+      GameStateSerializer.LoadedGame loaded =
+          new GameStateSerializer().load(file.toPath());
+      gameScene = null; // reset so initGameSceneIfNeeded creates fresh controllers
+      showStockMarketPage(loaded.player(), loaded.exchange());
+    } catch (IOException e) {
+      showError("Could not read save file:\n" + e.getMessage());
+    } catch (IllegalArgumentException e) {
+      showError("Save file is invalid:\n" + e.getMessage());
+    }
+  }
+
+  // ── Sell all & quit ───────────────────────────────────────────────────────
+
   private void sellAllAndQuit(Player player, Exchange exchange) {
     List<Share> shares = List.copyOf(player.getPortfolio().getShares());
     for (Share share : shares) {
       exchange.sell(share, player).commit(player);
     }
     Platform.exit();
-  }
-
-  private void onLoadGame() {
-    showPlaceholder("Load Game", "Hook this button to your save/load flow.");
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
@@ -136,15 +181,15 @@ public class SceneController {
     scene.getStylesheets().add(stylesheet);
   }
 
-
-  private void showPlaceholder(String header, String content) {
+  private void showInfo(String message) {
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.initOwner(stage);
     alert.setTitle(APP_TITLE);
-    alert.setHeaderText(header);
-    alert.setContentText(content);
+    alert.setHeaderText(null);
+    alert.setContentText(message);
     alert.showAndWait();
   }
+
   private void showError(String message) {
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.initOwner(stage);

@@ -201,6 +201,15 @@ public class Exchange implements Subject {
       .toList();
   }
 
+
+  /**
+   * Returns an unmodifiable view of all stocks listed on this exchange.
+   *
+   * @return all listed stocks
+   */
+  public List<Stock> getAllStocks() {
+    return List.copyOf(stockMap.values());
+  }
   /**
    * Going through the stocks and filters a limited list of losers.
    * @param limit the limit of how many stocks to be shown

@@ -94,6 +94,15 @@ public class TransactionArchive {
   }
 
   /**
+   * Returns an unmodifiable view of all transactions in the archive.
+   *
+   * @return all transactions in insertion order
+   */
+  public List<Transaction> getAll() {
+    return List.copyOf(transactions);
+  }
+
+  /**
    * Returns the number of distinct weeks represented
    * in the transaction archive.
    *
