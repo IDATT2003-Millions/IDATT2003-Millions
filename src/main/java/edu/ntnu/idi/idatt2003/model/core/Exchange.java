@@ -154,6 +154,37 @@ public class Exchange implements Subject {
   }
 
   /**
+   * Sells {@code quantity} shares of {@code symbol} from the player's portfolio,
+   * iterating through owned lots (whole lots first, splitting the last lot if needed).
+   */
+  public void sellQuantity(String symbol, BigDecimal quantity, Player player) {
+    Objects.requireNonNull(symbol);
+    Objects.requireNonNull(quantity);
+    Objects.requireNonNull(player);
+    if (quantity.signum() <= 0) throw new IllegalArgumentException("quantity must be > 0");
+
+    java.util.List<Share> lots = java.util.List.copyOf(player.getPortfolio().getShares(symbol));
+    BigDecimal remaining = quantity;
+
+    for (Share lot : lots) {
+      if (remaining.compareTo(BigDecimal.ZERO) <= 0) break;
+      if (lot.getQuantity().compareTo(remaining) <= 0) {
+        sell(lot, player).commit(player);
+        remaining = remaining.subtract(lot.getQuantity());
+      } else {
+        // Partial lot: split, keep remainder in portfolio
+        BigDecimal keepQty = lot.getQuantity().subtract(remaining);
+        player.getPortfolio().removeShare(lot);
+        player.getPortfolio().addShare(new Share(lot.getStock(), keepQty, lot.getPurchasePrice()));
+        Share sellPart = new Share(lot.getStock(), remaining, lot.getPurchasePrice());
+        player.getPortfolio().addShare(sellPart);
+        sell(sellPart, player).commit(player);
+        remaining = BigDecimal.ZERO;
+      }
+    }
+  }
+
+  /**
    * Advances the exchange to the next week and updates all stock prices.
    *
    * <p>Each stock receives a random price change in the range -5% to +5%, rounded to two

@@ -3,6 +3,7 @@ package edu.ntnu.idi.idatt2003.controller;
 import edu.ntnu.idi.idatt2003.model.core.Exchange;
 import edu.ntnu.idi.idatt2003.model.core.Share;
 import edu.ntnu.idi.idatt2003.model.core.Stock;
+import edu.ntnu.idi.idatt2003.model.transactions.LimitOrder;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import edu.ntnu.idi.idatt2003.view.StockMarketView;
 import javafx.scene.Node;
@@ -29,13 +30,16 @@ public class StockMarketController {
     return view.buildContent(
         this::advanceWeek,
         this::buy,
-        this::sell
+        this::sell,
+        this::placeLimitOrder
     );
   }
 
   private void advanceWeek() {
     exchange.advance();
+    player.getOrderBook().executeOrders(exchange, player);
     player.snapshotNetWorth();
+    exchange.refresh();
   }
 
   private void buy(Stock stock, BigDecimal quantity) {
@@ -46,5 +50,9 @@ public class StockMarketController {
   private void sell(Share share) {
     exchange.sell(share, player).commit(player);
     exchange.refresh();
+  }
+
+  private void placeLimitOrder(LimitOrder order) {
+    player.getOrderBook().placeOrder(order);
   }
 }

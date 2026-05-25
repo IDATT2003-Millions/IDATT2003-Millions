@@ -22,7 +22,12 @@ public class TransactionsController {
   }
 
   public Node buildContent() {
-    return view.buildContent(collectAllTransactions());
+    return view.buildContent(
+        collectAllTransactions(),
+        player.getOrderBook().getPendingOrders(),
+        player.getOrderBook().getCompletedOrders(),
+        order -> player.getOrderBook().cancelOrder(order)
+    );
   }
 
   List<Transaction> collectAllTransactions() {

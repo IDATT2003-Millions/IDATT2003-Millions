@@ -1,13 +1,18 @@
 package edu.ntnu.idi.idatt2003.view;
 
+import edu.ntnu.idi.idatt2003.model.calculators.SaleCalculator;
 import edu.ntnu.idi.idatt2003.model.core.Exchange;
 import edu.ntnu.idi.idatt2003.model.core.Share;
+import edu.ntnu.idi.idatt2003.model.core.Stock;
 import edu.ntnu.idi.idatt2003.model.observer.ExchangeObserver;
+import edu.ntnu.idi.idatt2003.model.transactions.LimitOrder;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -19,17 +24,32 @@ import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class MyPortfolioView implements ExchangeObserver {
+
+  private static final String GLOBAL_CSS = "/css_files/global.css";
+
+  /** Aggregated view of one stock position (may span multiple purchase lots). */
+  private record PortfolioPosition(
+      Stock stock,
+      BigDecimal totalQuantity,
+      BigDecimal weightedAvgPrice,
+      List<Share> lots
+  ) {}
 
   private final Player player;
   private final Exchange exchange;
   private final Stage stage;
-  private final ObservableList<Share> shareList = FXCollections.observableArrayList();
-  private Consumer<Share> onSell;
+  private final ObservableList<PortfolioPosition> positionList = FXCollections.observableArrayList();
+
+  private BiConsumer<String, BigDecimal> onSellQuantity;
   private Runnable onSellAll;
+  private Consumer<LimitOrder> onPlaceSellOrder;
   private PriceChart portfolioChart;
 
   public MyPortfolioView(Player player, Exchange exchange, Stage stage) {
@@ -39,16 +59,17 @@ public class MyPortfolioView implements ExchangeObserver {
     exchange.addObserver(this);
   }
 
-  public Node buildContent(Consumer<Share> onSell, Runnable onSellAll) {
-    this.onSell = onSell;
+  public Node buildContent(BiConsumer<String, BigDecimal> onSellQuantity, Runnable onSellAll,
+                           Runnable onAdvanceWeek, Consumer<LimitOrder> onPlaceSellOrder) {
+    this.onSellQuantity = onSellQuantity;
     this.onSellAll = onSellAll;
+    this.onPlaceSellOrder = onPlaceSellOrder;
 
     Label title = new Label("My Portfolio");
     title.getStyleClass().add("page-title");
 
     Button sellAllBtn = new Button("Sell All");
     sellAllBtn.getStyleClass().addAll("action-button", "exit-button");
-    sellAllBtn.setStyle("-fx-pref-height: 36; -fx-font-size: 13px;");
     sellAllBtn.setOnAction(e -> {
       if (player.getPortfolio().getShares().isEmpty()) return;
       Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
@@ -61,35 +82,58 @@ public class MyPortfolioView implements ExchangeObserver {
       }
     });
 
-    HBox topBar = new HBox(title, new javafx.scene.layout.Region(), sellAllBtn);
-    HBox.setHgrow(topBar.getChildren().get(1), Priority.ALWAYS);
-    topBar.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
-    topBar.setSpacing(12);
+    Button nextWeekBtn = new Button("Next Week ▶");
+    nextWeekBtn.getStyleClass().addAll("action-button", "primary-button");
+    nextWeekBtn.setOnAction(e -> onAdvanceWeek.run());
 
-    TableView<Share> table = buildTable();
+    Region spacer = new Region();
+    HBox.setHgrow(spacer, Priority.ALWAYS);
+    HBox topBar = new HBox(12, title, spacer, sellAllBtn, nextWeekBtn);
+    topBar.setAlignment(Pos.CENTER_LEFT);
+
+    TableView<PortfolioPosition> table = buildTable();
     VBox.setVgrow(table, Priority.ALWAYS);
     table.setMaxHeight(Double.MAX_VALUE);
 
     portfolioChart = new PriceChart(buildPortfolioHistory(), 330);
-    VBox.setMargin(portfolioChart, new javafx.geometry.Insets(110, 0, 0, 0));
+    VBox.setMargin(portfolioChart, new Insets(110, 0, 0, 0));
     VBox center = new VBox(16, topBar, portfolioChart, table);
     center.getStyleClass().add("market-center");
     VBox.setVgrow(center, Priority.ALWAYS);
 
-    shareList.setAll(player.getPortfolio().getShares());
+    positionList.setAll(buildPositions());
     return center;
   }
 
-  private TableView<Share> buildTable() {
-    TableView<Share> tv = new TableView<>(shareList);
+  private List<PortfolioPosition> buildPositions() {
+    Map<String, List<Share>> grouped = player.getPortfolio().getShares().stream()
+        .collect(Collectors.groupingBy(s -> s.getStock().getSymbol()));
+
+    return grouped.values().stream().map(lots -> {
+      Stock stock = lots.getFirst().getStock();
+      BigDecimal totalQty = lots.stream()
+          .map(Share::getQuantity)
+          .reduce(BigDecimal.ZERO, BigDecimal::add);
+      BigDecimal totalCost = lots.stream()
+          .map(s -> s.getPurchasePrice().multiply(s.getQuantity()))
+          .reduce(BigDecimal.ZERO, BigDecimal::add);
+      BigDecimal avgPrice = totalQty.compareTo(BigDecimal.ZERO) == 0
+          ? BigDecimal.ZERO
+          : totalCost.divide(totalQty, 2, RoundingMode.HALF_UP);
+      return new PortfolioPosition(stock, totalQty, avgPrice, lots);
+    }).toList();
+  }
+
+  private TableView<PortfolioPosition> buildTable() {
+    TableView<PortfolioPosition> tv = new TableView<>(positionList);
     tv.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     tv.setPlaceholder(new Label("You own no shares yet."));
     tv.getStyleClass().add("stock-table");
 
-    TableColumn<Share, String> companyCol = new TableColumn<>("Company");
+    TableColumn<PortfolioPosition, String> companyCol = new TableColumn<>("Company");
     companyCol.setCellValueFactory(d -> {
-      Share s = d.getValue();
-      return new SimpleStringProperty(s.getStock().getSymbol() + "\n" + s.getStock().getCompany());
+      PortfolioPosition p = d.getValue();
+      return new SimpleStringProperty(p.stock().getSymbol() + "\n" + p.stock().getCompany());
     });
     companyCol.setCellFactory(col -> new TableCell<>() {
       @Override
@@ -105,33 +149,36 @@ public class MyPortfolioView implements ExchangeObserver {
       }
     });
 
-    TableColumn<Share, String> qtyCol = new TableColumn<>("Quantity");
-    qtyCol.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getQuantity().toPlainString()));
+    TableColumn<PortfolioPosition, String> qtyCol = new TableColumn<>("Quantity");
+    qtyCol.setCellValueFactory(d ->
+        new SimpleStringProperty(d.getValue().totalQuantity().toPlainString()));
     qtyCol.setMaxWidth(100);
 
-    TableColumn<Share, String> buyPriceCol = new TableColumn<>("Purchase Price");
-    buyPriceCol.setCellValueFactory(d -> new SimpleStringProperty(fmt(d.getValue().getPurchasePrice())));
-    buyPriceCol.setMaxWidth(140);
+    TableColumn<PortfolioPosition, String> buyPriceCol = new TableColumn<>("Avg Purchase Price");
+    buyPriceCol.setCellValueFactory(d ->
+        new SimpleStringProperty(fmt(d.getValue().weightedAvgPrice())));
+    buyPriceCol.setMaxWidth(150);
 
-    TableColumn<Share, String> currentCol = new TableColumn<>("Current Value");
+    TableColumn<PortfolioPosition, String> currentCol = new TableColumn<>("Current Value");
     currentCol.setCellValueFactory(d -> {
-      Share s = d.getValue();
-      BigDecimal currentValue = s.getStock().getSalesPrice().multiply(s.getQuantity());
-      return new SimpleStringProperty(fmt(currentValue));
+      PortfolioPosition p = d.getValue();
+      BigDecimal cv = p.stock().getSalesPrice().multiply(p.totalQuantity());
+      return new SimpleStringProperty(fmt(cv));
     });
     currentCol.setMaxWidth(140);
 
-    TableColumn<Share, String> gainCol = new TableColumn<>("Gain/Loss");
+    TableColumn<PortfolioPosition, String> gainCol = new TableColumn<>("Gain/Loss");
     gainCol.setCellValueFactory(d -> {
-      Share s = d.getValue();
-      BigDecimal currentValue = s.getStock().getSalesPrice().multiply(s.getQuantity());
-      BigDecimal purchaseTotal = s.getPurchasePrice().multiply(s.getQuantity());
+      PortfolioPosition p = d.getValue();
+      BigDecimal currentValue   = p.stock().getSalesPrice().multiply(p.totalQuantity());
+      BigDecimal purchaseTotal  = p.weightedAvgPrice().multiply(p.totalQuantity());
       BigDecimal gain = currentValue.subtract(purchaseTotal);
-      BigDecimal pct = purchaseTotal.compareTo(BigDecimal.ZERO) == 0
+      BigDecimal pct  = purchaseTotal.compareTo(BigDecimal.ZERO) == 0
           ? BigDecimal.ZERO
           : gain.divide(purchaseTotal, 4, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
       String sign = gain.signum() >= 0 ? "+" : "";
-      return new SimpleStringProperty(sign + fmt(gain) + "\n" + sign + pct.setScale(1, RoundingMode.HALF_UP) + "%");
+      return new SimpleStringProperty(
+          sign + fmt(gain) + "\n" + sign + pct.setScale(1, RoundingMode.HALF_UP) + "%");
     });
     gainCol.setCellFactory(col -> new TableCell<>() {
       @Override
@@ -141,7 +188,7 @@ public class MyPortfolioView implements ExchangeObserver {
         String[] parts = item.split("\n");
         boolean positive = item.startsWith("+");
         Label amount = new Label(parts[0]);
-        Label pct = new Label(parts.length > 1 ? parts[1] : "");
+        Label pct    = new Label(parts.length > 1 ? parts[1] : "");
         String style = positive ? "-color-winner-text" : "-color-loser-text";
         amount.setStyle("-fx-text-fill: " + style + "; -fx-font-weight: bold;");
         pct.setStyle("-fx-text-fill: " + style + ";");
@@ -153,15 +200,15 @@ public class MyPortfolioView implements ExchangeObserver {
     });
     gainCol.setMaxWidth(140);
 
-    TableColumn<Share, Void> sellCol = new TableColumn<>("");
+    TableColumn<PortfolioPosition, Void> sellCol = new TableColumn<>("");
     sellCol.setCellFactory(col -> new TableCell<>() {
       private final Button btn = new Button("SELL");
       {
         btn.getStyleClass().addAll("action-button", "primary-button");
         btn.setStyle("-fx-pref-width: 70; -fx-pref-height: 32; -fx-font-size: 12px;");
         btn.setOnAction(e -> {
-          Share share = getTableView().getItems().get(getIndex());
-          onSell.accept(share);
+          PortfolioPosition pos = getTableView().getItems().get(getIndex());
+          showSellDialog(pos);
         });
       }
       @Override
@@ -176,9 +223,153 @@ public class MyPortfolioView implements ExchangeObserver {
     return tv;
   }
 
+  private void showSellDialog(PortfolioPosition pos) {
+    Stock stock = pos.stock();
+    Dialog<ButtonType> dialog = new Dialog<>();
+    dialog.initOwner(stage);
+    dialog.setTitle("Sell  —  " + stock.getSymbol());
+    dialog.setHeaderText("Current price: " + fmt(stock.getSalesPrice()));
+
+    Label ownedInfo = new Label("You own: " + pos.totalQuantity().toPlainString() + " shares");
+    ownedInfo.getStyleClass().add("dialog-info");
+
+    TextField qtyField = new TextField(pos.totalQuantity().toPlainString());
+
+    // Live sell estimate (mirrors buy preview pattern)
+    Label sellGross   = new Label();
+    Label sellComm    = new Label();
+    Label sellTax     = new Label();
+    Label sellTotal   = new Label();
+    sellTotal.getStyleClass().add("info-value");
+    Label sellTitle = new Label("Sell proceeds estimate:");
+    sellTitle.getStyleClass().add("info-value");
+    VBox sellPreview = new VBox(3, sellTitle, sellGross, sellComm, sellTax, sellTotal);
+    sellPreview.getStyleClass().add("sell-preview");
+
+    Runnable updatePreview = () -> {
+      try {
+        BigDecimal qty = new BigDecimal(qtyField.getText().trim());
+        if (qty.signum() > 0 && qty.compareTo(pos.totalQuantity()) <= 0) {
+          Share temp = new Share(stock, qty, pos.weightedAvgPrice());
+          SaleCalculator calc = new SaleCalculator(temp);
+          sellGross.setText("Market value:  " + fmt(calc.calculateGross()));
+          sellComm.setText("Commission (1%):  -" + fmt(calc.calculateCommission()));
+          sellTax.setText("Tax (30% profit):  -" + fmt(calc.calculateTax()));
+          sellTotal.setText("You receive:  " + fmt(calc.calculateTotal()));
+        } else {
+          sellGross.setText(""); sellComm.setText(""); sellTax.setText(""); sellTotal.setText("");
+        }
+      } catch (Exception ignored) {
+        sellGross.setText(""); sellComm.setText(""); sellTax.setText(""); sellTotal.setText("");
+      }
+    };
+    qtyField.textProperty().addListener((obs, old, val) -> updatePreview.run());
+    updatePreview.run();
+
+    VBox mainContent = new VBox(10, ownedInfo,
+        new Separator(),
+        new Label("Quantity to sell:"), qtyField, sellPreview);
+    mainContent.setMinWidth(320);
+    dialog.getDialogPane().setContent(mainContent);
+    applyTheme(dialog.getDialogPane());
+
+    ButtonType sellNowType      = new ButtonType("Sell Now",         ButtonBar.ButtonData.OK_DONE);
+    ButtonType placeSellType    = new ButtonType("Place Sell Order", ButtonBar.ButtonData.OTHER);
+    ButtonType confirmOrderType = new ButtonType("Confirm Order",    ButtonBar.ButtonData.OK_DONE);
+    dialog.getDialogPane().getButtonTypes().addAll(sellNowType, placeSellType, ButtonType.CANCEL);
+
+    TextField[] targetPriceRef = { null };
+    TextField[] qtyAtSwitch    = { null };
+
+    Node placeSellBtn = dialog.getDialogPane().lookupButton(placeSellType);
+    placeSellBtn.addEventFilter(ActionEvent.ACTION, evt -> {
+      evt.consume();
+      double currentWidth = dialog.getDialogPane().getWidth();
+      qtyAtSwitch[0] = new TextField(qtyField.getText());
+      TextField targetPriceField = new TextField();
+      targetPriceField.setPromptText("Target price");
+      targetPriceRef[0] = targetPriceField;
+
+      Label lGross   = new Label();
+      Label lComm    = new Label();
+      Label lTax     = new Label();
+      Label lReceive = new Label();
+      lReceive.getStyleClass().add("info-value");
+      Label lTitle = new Label("Sell proceeds estimate at target:");
+      lTitle.getStyleClass().add("info-value");
+      VBox limitPreview = new VBox(3, lTitle, lGross, lComm, lTax, lReceive);
+      limitPreview.getStyleClass().add("sell-preview");
+
+      Runnable updateLimitPreview = () -> {
+        try {
+          BigDecimal qty         = new BigDecimal(qtyAtSwitch[0].getText().trim());
+          BigDecimal targetPrice = new BigDecimal(targetPriceField.getText().trim());
+          if (qty.signum() > 0 && targetPrice.signum() > 0
+              && qty.compareTo(pos.totalQuantity()) <= 0) {
+            BigDecimal gross      = targetPrice.multiply(qty);
+            BigDecimal commission = gross.multiply(new BigDecimal("0.01"))
+                                        .setScale(2, RoundingMode.HALF_UP);
+            BigDecimal costBasis  = pos.weightedAvgPrice().multiply(qty);
+            BigDecimal profit     = gross.subtract(costBasis).subtract(commission);
+            BigDecimal tax        = profit.signum() > 0
+                ? profit.multiply(new BigDecimal("0.30")).setScale(2, RoundingMode.HALF_UP)
+                : BigDecimal.ZERO;
+            BigDecimal receive    = gross.subtract(commission).subtract(tax);
+            lGross.setText("Market value:  " + fmt(gross));
+            lComm.setText("Commission (1%):  -" + fmt(commission));
+            lTax.setText("Tax (30% profit):  -" + fmt(tax));
+            lReceive.setText("You receive:  " + fmt(receive));
+          } else {
+            lGross.setText(""); lComm.setText(""); lTax.setText(""); lReceive.setText("");
+          }
+        } catch (Exception ignored) {
+          lGross.setText(""); lComm.setText(""); lTax.setText(""); lReceive.setText("");
+        }
+      };
+      qtyAtSwitch[0].textProperty().addListener((o, old, v) -> updateLimitPreview.run());
+      targetPriceField.textProperty().addListener((o, old, v) -> updateLimitPreview.run());
+      updateLimitPreview.run();
+
+      VBox limitContent = new VBox(10,
+          new Label("Quantity to sell:"), qtyAtSwitch[0],
+          new Label("Target price:"), targetPriceField, limitPreview);
+      limitContent.setMinWidth(320);
+      dialog.setHeaderText("Place Limit Sell Order — " + stock.getSymbol());
+      dialog.getDialogPane().setContent(limitContent);
+      dialog.getDialogPane().setMinWidth(currentWidth);
+      dialog.getDialogPane().getButtonTypes().setAll(confirmOrderType, ButtonType.CANCEL);
+      Platform.runLater(() -> dialog.getDialogPane().getScene().getWindow().sizeToScene());
+    });
+
+    dialog.showAndWait().ifPresent(result -> {
+      if (result == ButtonType.CANCEL) return;
+      try {
+        if (result == sellNowType) {
+          BigDecimal qty = new BigDecimal(qtyField.getText().trim());
+          if (qty.signum() <= 0 || qty.compareTo(pos.totalQuantity()) > 0)
+            throw new NumberFormatException();
+          onSellQuantity.accept(stock.getSymbol(), qty);
+        } else if (result == confirmOrderType && targetPriceRef[0] != null) {
+          BigDecimal qty         = new BigDecimal(qtyAtSwitch[0].getText().trim());
+          BigDecimal targetPrice = new BigDecimal(targetPriceRef[0].getText().trim());
+          if (qty.signum() <= 0 || targetPrice.signum() <= 0) throw new NumberFormatException();
+          onPlaceSellOrder.accept(LimitOrder.sell(
+              stock.getSymbol(), stock.getCompany(), qty, targetPrice, exchange.getWeek()));
+        }
+      } catch (NumberFormatException ex) {
+        Alert err = new Alert(Alert.AlertType.ERROR);
+        err.initOwner(stage);
+        err.setHeaderText("Invalid input");
+        err.setContentText("Enter a valid quantity (≤ owned) and positive price.");
+        applyTheme(err.getDialogPane());
+        err.showAndWait();
+      }
+    });
+  }
+
   @Override
   public void onExchangeUpdated(Exchange exchange) {
-    shareList.setAll(player.getPortfolio().getShares());
+    positionList.setAll(buildPositions());
     if (portfolioChart != null) {
       Platform.runLater(() -> portfolioChart.setData(buildPortfolioHistory()));
     }
@@ -186,6 +377,10 @@ public class MyPortfolioView implements ExchangeObserver {
 
   private List<BigDecimal> buildPortfolioHistory() {
     return player.getNetWorthHistory();
+  }
+
+  private void applyTheme(DialogPane pane) {
+    pane.getStylesheets().add(getClass().getResource(GLOBAL_CSS).toExternalForm());
   }
 
   private String fmt(BigDecimal amount) {
