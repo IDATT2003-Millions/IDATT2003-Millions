@@ -94,7 +94,7 @@ public class Sidebar extends VBox implements ExchangeObserver {
     Button btnPortfolio    = new Button("My Portfolio");
     Button btnTransactions = new Button("Transactions");
     Button btnStatistics   = new Button("Statistics");
-    Button btnSave         = new Button("💾  Save Game");
+    Button btnSave         = new Button("Save Game");
     Button btnSellAll      = new Button("Sell All & Quit");
 
     for (Button btn : new Button[]{btnMarket, btnPortfolio, btnTransactions, btnStatistics}) {

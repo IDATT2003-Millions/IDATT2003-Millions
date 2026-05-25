@@ -4,6 +4,9 @@ import edu.ntnu.idi.idatt2003.model.core.Portfolio;
 import edu.ntnu.idi.idatt2003.model.core.TransactionArchive;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Represents a player in the game Millions.
@@ -22,6 +25,7 @@ public class Player {
   private BigDecimal money;
   private final Portfolio portfolio;
   private final TransactionArchive transactionArchive;
+  private final List<BigDecimal> netWorthHistory = new ArrayList<>();
 
   /**
    * Creates a new player with a name and starting capital.
@@ -44,6 +48,7 @@ public class Player {
     this.money = startingMoney;
     this.portfolio = new Portfolio();
     this.transactionArchive = new TransactionArchive();
+    netWorthHistory.add(startingMoney);
   }
 
   public String getName() {
@@ -102,6 +107,14 @@ public class Player {
    */
   public BigDecimal getNetWorth() {
     return money.add(portfolio.getNetWorth());
+  }
+
+  public void snapshotNetWorth() {
+    netWorthHistory.add(getNetWorth());
+  }
+
+  public List<BigDecimal> getNetWorthHistory() {
+    return Collections.unmodifiableList(netWorthHistory);
   }
 
   /**

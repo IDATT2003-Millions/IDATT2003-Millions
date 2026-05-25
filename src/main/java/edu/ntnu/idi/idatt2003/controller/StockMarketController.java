@@ -35,6 +35,7 @@ public class StockMarketController {
 
   private void advanceWeek() {
     exchange.advance();
+    player.snapshotNetWorth();
   }
 
   private void buy(Stock stock, BigDecimal quantity) {
