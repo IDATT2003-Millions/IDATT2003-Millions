@@ -9,5 +9,5 @@ import java.util.List;
 public class StockDto {
   public String symbol;
   public String company;
-  public List<String> prices; // BigDecimal stored as plain strings to avoid precision loss
+  public List<String> prices; 
 }
