@@ -4,6 +4,7 @@ import edu.ntnu.idi.idatt2003.model.core.Exchange;
 import edu.ntnu.idi.idatt2003.model.core.Share;
 import edu.ntnu.idi.idatt2003.model.observer.ExchangeObserver;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -28,6 +30,7 @@ public class MyPortfolioView implements ExchangeObserver {
   private final ObservableList<Share> shareList = FXCollections.observableArrayList();
   private Consumer<Share> onSell;
   private Runnable onSellAll;
+  private PriceChart portfolioChart;
 
   public MyPortfolioView(Player player, Exchange exchange, Stage stage) {
     this.player = player;
@@ -67,7 +70,9 @@ public class MyPortfolioView implements ExchangeObserver {
     VBox.setVgrow(table, Priority.ALWAYS);
     table.setMaxHeight(Double.MAX_VALUE);
 
-    VBox center = new VBox(16, topBar, table);
+    portfolioChart = new PriceChart(buildPortfolioHistory(), 330);
+    VBox.setMargin(portfolioChart, new javafx.geometry.Insets(110, 0, 0, 0));
+    VBox center = new VBox(16, topBar, portfolioChart, table);
     center.getStyleClass().add("market-center");
     VBox.setVgrow(center, Priority.ALWAYS);
 
@@ -174,6 +179,13 @@ public class MyPortfolioView implements ExchangeObserver {
   @Override
   public void onExchangeUpdated(Exchange exchange) {
     shareList.setAll(player.getPortfolio().getShares());
+    if (portfolioChart != null) {
+      Platform.runLater(() -> portfolioChart.setData(buildPortfolioHistory()));
+    }
+  }
+
+  private List<BigDecimal> buildPortfolioHistory() {
+    return player.getNetWorthHistory();
   }
 
   private String fmt(BigDecimal amount) {
