@@ -246,6 +246,7 @@
 }
 .stock-table .table-row-cell:odd      { -fx-background-color: rgba(255,255,255,0.03); }
 .stock-table .table-row-cell:selected { -fx-background-color: rgba(59,130,246,0.25); }
+.stock-table .placeholder .label      { -fx-text-fill: -color-text-soft; -fx-font-size: 14px; }
 .stock-table .table-cell {
     -fx-text-fill: -color-text-main;
     -fx-font-size: 14px;
@@ -474,3 +475,41 @@
 }
 .history-list .list-cell:odd      { -fx-background-color: rgba(255,255,255,0.03); }
 .history-list .list-cell:selected { -fx-background-color: rgba(59,130,246,0.25); }
+
+/* ===============================
+   TabPane (Transactions page)
+   =============================== */
+.tab-pane {
+    -fx-background-color: transparent;
+}
+.tab-pane > .tab-header-area {
+    -fx-background-color: -color-foreground;
+    -fx-padding: 0 0 0 0;
+}
+.tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color: -color-foreground;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 4 4 0 0;
+    -fx-padding: 6 16 6 16;
+    -fx-cursor: hand;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab .tab-label {
+    -fx-text-fill: -color-text-soft;
+    -fx-font-size: 13px;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: -color-bg;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:selected .tab-label {
+    -fx-text-fill: -color-primary;
+    -fx-font-weight: bold;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:hover .tab-label {
+    -fx-text-fill: -color-text-main;
+}
+.tab-pane > .tab-content-area {
+    -fx-background-color: -color-bg;
+    -fx-padding: 0;
+}

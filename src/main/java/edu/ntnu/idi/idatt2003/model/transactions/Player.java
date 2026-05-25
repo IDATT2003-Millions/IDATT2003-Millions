@@ -26,6 +26,7 @@ public class Player {
   private final Portfolio portfolio;
   private final TransactionArchive transactionArchive;
   private final List<BigDecimal> netWorthHistory = new ArrayList<>();
+  private final OrderBook orderBook = new OrderBook();
 
   /**
    * Creates a new player with a name and starting capital.
@@ -115,6 +116,10 @@ public class Player {
 
   public List<BigDecimal> getNetWorthHistory() {
     return Collections.unmodifiableList(netWorthHistory);
+  }
+
+  public OrderBook getOrderBook() {
+    return orderBook;
   }
 
   /**

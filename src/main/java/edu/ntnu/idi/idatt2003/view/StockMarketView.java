@@ -6,10 +6,12 @@ import edu.ntnu.idi.idatt2003.model.core.Exchange;
 import edu.ntnu.idi.idatt2003.model.core.Share;
 import edu.ntnu.idi.idatt2003.model.core.Stock;
 import edu.ntnu.idi.idatt2003.model.observer.ExchangeObserver;
+import edu.ntnu.idi.idatt2003.model.transactions.LimitOrder;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -43,6 +45,7 @@ public class StockMarketView implements ExchangeObserver {
 
   private BiConsumer<Stock, BigDecimal> onBuy;
   private Consumer<Share> onSell;
+  private Consumer<LimitOrder> onPlaceLimitOrder;
 
   /**
    * Creates the stock market view and registers it as an observer on the exchange.
@@ -68,9 +71,11 @@ public class StockMarketView implements ExchangeObserver {
    */
   public Node buildContent(Runnable onAdvanceWeek,
                            BiConsumer<Stock, BigDecimal> onBuy,
-                           Consumer<Share> onSell) {
+                           Consumer<Share> onSell,
+                           Consumer<LimitOrder> onPlaceLimitOrder) {
     this.onBuy = onBuy;
     this.onSell = onSell;
+    this.onPlaceLimitOrder = onPlaceLimitOrder;
 
     searchField = new TextField();
     searchField.setPromptText("Search stocks…");
@@ -249,22 +254,20 @@ public class StockMarketView implements ExchangeObserver {
     TextField qtyField = new TextField();
     qtyField.setPromptText("Quantity to buy");
 
-    // ── Buy preview ──
-    Label buyTitle = new Label("Buy cost estimate:");
-    buyTitle.getStyleClass().add("info-value");
     Label buyGross      = new Label();
     Label buyCommission = new Label();
     Label buyTotal      = new Label();
     buyTotal.getStyleClass().add("info-value");
+    Label buyTitle = new Label("Buy cost estimate:");
+    buyTitle.getStyleClass().add("info-value");
     VBox buyPreview = new VBox(3, buyTitle, buyGross, buyCommission, buyTotal);
     buyPreview.getStyleClass().add("buy-preview");
 
-    // ── Sell preview (first owned lot) ──
     VBox sellPreview = new VBox(3);
     sellPreview.getStyleClass().add("sell-preview");
     if (!owned.isEmpty()) {
       Share firstLot = owned.getFirst();
-      Label sellTitle      = new Label("Sell estimate (your " + firstLot.getQuantity().toPlainString() + " shares):");
+      Label sellTitle = new Label("Sell estimate (your " + firstLot.getQuantity().toPlainString() + " shares):");
       sellTitle.getStyleClass().add("info-value");
       SaleCalculator sellCalc = new SaleCalculator(firstLot);
       Label sellGross      = new Label("Market value:  " + fmt(sellCalc.calculateGross()));
@@ -275,7 +278,6 @@ public class StockMarketView implements ExchangeObserver {
       sellPreview.getChildren().addAll(sellTitle, sellGross, sellCommission, sellTax, sellTotal);
     }
 
-    // Update buy preview as user types
     qtyField.textProperty().addListener((obs, old, text) -> {
       try {
         BigDecimal qty = new BigDecimal(text.trim());
@@ -294,23 +296,70 @@ public class StockMarketView implements ExchangeObserver {
     });
 
     PriceChart chart = new PriceChart(stock.getHistoricalPrices(), 100);
-    VBox content = new VBox(10, cashInfo, ownedInfo,
-        new Separator(),
-        chart,
+    VBox mainContent = new VBox(10, cashInfo, ownedInfo,
+        new Separator(), chart,
         new Label("Quantity to buy:"), qtyField, buyPreview);
     if (!owned.isEmpty()) {
-      content.getChildren().addAll(new Separator(), sellPreview);
+      mainContent.getChildren().addAll(new Separator(), sellPreview);
     }
-    content.setMinWidth(340);
-    dialog.getDialogPane().setContent(content);
+    mainContent.setMinWidth(340);
+    dialog.getDialogPane().setContent(mainContent);
     applyTheme(dialog.getDialogPane());
 
-    ButtonType buyType  = new ButtonType("Buy",  ButtonBar.ButtonData.OK_DONE);
-    ButtonType sellType = new ButtonType("Sell", ButtonBar.ButtonData.OTHER);
-    dialog.getDialogPane().getButtonTypes().addAll(buyType, ButtonType.CANCEL);
+    ButtonType buyType          = new ButtonType("Buy",            ButtonBar.ButtonData.OK_DONE);
+    ButtonType placeBuyType     = new ButtonType("Place Buy Order", ButtonBar.ButtonData.OTHER);
+    ButtonType sellType         = new ButtonType("Sell",           ButtonBar.ButtonData.OTHER);
+    ButtonType confirmOrderType = new ButtonType("Confirm Order",  ButtonBar.ButtonData.OK_DONE);
+
+    dialog.getDialogPane().getButtonTypes().addAll(buyType, placeBuyType, ButtonType.CANCEL);
     if (!owned.isEmpty()) {
-      dialog.getDialogPane().getButtonTypes().add(1, sellType);
+      dialog.getDialogPane().getButtonTypes().add(2, sellType);
     }
+
+    // Mutable refs for limit order fields (arrays are effectively final)
+    TextField[] limitQtyRef   = { null };
+    TextField[] limitPriceRef = { null };
+
+    Node placeBuyBtn = dialog.getDialogPane().lookupButton(placeBuyType);
+    placeBuyBtn.addEventFilter(ActionEvent.ACTION, evt -> {
+      evt.consume();
+      TextField limitQtyField   = new TextField();
+      TextField limitPriceField = new TextField();
+      limitQtyField.setPromptText("Quantity");
+      limitPriceField.setPromptText("Target price");
+      limitQtyRef[0]   = limitQtyField;
+      limitPriceRef[0] = limitPriceField;
+
+      Label lGross = new Label(); Label lComm = new Label(); Label lTotal = new Label();
+      lTotal.getStyleClass().add("info-value");
+      Label lTitle = new Label("Buy cost estimate at target:");
+      lTitle.getStyleClass().add("info-value");
+      VBox limitPreview = new VBox(3, lTitle, lGross, lComm, lTotal);
+      limitPreview.getStyleClass().add("buy-preview");
+
+      Runnable updatePreview = () -> {
+        try {
+          BigDecimal qty   = new BigDecimal(limitQtyField.getText().trim());
+          BigDecimal price = new BigDecimal(limitPriceField.getText().trim());
+          if (qty.signum() > 0 && price.signum() > 0) {
+            PurchaseCalculator calc = new PurchaseCalculator(new Share(stock, qty, price));
+            lGross.setText("Market value:  " + fmt(calc.calculateGross()));
+            lComm.setText("Commission (0.5%):  " + fmt(calc.calculateCommission()));
+            lTotal.setText("Total cost:  " + fmt(calc.calculateTotal()));
+          } else { lGross.setText(""); lComm.setText(""); lTotal.setText(""); }
+        } catch (Exception e) { lGross.setText(""); lComm.setText(""); lTotal.setText(""); }
+      };
+      limitQtyField.textProperty().addListener((o, old, v) -> updatePreview.run());
+      limitPriceField.textProperty().addListener((o, old, v) -> updatePreview.run());
+
+      VBox limitContent = new VBox(10,
+          new Label("Quantity:"), limitQtyField,
+          new Label("Target price:"), limitPriceField, limitPreview);
+      limitContent.setMinWidth(340);
+      dialog.setHeaderText("Place Limit Buy Order — " + stock.getSymbol());
+      dialog.getDialogPane().setContent(limitContent);
+      dialog.getDialogPane().getButtonTypes().setAll(confirmOrderType, ButtonType.CANCEL);
+    });
 
     dialog.showAndWait().ifPresent(result -> {
       if (result == ButtonType.CANCEL) return;
@@ -329,9 +378,15 @@ public class StockMarketView implements ExchangeObserver {
           SaleCalculator calc = new SaleCalculator(firstLot);
           onSell.accept(firstLot);
           showSellReceipt(stock, firstLot, calc);
+        } else if (result == confirmOrderType && limitQtyRef[0] != null) {
+          BigDecimal qty   = new BigDecimal(limitQtyRef[0].getText().trim());
+          BigDecimal price = new BigDecimal(limitPriceRef[0].getText().trim());
+          if (qty.signum() <= 0 || price.signum() <= 0) throw new NumberFormatException();
+          onPlaceLimitOrder.accept(LimitOrder.buy(
+              stock.getSymbol(), stock.getCompany(), qty, price, exchange.getWeek()));
         }
       } catch (NumberFormatException ex) {
-        showError("Please enter a valid positive number for quantity.");
+        showError("Please enter a valid positive number.");
       } catch (IllegalStateException | IllegalArgumentException ex) {
         showError(ex.getMessage());
       }
