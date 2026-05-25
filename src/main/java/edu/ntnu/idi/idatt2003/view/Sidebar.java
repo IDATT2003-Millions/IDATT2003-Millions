@@ -37,6 +37,7 @@ public class Sidebar extends VBox implements ExchangeObserver {
    * @param onPortfolio       navigates to the portfolio page
    * @param onTransactions    navigates to the transactions page
    * @param onStatistics      navigates to the statistics page
+   * @param onSaveGame        saves the current game to a file
    * @param onSellAllAndQuit  sells all shares and exits the application
    */
   public Sidebar(Player player, Exchange exchange,
@@ -44,6 +45,7 @@ public class Sidebar extends VBox implements ExchangeObserver {
                  Runnable onPortfolio,
                  Runnable onTransactions,
                  Runnable onStatistics,
+                 Runnable onSaveGame,
                  Runnable onSellAllAndQuit) {
     this.player = player;
     getStyleClass().add("sidebar");
@@ -92,6 +94,7 @@ public class Sidebar extends VBox implements ExchangeObserver {
     Button btnPortfolio    = new Button("My Portfolio");
     Button btnTransactions = new Button("Transactions");
     Button btnStatistics   = new Button("Statistics");
+    Button btnSave         = new Button("💾  Save Game");
     Button btnSellAll      = new Button("Sell All & Quit");
 
     for (Button btn : new Button[]{btnMarket, btnPortfolio, btnTransactions, btnStatistics}) {
@@ -99,12 +102,16 @@ public class Sidebar extends VBox implements ExchangeObserver {
       btn.setMaxWidth(Double.MAX_VALUE);
     }
     btnSellAll.getStyleClass().addAll("sidebar-nav-btn", "sidebar-exit-btn");
+    btnSave.getStyleClass().add("sidebar-nav-btn");
+    btnSave.setMaxWidth(Double.MAX_VALUE);
+
     btnSellAll.setMaxWidth(Double.MAX_VALUE);
 
     btnMarket.setOnAction(e       -> onStockMarket.run());
     btnPortfolio.setOnAction(e    -> onPortfolio.run());
     btnTransactions.setOnAction(e -> onTransactions.run());
     btnStatistics.setOnAction(e   -> onStatistics.run());
+    btnSave.setOnAction(e         -> onSaveGame.run());
     btnSellAll.setOnAction(e -> {
       Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
       confirm.setTitle("Sell All & Quit");
@@ -130,6 +137,8 @@ public class Sidebar extends VBox implements ExchangeObserver {
         weekSection, weekLabel,
         new Separator(),
         btnMarket, btnPortfolio, btnTransactions, btnStatistics,
+        new Separator(),
+        btnSave,
         new Separator(),
         btnSellAll
     );
