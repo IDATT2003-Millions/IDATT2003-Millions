@@ -38,7 +38,6 @@ class GameStateSerializerTest {
     player = new Player("Kristoffer", new BigDecimal("10000.00"));
   }
 
-  // ── Save + load round-trips ───────────────────────────────────────────────
 
   @Test
   void saveAndLoad_restoresPlayerName() throws IOException {
@@ -205,7 +204,6 @@ class GameStateSerializerTest {
     assertSame(share.getStock(), liveStock);
   }
 
-  // ── Error cases ───────────────────────────────────────────────────────────
 
   @Test
   void load_throwsIOException_whenFileDoesNotExist() {

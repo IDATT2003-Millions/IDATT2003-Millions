@@ -21,11 +21,6 @@ public class SaleCalculatorTest {
 
   @BeforeEach
   void setUp() {
-    // salesPrice=150, quantity=10, purchasePrice=100
-    // gross = 1500
-    // commission = 1% av 1500 = 15
-    // profit = 1500 - (100*10) - 15 = 485
-    // tax = 0.3*485 = 145.5
     Share share =
         createValidShareWithSalesPrice(
             new BigDecimal("150"), new BigDecimal("10"), new BigDecimal("100"));
@@ -50,12 +45,11 @@ public class SaleCalculatorTest {
 
   @Test
   void calculateTax_shouldReturnZeroWhenProfitIsNegative() {
-    // purchasePrice høyere -> tap
     Share share =
         createValidShareWithSalesPrice(
             new BigDecimal("150"),
             new BigDecimal("10"),
-            new BigDecimal("200") // purchaseCosts = 2000
+            new BigDecimal("200")
             );
     SaleCalculator scLoss = new SaleCalculator(share);
 
@@ -64,7 +58,6 @@ public class SaleCalculatorTest {
 
   @Test
   void calculateTotal_shouldReturnGrossMinusCommissionAndTax() {
-    // total = gross - commission - tax = 1500 - 15 - 145.5 = 1339.5
     assertEquals(0, sc.calculateTotal().compareTo(new BigDecimal("1339.5")));
   }
 
