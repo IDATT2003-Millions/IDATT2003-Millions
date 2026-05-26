@@ -8,6 +8,12 @@ import edu.ntnu.idi.idatt2003.model.core.Stock;
 import edu.ntnu.idi.idatt2003.model.observer.ExchangeObserver;
 import edu.ntnu.idi.idatt2003.model.transactions.LimitOrder;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,16 +24,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import java.math.BigDecimal;
-import java.text.NumberFormat;
-import java.util.List;
-import java.util.Locale;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
 /**
- * Main stock market screen.
- * Layout: static Sidebar on the left, scrollable market content on the right.
+ * Main stock market screen. Layout: static Sidebar on the left, scrollable market content on the
+ * right.
  */
 public class StockMarketView implements ExchangeObserver {
 
@@ -50,9 +49,9 @@ public class StockMarketView implements ExchangeObserver {
   /**
    * Creates the stock market view and registers it as an observer on the exchange.
    *
-   * @param player   the active player
+   * @param player the active player
    * @param exchange the exchange to display
-   * @param stage    the primary stage (used as dialog owner)
+   * @param stage the primary stage (used as dialog owner)
    */
   public StockMarketView(Player player, Exchange exchange, Stage stage) {
     this.player = player;
@@ -65,14 +64,15 @@ public class StockMarketView implements ExchangeObserver {
    * Builds and returns the market content node.
    *
    * @param onAdvanceWeek advances the exchange by one week
-   * @param onBuy         callback to buy a stock at the given quantity
-   * @param onSell        callback to sell an owned share
+   * @param onBuy callback to buy a stock at the given quantity
+   * @param onSell callback to sell an owned share
    * @return the root node for this page
    */
-  public Node buildContent(Runnable onAdvanceWeek,
-                           BiConsumer<Stock, BigDecimal> onBuy,
-                           Consumer<Share> onSell,
-                           Consumer<LimitOrder> onPlaceLimitOrder) {
+  public Node buildContent(
+      Runnable onAdvanceWeek,
+      BiConsumer<Stock, BigDecimal> onBuy,
+      Consumer<Share> onSell,
+      Consumer<LimitOrder> onPlaceLimitOrder) {
     this.onBuy = onBuy;
     this.onSell = onSell;
     this.onPlaceLimitOrder = onPlaceLimitOrder;
@@ -96,7 +96,7 @@ public class StockMarketView implements ExchangeObserver {
     refreshStockList("");
 
     gainersBox = buildMiniPanel("Top Gainers");
-    losersBox  = buildMiniPanel("Top Losers");
+    losersBox = buildMiniPanel("Top Losers");
     refreshGainersLosers();
 
     HBox bottomPanel = new HBox(16, gainersBox, losersBox);
@@ -110,8 +110,6 @@ public class StockMarketView implements ExchangeObserver {
 
     return center;
   }
-
-  // ── Table ────────────────────────────────────────────────────────────────
 
   private TableView<Stock> buildTable() {
     TableView<Stock> tv = new TableView<>(stockList);
@@ -131,57 +129,65 @@ public class StockMarketView implements ExchangeObserver {
     priceCol.setMaxWidth(130);
 
     TableColumn<Stock, String> changeCol = new TableColumn<>("Change");
-    changeCol.setCellValueFactory(d -> {
-      BigDecimal ch = d.getValue().getLatestPriceChange();
-      String sign = ch.signum() >= 0 ? "+" : "";
-      return new SimpleStringProperty(sign + fmt(ch));
-    });
-    changeCol.setCellFactory(col -> new TableCell<>() {
-      @Override
-      protected void updateItem(String item, boolean empty) {
-        super.updateItem(item, empty);
-        getStyleClass().removeAll("positive-change", "negative-change");
-        if (empty || item == null) {
-          setText(null);
-        } else {
-          setText(item);
-          getStyleClass().add(item.startsWith("+") ? "positive-change" : "negative-change");
-        }
-      }
-    });
+    changeCol.setCellValueFactory(
+        d -> {
+          BigDecimal ch = d.getValue().getLatestPriceChange();
+          String sign = ch.signum() >= 0 ? "+" : "";
+          return new SimpleStringProperty(sign + fmt(ch));
+        });
+    changeCol.setCellFactory(
+        col ->
+            new TableCell<>() {
+              @Override
+              protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                getStyleClass().removeAll("positive-change", "negative-change");
+                if (empty || item == null) {
+                  setText(null);
+                } else {
+                  setText(item);
+                  getStyleClass().add(item.startsWith("+") ? "positive-change" : "negative-change");
+                }
+              }
+            });
     changeCol.setMaxWidth(130);
 
     TableColumn<Stock, Void> infoCol = new TableColumn<>("");
     infoCol.setMaxWidth(70);
-    infoCol.setCellFactory(col -> new TableCell<>() {
-      private final Button btn = new Button("📊 Info");
-      {
-        btn.setStyle("-fx-font-size: 11px; -fx-padding: 2 6 2 6;");
-        btn.setOnAction(e -> showStockInfoDialog(getTableView().getItems().get(getIndex())));
-      }
-      @Override
-      protected void updateItem(Void item, boolean empty) {
-        super.updateItem(item, empty);
-        setGraphic(empty ? null : btn);
-      }
-    });
+    infoCol.setCellFactory(
+        col ->
+            new TableCell<>() {
+              private final Button btn = new Button("📊 Info");
+
+              {
+                btn.setStyle("-fx-font-size: 11px; -fx-padding: 2 6 2 6;");
+                btn.setOnAction(
+                    e -> showStockInfoDialog(getTableView().getItems().get(getIndex())));
+              }
+
+              @Override
+              protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : btn);
+              }
+            });
 
     tv.getColumns().addAll(List.of(symbolCol, companyCol, priceCol, changeCol, infoCol));
 
-    tv.setRowFactory(tableView -> {
-      TableRow<Stock> row = new TableRow<>();
-      row.setOnMouseClicked(event -> {
-        if (!row.isEmpty() && event.getClickCount() == 2) {
-          showBuySellDialog(row.getItem());
-        }
-      });
-      return row;
-    });
+    tv.setRowFactory(
+        tableView -> {
+          TableRow<Stock> row = new TableRow<>();
+          row.setOnMouseClicked(
+              event -> {
+                if (!row.isEmpty() && event.getClickCount() == 2) {
+                  showBuySellDialog(row.getItem());
+                }
+              });
+          return row;
+        });
 
     return tv;
   }
-
-  // ── Stock Info dialog (statistics) ───────────────────────────────────────
 
   private void showStockInfoDialog(Stock stock) {
     Dialog<ButtonType> dialog = new Dialog<>();
@@ -194,10 +200,10 @@ public class StockMarketView implements ExchangeObserver {
     grid.setVgap(8);
     grid.setPadding(new Insets(12));
 
-    addInfoRow(grid, 0, "Current Price",  fmt(stock.getSalesPrice()));
-    addInfoRow(grid, 1, "All-time High",  fmt(stock.getHighestPrice()));
-    addInfoRow(grid, 2, "All-time Low",   fmt(stock.getLowestPrice()));
-    addInfoRow(grid, 3, "Last Change",    signedFmt(stock.getLatestPriceChange()));
+    addInfoRow(grid, 0, "Current Price", fmt(stock.getSalesPrice()));
+    addInfoRow(grid, 1, "All-time High", fmt(stock.getHighestPrice()));
+    addInfoRow(grid, 2, "All-time Low", fmt(stock.getLowestPrice()));
+    addInfoRow(grid, 3, "Last Change", signedFmt(stock.getLatestPriceChange()));
 
     Label historyTitle = new Label("Price History");
     historyTitle.getStyleClass().add("info-section-title");
@@ -230,8 +236,6 @@ public class StockMarketView implements ExchangeObserver {
     grid.add(valueLabel, 1, row);
   }
 
-  // ── Buy / Sell dialog ────────────────────────────────────────────────────
-
   private void showBuySellDialog(Stock stock) {
     List<Share> owned = player.getPortfolio().getShares(stock.getSymbol());
 
@@ -243,20 +247,21 @@ public class StockMarketView implements ExchangeObserver {
     Label cashInfo = new Label("Your cash: " + fmt(player.getMoney()));
     cashInfo.getStyleClass().add("dialog-info");
 
-    BigDecimal totalOwnedQty = owned.stream()
-        .map(Share::getQuantity)
-        .reduce(BigDecimal.ZERO, BigDecimal::add);
-    Label ownedInfo = new Label(owned.isEmpty()
-        ? "You own: 0 shares"
-        : "You own: " + totalOwnedQty.toPlainString() + " shares");
+    BigDecimal totalOwnedQty =
+        owned.stream().map(Share::getQuantity).reduce(BigDecimal.ZERO, BigDecimal::add);
+    Label ownedInfo =
+        new Label(
+            owned.isEmpty()
+                ? "You own: 0 shares"
+                : "You own: " + totalOwnedQty.toPlainString() + " shares");
     ownedInfo.getStyleClass().add("dialog-info");
 
     TextField qtyField = new TextField();
     qtyField.setPromptText("Quantity to buy");
 
-    Label buyGross      = new Label();
+    Label buyGross = new Label();
     Label buyCommission = new Label();
-    Label buyTotal      = new Label();
+    Label buyTotal = new Label();
     buyTotal.getStyleClass().add("info-value");
     Label buyTitle = new Label("Buy cost estimate:");
     buyTitle.getStyleClass().add("info-value");
@@ -267,38 +272,49 @@ public class StockMarketView implements ExchangeObserver {
     sellPreview.getStyleClass().add("sell-preview");
     if (!owned.isEmpty()) {
       Share firstLot = owned.getFirst();
-      Label sellTitle = new Label("Sell estimate (your " + firstLot.getQuantity().toPlainString() + " shares):");
+      Label sellTitle =
+          new Label("Sell estimate (your " + firstLot.getQuantity().toPlainString() + " shares):");
       sellTitle.getStyleClass().add("info-value");
       SaleCalculator sellCalc = new SaleCalculator(firstLot);
-      Label sellGross      = new Label("Market value:  " + fmt(sellCalc.calculateGross()));
+      Label sellGross = new Label("Market value:  " + fmt(sellCalc.calculateGross()));
       Label sellCommission = new Label("Commission (1%):  -" + fmt(sellCalc.calculateCommission()));
-      Label sellTax        = new Label("Tax (30% profit):  -" + fmt(sellCalc.calculateTax()));
-      Label sellTotal      = new Label("You receive:  " + fmt(sellCalc.calculateTotal()));
+      Label sellTax = new Label("Tax (30% profit):  -" + fmt(sellCalc.calculateTax()));
+      Label sellTotal = new Label("You receive:  " + fmt(sellCalc.calculateTotal()));
       sellTotal.getStyleClass().add("info-value");
       sellPreview.getChildren().addAll(sellTitle, sellGross, sellCommission, sellTax, sellTotal);
     }
 
-    qtyField.textProperty().addListener((obs, old, text) -> {
-      try {
-        BigDecimal qty = new BigDecimal(text.trim());
-        if (qty.signum() > 0) {
-          Share tempShare = new Share(stock, qty, stock.getSalesPrice());
-          PurchaseCalculator calc = new PurchaseCalculator(tempShare);
-          buyGross.setText("Market value:  " + fmt(calc.calculateGross()));
-          buyCommission.setText("Commission (0.5%):  " + fmt(calc.calculateCommission()));
-          buyTotal.setText("Total cost:  " + fmt(calc.calculateTotal()));
-        } else {
-          clearBuyPreview(buyGross, buyCommission, buyTotal);
-        }
-      } catch (Exception e) {
-        clearBuyPreview(buyGross, buyCommission, buyTotal);
-      }
-    });
+    qtyField
+        .textProperty()
+        .addListener(
+            (obs, old, text) -> {
+              try {
+                BigDecimal qty = new BigDecimal(text.trim());
+                if (qty.signum() > 0) {
+                  Share tempShare = new Share(stock, qty, stock.getSalesPrice());
+                  PurchaseCalculator calc = new PurchaseCalculator(tempShare);
+                  buyGross.setText("Market value:  " + fmt(calc.calculateGross()));
+                  buyCommission.setText("Commission (0.5%):  " + fmt(calc.calculateCommission()));
+                  buyTotal.setText("Total cost:  " + fmt(calc.calculateTotal()));
+                } else {
+                  clearBuyPreview(buyGross, buyCommission, buyTotal);
+                }
+              } catch (Exception e) {
+                clearBuyPreview(buyGross, buyCommission, buyTotal);
+              }
+            });
 
     PriceChart chart = new PriceChart(stock.getHistoricalPrices(), 100);
-    VBox mainContent = new VBox(10, cashInfo, ownedInfo,
-        new Separator(), chart,
-        new Label("Quantity to buy:"), qtyField, buyPreview);
+    VBox mainContent =
+        new VBox(
+            10,
+            cashInfo,
+            ownedInfo,
+            new Separator(),
+            chart,
+            new Label("Quantity to buy:"),
+            qtyField,
+            buyPreview);
     if (!owned.isEmpty()) {
       mainContent.getChildren().addAll(new Separator(), sellPreview);
     }
@@ -306,91 +322,120 @@ public class StockMarketView implements ExchangeObserver {
     dialog.getDialogPane().setContent(mainContent);
     applyTheme(dialog.getDialogPane());
 
-    ButtonType buyType          = new ButtonType("Buy",            ButtonBar.ButtonData.OK_DONE);
-    ButtonType placeBuyType     = new ButtonType("Place Buy Order", ButtonBar.ButtonData.OTHER);
-    ButtonType sellType         = new ButtonType("Sell",           ButtonBar.ButtonData.OTHER);
-    ButtonType confirmOrderType = new ButtonType("Confirm Order",  ButtonBar.ButtonData.OK_DONE);
+    ButtonType buyType = new ButtonType("Buy", ButtonBar.ButtonData.OK_DONE);
+    ButtonType placeBuyType = new ButtonType("Place Buy Order", ButtonBar.ButtonData.OTHER);
+    ButtonType sellType = new ButtonType("Sell", ButtonBar.ButtonData.OTHER);
+    ButtonType confirmOrderType = new ButtonType("Confirm Order", ButtonBar.ButtonData.OK_DONE);
 
     dialog.getDialogPane().getButtonTypes().addAll(buyType, placeBuyType, ButtonType.CANCEL);
     if (!owned.isEmpty()) {
       dialog.getDialogPane().getButtonTypes().add(2, sellType);
     }
 
-    // Mutable refs for limit order fields (arrays are effectively final)
-    TextField[] limitQtyRef   = { null };
-    TextField[] limitPriceRef = { null };
+    TextField[] limitQtyRef = {null};
+    TextField[] limitPriceRef = {null};
 
     Node placeBuyBtn = dialog.getDialogPane().lookupButton(placeBuyType);
-    placeBuyBtn.addEventFilter(ActionEvent.ACTION, evt -> {
-      evt.consume();
-      TextField limitQtyField   = new TextField();
-      TextField limitPriceField = new TextField();
-      limitQtyField.setPromptText("Quantity");
-      limitPriceField.setPromptText("Target price");
-      limitQtyRef[0]   = limitQtyField;
-      limitPriceRef[0] = limitPriceField;
+    placeBuyBtn.addEventFilter(
+        ActionEvent.ACTION,
+        evt -> {
+          evt.consume();
+          TextField limitQtyField = new TextField();
+          TextField limitPriceField = new TextField();
+          limitQtyField.setPromptText("Quantity");
+          limitPriceField.setPromptText("Target price");
+          limitQtyRef[0] = limitQtyField;
+          limitPriceRef[0] = limitPriceField;
 
-      Label lGross = new Label(); Label lComm = new Label(); Label lTotal = new Label();
-      lTotal.getStyleClass().add("info-value");
-      Label lTitle = new Label("Buy cost estimate at target:");
-      lTitle.getStyleClass().add("info-value");
-      VBox limitPreview = new VBox(3, lTitle, lGross, lComm, lTotal);
-      limitPreview.getStyleClass().add("buy-preview");
+          Label grossLabel = new Label();
+          Label commLabel = new Label();
+          Label totalLabel = new Label();
+          totalLabel.getStyleClass().add("info-value");
+          Label titleLabel = new Label("Buy cost estimate at target:");
+          titleLabel.getStyleClass().add("info-value");
+          VBox limitPreview = new VBox(3, titleLabel, grossLabel, commLabel, totalLabel);
+          limitPreview.getStyleClass().add("buy-preview");
 
-      Runnable updatePreview = () -> {
-        try {
-          BigDecimal qty   = new BigDecimal(limitQtyField.getText().trim());
-          BigDecimal price = new BigDecimal(limitPriceField.getText().trim());
-          if (qty.signum() > 0 && price.signum() > 0) {
-            PurchaseCalculator calc = new PurchaseCalculator(new Share(stock, qty, price));
-            lGross.setText("Market value:  " + fmt(calc.calculateGross()));
-            lComm.setText("Commission (0.5%):  " + fmt(calc.calculateCommission()));
-            lTotal.setText("Total cost:  " + fmt(calc.calculateTotal()));
-          } else { lGross.setText(""); lComm.setText(""); lTotal.setText(""); }
-        } catch (Exception e) { lGross.setText(""); lComm.setText(""); lTotal.setText(""); }
-      };
-      limitQtyField.textProperty().addListener((o, old, v) -> updatePreview.run());
-      limitPriceField.textProperty().addListener((o, old, v) -> updatePreview.run());
+          Runnable updatePreview =
+              () -> {
+                try {
+                  BigDecimal qty = new BigDecimal(limitQtyField.getText().trim());
+                  BigDecimal price = new BigDecimal(limitPriceField.getText().trim());
+                  if (qty.signum() > 0 && price.signum() > 0) {
+                    PurchaseCalculator calc = new PurchaseCalculator(new Share(stock, qty, price));
+                    grossLabel.setText("Market value:  " + fmt(calc.calculateGross()));
+                    commLabel.setText("Commission (0.5%):  " + fmt(calc.calculateCommission()));
+                    totalLabel.setText("Total cost:  " + fmt(calc.calculateTotal()));
+                  } else {
+                    grossLabel.setText("");
+                    commLabel.setText("");
+                    totalLabel.setText("");
+                  }
+                } catch (Exception e) {
+                  grossLabel.setText("");
+                  commLabel.setText("");
+                  totalLabel.setText("");
+                }
+              };
+          limitQtyField.textProperty().addListener((o, old, v) -> updatePreview.run());
+          limitPriceField.textProperty().addListener((o, old, v) -> updatePreview.run());
 
-      VBox limitContent = new VBox(10,
-          new Label("Quantity:"), limitQtyField,
-          new Label("Target price:"), limitPriceField, limitPreview);
-      limitContent.setMinWidth(340);
-      dialog.setHeaderText("Place Limit Buy Order — " + stock.getSymbol());
-      dialog.getDialogPane().setContent(limitContent);
-      dialog.getDialogPane().getButtonTypes().setAll(confirmOrderType, ButtonType.CANCEL);
-    });
+          VBox limitContent =
+              new VBox(
+                  10,
+                  new Label("Quantity:"),
+                  limitQtyField,
+                  new Label("Target price:"),
+                  limitPriceField,
+                  limitPreview);
+          limitContent.setMinWidth(340);
+          dialog.setHeaderText("Place Limit Buy Order — " + stock.getSymbol());
+          dialog.getDialogPane().setContent(limitContent);
+          dialog.getDialogPane().getButtonTypes().setAll(confirmOrderType, ButtonType.CANCEL);
+        });
 
-    dialog.showAndWait().ifPresent(result -> {
-      if (result == ButtonType.CANCEL) return;
-      try {
-        if (result == buyType) {
-          String qtyText = qtyField.getText().trim();
-          if (qtyText.isEmpty()) return;
-          BigDecimal qty = new BigDecimal(qtyText);
-          if (qty.signum() <= 0) throw new NumberFormatException();
-          Share tempShare = new Share(stock, qty, stock.getSalesPrice());
-          PurchaseCalculator calc = new PurchaseCalculator(tempShare);
-          onBuy.accept(stock, qty);
-          showBuyReceipt(stock, qty, calc);
-        } else if (result == sellType && !owned.isEmpty()) {
-          Share firstLot = owned.getFirst();
-          SaleCalculator calc = new SaleCalculator(firstLot);
-          onSell.accept(firstLot);
-          showSellReceipt(stock, firstLot, calc);
-        } else if (result == confirmOrderType && limitQtyRef[0] != null) {
-          BigDecimal qty   = new BigDecimal(limitQtyRef[0].getText().trim());
-          BigDecimal price = new BigDecimal(limitPriceRef[0].getText().trim());
-          if (qty.signum() <= 0 || price.signum() <= 0) throw new NumberFormatException();
-          onPlaceLimitOrder.accept(LimitOrder.buy(
-              stock.getSymbol(), stock.getCompany(), qty, price, exchange.getWeek()));
-        }
-      } catch (NumberFormatException ex) {
-        showError("Please enter a valid positive number.");
-      } catch (IllegalStateException | IllegalArgumentException ex) {
-        showError(ex.getMessage());
-      }
-    });
+    dialog
+        .showAndWait()
+        .ifPresent(
+            result -> {
+              if (result == ButtonType.CANCEL) {
+                return;
+              }
+              try {
+                if (result == buyType) {
+                  String qtyText = qtyField.getText().trim();
+                  if (qtyText.isEmpty()) {
+                    return;
+                  }
+                  BigDecimal qty = new BigDecimal(qtyText);
+                  if (qty.signum() <= 0) {
+                    throw new NumberFormatException();
+                  }
+                  Share tempShare = new Share(stock, qty, stock.getSalesPrice());
+                  PurchaseCalculator calc = new PurchaseCalculator(tempShare);
+                  onBuy.accept(stock, qty);
+                  showBuyReceipt(stock, qty, calc);
+                } else if (result == sellType && !owned.isEmpty()) {
+                  Share firstLot = owned.getFirst();
+                  SaleCalculator calc = new SaleCalculator(firstLot);
+                  onSell.accept(firstLot);
+                  showSellReceipt(stock, firstLot, calc);
+                } else if (result == confirmOrderType && limitQtyRef[0] != null) {
+                  BigDecimal qty = new BigDecimal(limitQtyRef[0].getText().trim());
+                  BigDecimal price = new BigDecimal(limitPriceRef[0].getText().trim());
+                  if (qty.signum() <= 0 || price.signum() <= 0) {
+                    throw new NumberFormatException();
+                  }
+                  onPlaceLimitOrder.accept(
+                      LimitOrder.buy(
+                          stock.getSymbol(), stock.getCompany(), qty, price, exchange.getWeek()));
+                }
+              } catch (NumberFormatException ex) {
+                showError("Please enter a valid positive number.");
+              } catch (IllegalStateException | IllegalArgumentException ex) {
+                showError(ex.getMessage());
+              }
+            });
   }
 
   private void clearBuyPreview(Label gross, Label commission, Label total) {
@@ -399,23 +444,21 @@ public class StockMarketView implements ExchangeObserver {
     total.setText("");
   }
 
-  // ── Receipts ─────────────────────────────────────────────────────────────
-
   private void showBuyReceipt(Stock stock, BigDecimal qty, PurchaseCalculator calc) {
     Alert receipt = new Alert(Alert.AlertType.INFORMATION);
     receipt.initOwner(stage);
     receipt.setTitle("Purchase Confirmed");
     receipt.setHeaderText("✓  Bought " + qty.toPlainString() + " shares of " + stock.getSymbol());
 
-    GridPane grid = buildReceiptGrid(
-        "Stock",        stock.getSymbol() + " — " + stock.getCompany(),
-        "Quantity",     qty.toPlainString(),
-        "Price/share",  fmt(stock.getSalesPrice()),
-        "Market value", fmt(calc.calculateGross()),
-        "Commission",   fmt(calc.calculateCommission()),
-        "Tax",          fmt(calc.calculateTax()),
-        "Total paid",   fmt(calc.calculateTotal())
-    );
+    GridPane grid =
+        buildReceiptGrid(
+            "Stock", stock.getSymbol() + " — " + stock.getCompany(),
+            "Quantity", qty.toPlainString(),
+            "Price/share", fmt(stock.getSalesPrice()),
+            "Market value", fmt(calc.calculateGross()),
+            "Commission", fmt(calc.calculateCommission()),
+            "Tax", fmt(calc.calculateTax()),
+            "Total paid", fmt(calc.calculateTotal()));
     receipt.getDialogPane().setContent(grid);
     applyTheme(receipt.getDialogPane());
     receipt.showAndWait();
@@ -425,19 +468,19 @@ public class StockMarketView implements ExchangeObserver {
     Alert receipt = new Alert(Alert.AlertType.INFORMATION);
     receipt.initOwner(stage);
     receipt.setTitle("Sale Confirmed");
-    receipt.setHeaderText("✓  Sold " + share.getQuantity().toPlainString()
-        + " shares of " + stock.getSymbol());
+    receipt.setHeaderText(
+        "✓  Sold " + share.getQuantity().toPlainString() + " shares of " + stock.getSymbol());
 
-    GridPane grid = buildReceiptGrid(
-        "Stock",            stock.getSymbol() + " — " + stock.getCompany(),
-        "Quantity",         share.getQuantity().toPlainString(),
-        "Purchase price",   fmt(share.getPurchasePrice()),
-        "Sale price",       fmt(stock.getSalesPrice()),
-        "Market value",     fmt(calc.calculateGross()),
-        "Commission (1%)",  fmt(calc.calculateCommission()),
-        "Tax (30% profit)", fmt(calc.calculateTax()),
-        "You received",     fmt(calc.calculateTotal())
-    );
+    GridPane grid =
+        buildReceiptGrid(
+            "Stock", stock.getSymbol() + " — " + stock.getCompany(),
+            "Quantity", share.getQuantity().toPlainString(),
+            "Purchase price", fmt(share.getPurchasePrice()),
+            "Sale price", fmt(stock.getSalesPrice()),
+            "Market value", fmt(calc.calculateGross()),
+            "Commission (1%)", fmt(calc.calculateCommission()),
+            "Tax (30% profit)", fmt(calc.calculateTax()),
+            "You received", fmt(calc.calculateTotal()));
     receipt.getDialogPane().setContent(grid);
     applyTheme(receipt.getDialogPane());
     receipt.showAndWait();
@@ -459,8 +502,6 @@ public class StockMarketView implements ExchangeObserver {
     return grid;
   }
 
-  // ── Gainers / Losers panels ───────────────────────────────────────────────
-
   private VBox buildMiniPanel(String title) {
     Label header = new Label(title);
     header.getStyleClass().add("panel-header");
@@ -471,7 +512,7 @@ public class StockMarketView implements ExchangeObserver {
 
   private void refreshGainersLosers() {
     repopulatePanel(gainersBox, exchange.getGainers(5), true);
-    repopulatePanel(losersBox,  exchange.getLosers(5),  false);
+    repopulatePanel(losersBox, exchange.getLosers(5), false);
   }
 
   private void repopulatePanel(VBox panel, List<Stock> stocks, boolean gainer) {
@@ -480,7 +521,7 @@ public class StockMarketView implements ExchangeObserver {
       BigDecimal ch = s.getLatestPriceChange();
       String sign = ch.signum() >= 0 ? "+" : "";
 
-      Label sym   = new Label(s.getSymbol());
+      Label sym = new Label(s.getSymbol());
       sym.getStyleClass().add("mini-symbol");
 
       Label price = new Label(fmt(s.getSalesPrice()));
@@ -498,8 +539,6 @@ public class StockMarketView implements ExchangeObserver {
     }
   }
 
-  // ── Observer callback ────────────────────────────────────────────────────
-
   @Override
   public void onExchangeUpdated(Exchange exchange) {
     String currentFilter = searchField != null ? searchField.getText() : "";
@@ -509,8 +548,6 @@ public class StockMarketView implements ExchangeObserver {
     }
     refreshGainersLosers();
   }
-
-  // ── Helpers ───────────────────────────────────────────────────────────────
 
   private void refreshStockList(String filter) {
     stockList.setAll(exchange.findStocks(filter == null ? "" : filter));

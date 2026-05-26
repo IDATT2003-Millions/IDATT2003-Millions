@@ -1,4 +1,4 @@
-package modelTest.core;
+package edu.ntnu.idi.idatt2003.modelTest.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

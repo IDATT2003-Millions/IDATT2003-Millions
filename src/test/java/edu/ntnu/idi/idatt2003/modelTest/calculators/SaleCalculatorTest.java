@@ -1,4 +1,4 @@
-package modelTest.calculators;
+package edu.ntnu.idi.idatt2003.modelTest.calculators;
 
 import static org.junit.jupiter.api.Assertions.*;
 

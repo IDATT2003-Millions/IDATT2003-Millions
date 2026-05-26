@@ -5,11 +5,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-/**
- * Builds the startup screen shown when the app launches.
- */
+/** Builds the startup screen shown when the app launches. */
 public class LaunchGameView {
 
+  /**
+   * Creates and returns the launch screen scene.
+   *
+   * @param onNewGame called when the player clicks New Game
+   * @param onLoadGame called when the player clicks Load Game
+   * @param onExit called when the player clicks Exit
+   * @return the configured launch scene
+   */
   public Scene createScene(Runnable onNewGame, Runnable onLoadGame, Runnable onExit) {
     Label title = new Label("Millions");
     title.getStyleClass().add("title");

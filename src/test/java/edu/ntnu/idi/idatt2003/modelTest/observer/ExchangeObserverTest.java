@@ -1,4 +1,4 @@
-package modelTest.observer;
+package edu.ntnu.idi.idatt2003.modelTest.observer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;

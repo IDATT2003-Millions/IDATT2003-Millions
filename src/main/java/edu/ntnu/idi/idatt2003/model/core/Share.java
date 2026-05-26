@@ -2,16 +2,14 @@ package edu.ntnu.idi.idatt2003.model.core;
 
 import java.math.BigDecimal;
 
-
 /**
- *Represents a purchase of a specific stock.
+ * Represents a purchase of a specific stock.
  *
- * <p>A share contains information about which stock, the quantity and the price of the purchase</p>
+ * <p>A share contains information about which stock, the quantity and the price of the purchase
  *
- * <p>A {@code Share} instance is immutable after creation.
- *  * All values must be positive, and the stock reference cannot be null.<\p>
+ * <p>A {@code Share} instance is immutable after creation. * All values must be positive, and the
+ * stock reference cannot be null.<\p>
  */
-
 public class Share {
   private final Stock stock;
   private final BigDecimal quantity;
@@ -23,8 +21,8 @@ public class Share {
    * @param stock is the stock that was purchased, cannot be {@code null}
    * @param quantity the number of stocks that was purchased, cannot be {@code negative}
    * @param purchasePrice the price of the purchase, must be {@code positive}
-   * @throws IllegalArgumentException if stock is {@code null}, or if quantity or
-  purchase is {@code null} or {@code positive}
+   * @throws IllegalArgumentException if stock is {@code null}, or if quantity or purchase is {@code
+   *     null} or {@code positive}
    */
   public Share(Stock stock, BigDecimal quantity, BigDecimal purchasePrice) {
 

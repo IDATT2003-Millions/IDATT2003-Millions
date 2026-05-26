@@ -6,14 +6,11 @@ import edu.ntnu.idi.idatt2003.model.core.Share;
 /**
  * Represents a financial transaction in the stock market.
  *
- * <p>A transaction contains a share, the week it was created
- * and a {@link TransactionCalculator} used to calculate financial values.
- * A transaction can only be committed once.
- * </p>
+ * <p>A transaction contains a share, the week it was created and a {@link TransactionCalculator}
+ * used to calculate financial values. A transaction can only be committed once.
  *
- * <p>Subclasses such as {@code Purchase} and {@code Sale}
- * define how the transaction is completed through the
- * {@link #commit(Player)} method</p>
+ * <p>Subclasses such as {@code Purchase} and {@code Sale} define how the transaction is completed
+ * through the {@link #commit(Player)} method
  */
 public abstract class Transaction {
   private final Share share;
@@ -67,8 +64,8 @@ public abstract class Transaction {
   /**
    * Marks the transaction as committed.
    *
-   * <p>This method is intended to be called by subclasses
-   * after a successful execution of {@link #commit(Player)}.</p>
+   * <p>This method is intended to be called by subclasses after a successful execution of {@link
+   * #commit(Player)}.
    */
   protected void setCommitted() {
     this.committed = true;
@@ -77,11 +74,10 @@ public abstract class Transaction {
   /**
    * Executes the transaction for the player.
    *
-   * <p>The specific implementation is defined by subclasses
-   *  * such as {@code Purchase} and {@code Sale}.</p>
+   * <p>The specific implementation is defined by subclasses * such as {@code Purchase} and {@code
+   * Sale}.
    *
    * @param player the player performing the transaction
    */
   public abstract void commit(Player player);
 }
-
