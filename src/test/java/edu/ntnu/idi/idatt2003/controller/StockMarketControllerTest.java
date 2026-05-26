@@ -1,20 +1,19 @@
 package controllerTest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import edu.ntnu.idi.idatt2003.controller.StockMarketController;
 import edu.ntnu.idi.idatt2003.model.core.Exchange;
 import edu.ntnu.idi.idatt2003.model.core.Share;
 import edu.ntnu.idi.idatt2003.model.core.Stock;
 import edu.ntnu.idi.idatt2003.model.observer.ExchangeObserver;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class StockMarketControllerTest {
 
@@ -66,30 +65,22 @@ public class StockMarketControllerTest {
   }
 
   private static void invokePrivate(
-      Object target,
-      String methodName,
-      Class<?> paramType,
-      Object arg
-  ) throws Exception {
+      Object target, String methodName, Class<?> paramType, Object arg) throws Exception {
     Method method = target.getClass().getDeclaredMethod(methodName, paramType);
     method.setAccessible(true);
     method.invoke(target, arg);
   }
 
   private static void invokePrivate(
-      Object target,
-      String methodName,
-      Class<?> p1,
-      Class<?> p2,
-      Object a1,
-      Object a2
-  ) throws Exception {
+      Object target, String methodName, Class<?> p1, Class<?> p2, Object a1, Object a2)
+      throws Exception {
     Method method = target.getClass().getDeclaredMethod(methodName, p1, p2);
     method.setAccessible(true);
     method.invoke(target, a1, a2);
   }
 
-  private static void detachControllerViewObserver(StockMarketController controller, Exchange exchange) {
+  private static void detachControllerViewObserver(
+      StockMarketController controller, Exchange exchange) {
     try {
       java.lang.reflect.Field viewField = controller.getClass().getDeclaredField("view");
       viewField.setAccessible(true);
