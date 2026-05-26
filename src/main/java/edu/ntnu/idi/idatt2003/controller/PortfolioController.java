@@ -5,15 +5,14 @@ import edu.ntnu.idi.idatt2003.model.core.Share;
 import edu.ntnu.idi.idatt2003.model.transactions.LimitOrder;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import edu.ntnu.idi.idatt2003.view.MyPortfolioView;
+import java.math.BigDecimal;
+import java.util.List;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 /**
- * Handles all logic for the portfolio screen.
- * The view only reports what the user did — this class decides what happens.
+ * Handles all logic for the portfolio screen. The view only reports what the user did — this class
+ * decides what happens.
  */
 public class PortfolioController {
 
@@ -21,14 +20,27 @@ public class PortfolioController {
   private final Player player;
   private final MyPortfolioView view;
 
+  /**
+   * Creates the portfolio controller and its associated view.
+   *
+   * @param exchange the active exchange
+   * @param player the active player
+   * @param stage the primary stage (used for dialogs)
+   */
   public PortfolioController(Exchange exchange, Player player, Stage stage) {
     this.exchange = exchange;
     this.player = player;
     this.view = new MyPortfolioView(player, exchange, stage);
   }
 
+  /**
+   * Builds and returns the portfolio page content node.
+   *
+   * @return the rendered portfolio page
+   */
   public Node buildContent() {
-    return view.buildContent(this::sellQuantity, this::sellAll, this::advanceWeek, this::placeLimitOrder);
+    return view.buildContent(
+        this::sellQuantity, this::sellAll, this::advanceWeek, this::placeLimitOrder);
   }
 
   private void advanceWeek() {

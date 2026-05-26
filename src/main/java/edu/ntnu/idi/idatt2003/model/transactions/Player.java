@@ -2,7 +2,6 @@ package edu.ntnu.idi.idatt2003.model.transactions;
 
 import edu.ntnu.idi.idatt2003.model.core.Portfolio;
 import edu.ntnu.idi.idatt2003.model.core.TransactionArchive;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,13 +10,11 @@ import java.util.List;
 /**
  * Represents a player in the game Millions.
  *
- * <p>A player has a name, starting money, and current balance.
- * the starting money is the same and remains the same, the balance will change as the game
- * proceeds and performs transactions.
- * </p>
+ * <p>A player has a name, starting money, and current balance. the starting money is the same and
+ * remains the same, the balance will change as the game proceeds and performs transactions.
  *
  * <p>A player has a portfolio containing their shares and a transaction archive storing
- * transactions by the player</p>
+ * transactions by the player
  */
 public class Player {
   private final String name;
@@ -88,8 +85,8 @@ public class Player {
       throw new IllegalArgumentException("Withdrawable money must be a positive number.");
     }
     if (this.money.compareTo(amount) < 0) {
-      throw new IllegalArgumentException("Insufficient funds: cannot withdraw "
-              + amount + ". Balance is currently" + money + ".");
+      throw new IllegalArgumentException(
+          "Insufficient funds: cannot withdraw " + amount + ". Balance is currently" + money + ".");
     }
     this.money = this.money.subtract(amount);
   }
@@ -104,12 +101,18 @@ public class Player {
 
   /**
    * Returns the player's total net worth.
+   *
    * @return current net worth
    */
   public BigDecimal getNetWorth() {
     return money.add(portfolio.getNetWorth());
   }
 
+  /**
+   * Records the player's current net worth in the history list.
+   *
+   * <p>Should be called once per week advance to build a continuous net-worth chart.
+   */
   public void snapshotNetWorth() {
     netWorthHistory.add(getNetWorth());
   }
@@ -124,6 +127,7 @@ public class Player {
 
   /**
    * Returns the player's current status based on trading history and net-worth growth.
+   *
    * @return the player's status
    */
   public PlayerStatus getStatus() {
@@ -134,11 +138,9 @@ public class Player {
 
     if (weeksTraded >= 20 && netWorth.compareTo(doubleGrowth) >= 0) {
       return PlayerStatus.SPECULATOR;
-    }
-    else if (weeksTraded >= 10 && netWorth.compareTo(twentyPercentGrowth) >= 0) {
+    } else if (weeksTraded >= 10 && netWorth.compareTo(twentyPercentGrowth) >= 0) {
       return PlayerStatus.INVESTOR;
-    }
-    else {
+    } else {
       return PlayerStatus.NOVICE;
     }
   }

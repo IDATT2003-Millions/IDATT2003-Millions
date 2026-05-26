@@ -3,10 +3,8 @@ package edu.ntnu.idi.idatt2003.model.calculators;
 import java.math.BigDecimal;
 
 /**
- * Defines the methodes to calculate values related to transactions.
- * Implements calculate gross value, tax, commision and total amount
- depending on the type of transaction.
- * 
+ * Defines the methodes to calculate values related to transactions. Implements calculate gross
+ * value, tax, commision and total amount depending on the type of transaction.
  */
 public interface TransactionCalculator {
 
@@ -16,7 +14,7 @@ public interface TransactionCalculator {
    * @return the gross value as {@code BigDecimal}
    */
   BigDecimal calculateGross();
-    
+
   /**
    * Calculates the commission fee associated with the transaction.
    *
@@ -37,5 +35,4 @@ public interface TransactionCalculator {
    * @return the total as {@code BigDeimal}
    */
   BigDecimal calculateTotal();
-    
-} 
+}

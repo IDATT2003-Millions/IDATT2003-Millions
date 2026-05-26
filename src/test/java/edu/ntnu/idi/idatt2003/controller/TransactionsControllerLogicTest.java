@@ -1,17 +1,16 @@
 package edu.ntnu.idi.idatt2003.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import edu.ntnu.idi.idatt2003.model.core.Exchange;
 import edu.ntnu.idi.idatt2003.model.core.Share;
 import edu.ntnu.idi.idatt2003.model.core.Stock;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import edu.ntnu.idi.idatt2003.model.transactions.Transaction;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.math.BigDecimal;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TransactionsControllerLogicTest {
 

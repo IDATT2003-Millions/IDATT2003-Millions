@@ -1,14 +1,13 @@
 package edu.ntnu.idi.idatt2003.view;
 
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.layout.*;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Locale;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
 
 public class StatisticsView {
 
@@ -23,44 +22,63 @@ public class StatisticsView {
       int totalBuys,
       int totalSells,
       BigDecimal totalBought,
-      BigDecimal totalSold
-  ) {
+      BigDecimal totalSold) {
     Label title = new Label("Statistics");
     title.getStyleClass().add("page-title");
 
     BigDecimal netWorth = currentCash.add(portfolioValue);
     BigDecimal gain = netWorth.subtract(startingMoney);
     String gainSign = gain.signum() >= 0 ? "+" : "";
-    BigDecimal gainPct = startingMoney.compareTo(BigDecimal.ZERO) == 0
-        ? BigDecimal.ZERO
-        : gain.divide(startingMoney, 4, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
+    BigDecimal gainPct =
+        startingMoney.compareTo(BigDecimal.ZERO) == 0
+            ? BigDecimal.ZERO
+            : gain.divide(startingMoney, 4, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
 
-    VBox card1 = buildCard("Portfolio Overview",
-        "Current Value",    fmt(portfolioValue),
-        "Available Cash",   fmt(currentCash),
-        "Net Worth",        fmt(netWorth),
-        "Shares Held",      String.valueOf(sharesOwned),
-        "Unique Stocks",    String.valueOf(uniqueStocks)
-    );
+    VBox card1 =
+        buildCard(
+            "Portfolio Overview",
+            "Current Value",
+            fmt(portfolioValue),
+            "Available Cash",
+            fmt(currentCash),
+            "Net Worth",
+            fmt(netWorth),
+            "Shares Held",
+            String.valueOf(sharesOwned),
+            "Unique Stocks",
+            String.valueOf(uniqueStocks));
 
-    VBox card2 = buildCard("Performance",
-        "Starting Capital", fmt(startingMoney),
-        "Net Worth",        fmt(netWorth),
-        "Gain / Loss",      gainSign + fmt(gain),
-        "Return",           gainSign + gainPct.setScale(1, RoundingMode.HALF_UP) + "%"
-    );
+    VBox card2 =
+        buildCard(
+            "Performance",
+            "Starting Capital",
+            fmt(startingMoney),
+            "Net Worth",
+            fmt(netWorth),
+            "Gain / Loss",
+            gainSign + fmt(gain),
+            "Return",
+            gainSign + gainPct.setScale(1, RoundingMode.HALF_UP) + "%");
 
-    VBox card3 = buildCard("Trading Activity",
-        "Weeks Played",     String.valueOf(weeksPlayed),
-        "Total Trades",     String.valueOf(totalTransactions),
-        "Buys",             String.valueOf(totalBuys),
-        "Sells",            String.valueOf(totalSells)
-    );
+    VBox card3 =
+        buildCard(
+            "Trading Activity",
+            "Weeks Played",
+            String.valueOf(weeksPlayed),
+            "Total Trades",
+            String.valueOf(totalTransactions),
+            "Buys",
+            String.valueOf(totalBuys),
+            "Sells",
+            String.valueOf(totalSells));
 
-    VBox card4 = buildCard("Transaction Volume",
-        "Total Purchased",  fmt(totalBought),
-        "Total Sold",       fmt(totalSold)
-    );
+    VBox card4 =
+        buildCard(
+            "Transaction Volume",
+            "Total Purchased",
+            fmt(totalBought),
+            "Total Sold",
+            fmt(totalSold));
 
     GridPane grid = new GridPane();
     grid.setHgap(16);
@@ -72,7 +90,14 @@ public class StatisticsView {
 
     ColumnConstraints col = new ColumnConstraints();
     col.setPercentWidth(50);
-    grid.getColumnConstraints().addAll(col, new ColumnConstraints() {{ setPercentWidth(50); }});
+    grid.getColumnConstraints()
+        .addAll(
+            col,
+            new ColumnConstraints() {
+              {
+                setPercentWidth(50);
+              }
+            });
 
     VBox center = new VBox(16, title, grid);
     center.getStyleClass().add("market-center");

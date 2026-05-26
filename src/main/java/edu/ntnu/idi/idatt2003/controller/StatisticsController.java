@@ -6,26 +6,42 @@ import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import edu.ntnu.idi.idatt2003.model.transactions.Purchase;
 import edu.ntnu.idi.idatt2003.model.transactions.Transaction;
 import edu.ntnu.idi.idatt2003.view.StatisticsView;
-import javafx.scene.Node;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javafx.scene.Node;
 
+/**
+ * Handles all logic for the statistics screen.
+ *
+ * <p>Aggregates player transaction history and portfolio data into a {@link Summary} and delegates
+ * rendering to {@link StatisticsView}.
+ */
 public class StatisticsController {
 
   private final Exchange exchange;
   private final Player player;
   private final StatisticsView view;
 
+  /**
+   * Creates the statistics controller and its associated view.
+   *
+   * @param exchange the active exchange
+   * @param player the active player
+   */
   public StatisticsController(Exchange exchange, Player player) {
     this.exchange = exchange;
     this.player = player;
     this.view = new StatisticsView();
   }
 
+  /**
+   * Builds and returns the statistics page content node.
+   *
+   * @return the rendered statistics page
+   */
   public Node buildContent() {
     Summary summary = buildSummary();
     return view.buildContent(
@@ -39,10 +55,14 @@ public class StatisticsController {
         summary.totalBuys(),
         summary.totalSells(),
         summary.totalBought(),
-        summary.totalSold()
-    );
+        summary.totalSold());
   }
 
+  /**
+   * Aggregates transaction and portfolio data into a {@link Summary}.
+   *
+   * @return a summary of the player's activity so far
+   */
   Summary buildSummary() {
     List<Transaction> all = new ArrayList<>();
     for (int w = 1; w <= exchange.getWeek(); w++) {
@@ -78,10 +98,20 @@ public class StatisticsController {
         totalBuys,
         totalSells,
         totalBought,
-        totalSold
-    );
+        totalSold);
   }
 
+  /**
+   * Holds aggregated statistics for a single game session snapshot.
+   *
+   * @param sharesOwned total number of share lots currently in the portfolio
+   * @param uniqueStocks number of distinct stock symbols in the portfolio
+   * @param totalTransactions total number of committed transactions
+   * @param totalBuys number of buy transactions
+   * @param totalSells number of sell transactions
+   * @param totalBought gross value of all purchases
+   * @param totalSold gross value of all sales
+   */
   record Summary(
       int sharesOwned,
       int uniqueStocks,
@@ -89,7 +119,5 @@ public class StatisticsController {
       int totalBuys,
       int totalSells,
       BigDecimal totalBought,
-      BigDecimal totalSold
-  ) {
-  }
+      BigDecimal totalSold) {}
 }

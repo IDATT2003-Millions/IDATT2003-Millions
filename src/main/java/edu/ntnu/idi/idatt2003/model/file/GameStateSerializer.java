@@ -13,7 +13,6 @@ import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import edu.ntnu.idi.idatt2003.model.transactions.Purchase;
 import edu.ntnu.idi.idatt2003.model.transactions.Sale;
 import edu.ntnu.idi.idatt2003.model.transactions.Transaction;
-
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -27,13 +26,11 @@ import java.util.List;
 /**
  * Saves and loads the full game state to and from a JSON file.
  *
- * <p>Monetary values are stored as plain strings to avoid floating-point
- * precision loss. Price history for each stock is preserved so that charts
- * and statistics remain accurate after a load.</p>
+ * <p>Monetary values are stored as plain strings to avoid floating-point precision loss. Price
+ * history for each stock is preserved so that charts and statistics remain accurate after a load.
  *
- * <p>Transaction history is reconstructed with snapshot stocks whose price
- * equals the price at the time of the original transaction, so the
- * Transactions view displays correct historical values.</p>
+ * <p>Transaction history is reconstructed with snapshot stocks whose price equals the price at the
+ * time of the original transaction, so the Transactions view displays correct historical values.
  */
 public class GameStateSerializer {
 
@@ -42,7 +39,7 @@ public class GameStateSerializer {
   /**
    * Holds the result of loading a saved game.
    *
-   * @param player   the restored player
+   * @param player the restored player
    * @param exchange the restored exchange
    */
   public record LoadedGame(Player player, Exchange exchange) {}
@@ -50,26 +47,26 @@ public class GameStateSerializer {
   /**
    * Serializes the current game state to a JSON file.
    *
-   * @param player   the player to save
+   * @param player the player to save
    * @param exchange the exchange to save
-   * @param path     the file to write (created or overwritten)
+   * @param path the file to write (created or overwritten)
    * @throws IOException if the file cannot be written
    */
   public void save(Player player, Exchange exchange, Path path) throws IOException {
     GameStateDto dto = new GameStateDto();
 
-    dto.playerName    = player.getName();
+    dto.playerName = player.getName();
     dto.startingMoney = player.getStartingMoney().toPlainString();
-    dto.currentMoney  = player.getMoney().toPlainString();
-    dto.exchangeName  = exchange.getName();
-    dto.week          = exchange.getWeek();
+    dto.currentMoney = player.getMoney().toPlainString();
+    dto.exchangeName = exchange.getName();
+    dto.week = exchange.getWeek();
 
     dto.portfolio = new ArrayList<>();
     for (Share share : player.getPortfolio().getShares()) {
       ShareDto s = new ShareDto();
-      s.symbol        = share.getStock().getSymbol();
-      s.company       = share.getStock().getCompany();
-      s.quantity      = share.getQuantity().toPlainString();
+      s.symbol = share.getStock().getSymbol();
+      s.company = share.getStock().getCompany();
+      s.quantity = share.getQuantity().toPlainString();
       s.purchasePrice = share.getPurchasePrice().toPlainString();
       dto.portfolio.add(s);
     }
@@ -77,16 +74,16 @@ public class GameStateSerializer {
     dto.transactions = new ArrayList<>();
     for (Transaction t : player.getTransactionArchive().getAll()) {
       TransactionDto td = new TransactionDto();
-      td.type          = (t instanceof Purchase) ? "BUY" : "SELL";
-      td.symbol        = t.getShare().getStock().getSymbol();
-      td.company       = t.getShare().getStock().getCompany();
-      td.quantity      = t.getShare().getQuantity().toPlainString();
+      td.type = (t instanceof Purchase) ? "BUY" : "SELL";
+      td.symbol = t.getShare().getStock().getSymbol();
+      td.company = t.getShare().getStock().getCompany();
+      td.quantity = t.getShare().getQuantity().toPlainString();
       td.purchasePrice = t.getShare().getPurchasePrice().toPlainString();
-      td.week          = t.getWeek();
+      td.week = t.getWeek();
 
       if (t instanceof Sale) {
-        BigDecimal gross     = t.getCalculator().calculateGross();
-        BigDecimal quantity  = t.getShare().getQuantity();
+        BigDecimal gross = t.getCalculator().calculateGross();
+        BigDecimal quantity = t.getShare().getQuantity();
         BigDecimal salePrice = gross.divide(quantity, 10, RoundingMode.HALF_UP);
         td.salePrice = salePrice.toPlainString();
       }
@@ -97,9 +94,9 @@ public class GameStateSerializer {
     dto.stocks = new ArrayList<>();
     for (Stock stock : exchange.getAllStocks()) {
       StockDto sd = new StockDto();
-      sd.symbol  = stock.getSymbol();
+      sd.symbol = stock.getSymbol();
       sd.company = stock.getCompany();
-      sd.prices  = new ArrayList<>();
+      sd.prices = new ArrayList<>();
       for (BigDecimal price : stock.getHistoricalPrices()) {
         sd.prices.add(price.toPlainString());
       }
@@ -109,13 +106,12 @@ public class GameStateSerializer {
     Files.writeString(path, GSON.toJson(dto), StandardCharsets.UTF_8);
   }
 
-
   /**
    * Deserializes a saved game state from a JSON file.
    *
    * @param path the file to read
    * @return a record containing the restored player and exchange
-   * @throws IOException              if the file cannot be read
+   * @throws IOException if the file cannot be read
    * @throws IllegalArgumentException if the file content is invalid
    */
   public LoadedGame load(Path path) throws IOException {
@@ -141,7 +137,7 @@ public class GameStateSerializer {
     Exchange exchange = new Exchange(dto.exchangeName, stocks);
     setWeek(exchange, dto.week);
 
-     Player player = new Player(dto.playerName, new BigDecimal(dto.startingMoney));
+    Player player = new Player(dto.playerName, new BigDecimal(dto.startingMoney));
     setMoney(player, new BigDecimal(dto.currentMoney));
 
     java.util.Map<String, Stock> stockMap = new java.util.HashMap<>();
@@ -149,29 +145,23 @@ public class GameStateSerializer {
       stockMap.put(s.getSymbol(), s);
     }
 
-    
     for (ShareDto sd : dto.portfolio) {
       Stock stock = stockMap.get(sd.symbol);
       if (stock == null) {
-        throw new IllegalArgumentException(
-            "Portfolio references unknown stock: " + sd.symbol);
+        throw new IllegalArgumentException("Portfolio references unknown stock: " + sd.symbol);
       }
-      Share share = new Share(stock, new BigDecimal(sd.quantity),
-          new BigDecimal(sd.purchasePrice));
+      Share share = new Share(stock, new BigDecimal(sd.quantity), new BigDecimal(sd.purchasePrice));
       player.getPortfolio().addShare(share);
     }
 
-     for (TransactionDto td : dto.transactions) {
+    for (TransactionDto td : dto.transactions) {
       boolean isBuy = "BUY".equals(td.type);
 
-     
       String snapshotPrice = isBuy ? td.purchasePrice : td.salePrice;
-      Stock snapshotStock = new Stock(td.symbol, td.company,
-          new BigDecimal(snapshotPrice));
+      Stock snapshotStock = new Stock(td.symbol, td.company, new BigDecimal(snapshotPrice));
 
-      Share share = new Share(snapshotStock,
-          new BigDecimal(td.quantity),
-          new BigDecimal(td.purchasePrice));
+      Share share =
+          new Share(snapshotStock, new BigDecimal(td.quantity), new BigDecimal(td.purchasePrice));
 
       Transaction t = isBuy ? new Purchase(share, td.week) : new Sale(share, td.week);
       player.getTransactionArchive().add(t);
@@ -180,10 +170,9 @@ public class GameStateSerializer {
     return new LoadedGame(player, exchange);
   }
 
-
   /**
-   * Sets Player.money (non-final private) via reflection.
-   * Needed because the public API only supports incremental add/withdraw.
+   * Sets Player.money (non-final private) via reflection. Needed because the public API only
+   * supports incremental add/withdraw.
    */
   private static void setMoney(Player player, BigDecimal amount) {
     try {
@@ -196,8 +185,8 @@ public class GameStateSerializer {
   }
 
   /**
-   * Sets Exchange.week (private) via reflection.
-   * Needed because the public API only increments the week.
+   * Sets Exchange.week (private) via reflection. Needed because the public API only increments the
+   * week.
    */
   private static void setWeek(Exchange exchange, int week) {
     try {

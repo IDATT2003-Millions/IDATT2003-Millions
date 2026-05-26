@@ -1,4 +1,6 @@
-package modelTest.file;
+package edu.ntnu.idi.idatt2003.modelTest.file;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import edu.ntnu.idi.idatt2003.model.core.Exchange;
 import edu.ntnu.idi.idatt2003.model.core.Share;
@@ -8,22 +10,18 @@ import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import edu.ntnu.idi.idatt2003.model.transactions.Purchase;
 import edu.ntnu.idi.idatt2003.model.transactions.Sale;
 import edu.ntnu.idi.idatt2003.model.transactions.Transaction;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 class GameStateSerializerTest {
 
-  @TempDir
-  Path tempDir;
+  @TempDir Path tempDir;
 
   private GameStateSerializer serializer;
   private Exchange exchange;
@@ -34,10 +32,10 @@ class GameStateSerializerTest {
   @BeforeEach
   void setUp() {
     serializer = new GameStateSerializer();
-    apple     = new Stock("AAPL", "Apple Inc.", new BigDecimal("150.00"));
-    microsoft = new Stock("MSFT", "Microsoft",  new BigDecimal("300.00"));
-    exchange  = new Exchange("Test Exchange", List.of(apple, microsoft));
-    player    = new Player("Kristoffer", new BigDecimal("10000.00"));
+    apple = new Stock("AAPL", "Apple Inc.", new BigDecimal("150.00"));
+    microsoft = new Stock("MSFT", "Microsoft", new BigDecimal("300.00"));
+    exchange = new Exchange("Test Exchange", List.of(apple, microsoft));
+    player = new Player("Kristoffer", new BigDecimal("10000.00"));
   }
 
   // ── Save + load round-trips ───────────────────────────────────────────────
@@ -54,8 +52,7 @@ class GameStateSerializerTest {
 
   @Test
   void saveAndLoad_restoresPlayerMoney() throws IOException {
-    exchange.buy("AAPL", new BigDecimal("5"), player)
-        .commit(player); // spends some money
+    exchange.buy("AAPL", new BigDecimal("5"), player).commit(player); // spends some money
 
     Path file = tempDir.resolve("save.json");
     serializer.save(player, exchange, file);
@@ -72,8 +69,7 @@ class GameStateSerializerTest {
 
     GameStateSerializer.LoadedGame loaded = serializer.load(file);
 
-    assertEquals(0,
-        new BigDecimal("10000.00").compareTo(loaded.player().getStartingMoney()));
+    assertEquals(0, new BigDecimal("10000.00").compareTo(loaded.player().getStartingMoney()));
   }
 
   @Test
@@ -121,14 +117,13 @@ class GameStateSerializerTest {
 
     Stock restoredApple = loaded.exchange().getStock("AAPL");
     assertEquals(3, restoredApple.getHistoricalPrices().size());
-    assertEquals(0,
-        new BigDecimal("170.00").compareTo(restoredApple.getSalesPrice()));
+    assertEquals(0, new BigDecimal("170.00").compareTo(restoredApple.getSalesPrice()));
   }
 
   @Test
   void saveAndLoad_restoresPortfolioShares() throws IOException {
     exchange.buy("AAPL", new BigDecimal("10"), player).commit(player);
-    exchange.buy("MSFT", new BigDecimal("5"),  player).commit(player);
+    exchange.buy("MSFT", new BigDecimal("5"), player).commit(player);
 
     Path file = tempDir.resolve("save.json");
     serializer.save(player, exchange, file);
