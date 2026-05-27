@@ -22,6 +22,12 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
+/**
+ * View for the transaction history screen.
+ *
+ * <p>Displays all completed purchases and sales in a searchable and filterable table,
+ * with detailed information about each transaction (quantity, price, commission, tax, total).
+ */
 public class TransactionsView {
 
   private final ObservableList<Transaction> allTransactions = FXCollections.observableArrayList();
@@ -90,7 +96,7 @@ public class TransactionsView {
   private TableView<Transaction> buildHistoryTable(SortedList<Transaction> sorted) {
     TableView<Transaction> tv = new TableView<>(sorted);
     sorted.comparatorProperty().bind(tv.comparatorProperty());
-    tv.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    tv.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
     tv.setPlaceholder(new Label("No transactions yet."));
     tv.getStyleClass().add("stock-table");
 
@@ -165,7 +171,7 @@ public class TransactionsView {
         d -> new SimpleStringProperty(fmt(d.getValue().getCalculator().calculateTotal().abs())));
     totalCol.setMaxWidth(140);
 
-    tv.getColumns().addAll(weekCol, companyCol, typeCol, qtyCol, priceCol, totalCol);
+    tv.getColumns().addAll(List.of(weekCol, companyCol, typeCol, qtyCol, priceCol, totalCol));
 
     tv.setRowFactory(
         tableView -> {
@@ -213,7 +219,7 @@ public class TransactionsView {
       ObservableList<LimitOrder> items, boolean showStatus, Consumer<LimitOrder> onDelete) {
 
     TableView<LimitOrder> tv = new TableView<>(items);
-    tv.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    tv.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
     tv.getStyleClass().add("stock-table");
     tv.setMaxHeight(Double.MAX_VALUE);
 
@@ -282,7 +288,7 @@ public class TransactionsView {
         d -> new SimpleStringProperty(fmt(d.getValue().getTargetPrice())));
     targetCol.setMaxWidth(130);
 
-    tv.getColumns().addAll(weekCol, companyCol, typeCol, qtyCol, targetCol);
+    tv.getColumns().addAll(List.of(weekCol, companyCol, typeCol, qtyCol, targetCol));
 
     if (showStatus) {
       TableColumn<LimitOrder, String> statusCol = new TableColumn<>("Status");
