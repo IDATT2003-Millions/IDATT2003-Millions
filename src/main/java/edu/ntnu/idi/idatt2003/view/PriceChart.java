@@ -14,10 +14,12 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 
+
 /**
- * A resizable Pane that renders a price-history line chart on an internal Canvas. Call {@link
- * #setData} to push fresh prices; the chart redraws automatically. Hovering near a data point shows
- * a tooltip with the week number and formatted price.
+ * A custom JavaFX component that renders a stock's price history as a line chart.
+ *
+ * <p>Displays price data points connected by lines, and shows the exact price in a
+ * tooltip when the user hovers over a data point.
  */
 public class PriceChart extends Pane {
 

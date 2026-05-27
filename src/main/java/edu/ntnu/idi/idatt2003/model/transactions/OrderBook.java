@@ -51,7 +51,7 @@ public class OrderBook {
           try {
             exchange.buy(order.getSymbol(), order.getQuantity(), player).commit(player);
             resolve(order, true, week);
-          } catch (IllegalArgumentException e) {
+          } catch (IllegalArgumentException | IllegalStateException e) {
             resolve(order, false, week);
           }
         }

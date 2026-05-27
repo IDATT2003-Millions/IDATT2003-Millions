@@ -5,7 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-/** Builds the startup screen shown when the app launches. */
+
+/**
+ * The opening screen of the application.
+ *
+ * <p>Presents the player with two choices: start a new game or load a previously saved game.
+ */
 public class LaunchGameView {
 
   /**

@@ -26,6 +26,8 @@ import java.util.stream.Collectors;
  */
 public class Exchange implements Subject {
 
+  private static final double MAX_PRICE_CHANGE = 0.05;
+  private static final BigDecimal MIN_STOCK_PRICE = new BigDecimal("0.01");
   private final String name;
   private int week;
   private final Map<String, Stock> stockMap;
@@ -209,12 +211,12 @@ public class Exchange implements Subject {
     for (Stock stock : stockMap.values()) {
       BigDecimal current = stock.getSalesPrice();
 
-      double changePercent = (random.nextDouble() * 0.10) - 0.05;
+      double changePercent = (random.nextDouble() * MAX_PRICE_CHANGE * 2) - MAX_PRICE_CHANGE;
       BigDecimal factor = BigDecimal.ONE.add(BigDecimal.valueOf(changePercent));
       BigDecimal newPrice = current.multiply(factor);
 
-      if (newPrice.compareTo(new BigDecimal("0.01")) < 0) {
-        newPrice = new BigDecimal("0.01");
+      if (newPrice.compareTo(MIN_STOCK_PRICE) < 0) {
+        newPrice = MIN_STOCK_PRICE;
       }
 
       newPrice = newPrice.setScale(2, RoundingMode.HALF_UP);
