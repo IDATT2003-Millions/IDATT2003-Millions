@@ -15,9 +15,13 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 
+
 /**
- * Reusable left-hand sidebar that displays live player and exchange state. Register it with the
- * exchange once; it self-updates via ExchangeObserver.
+ * Navigation sidebar shown throughout the game.
+ *
+ * <p>Contains buttons for switching between the main screens (stock market, portfolio,
+ * transactions, statistics) and displays the player's current balance and status in real time.
+ * Implements {@link ExchangeObserver} to update the balance display after each week advance.
  */
 public class Sidebar extends VBox implements ExchangeObserver {
 
