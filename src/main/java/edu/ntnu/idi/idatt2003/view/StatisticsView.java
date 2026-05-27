@@ -9,6 +9,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
+/**
+ * View for the player statistics screen.
+ *
+ * <p>Shows the player's current status (Novice, Investor, Speculator), net worth,
+ * total return, and a net-worth history graph.
+ */
 public class StatisticsView {
 
   public Node buildContent(
