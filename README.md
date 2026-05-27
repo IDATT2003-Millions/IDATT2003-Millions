@@ -1,3 +1,4 @@
+
 # Millions — Stock Market Game
 
 A JavaFX desktop application where players buy and sell stocks on a simulated stock exchange.
@@ -129,3 +130,9 @@ target/site/jacoco/index.html
 ## Link to repo
 
 - https://github.com/IDATT2003-Millions/IDATT2003-Millions/tree/main
+
+## Link to figma design
+
+GUI design:
+https://www.figma.com/design/pbQsd7pjBYZ5lfM6VLfjw8/GUI-design-prog-2?node-id=0-1&p=f&t=eJ8arDT48ZHQWaiL-0
+
