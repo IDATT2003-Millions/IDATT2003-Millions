@@ -24,9 +24,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+
 /**
- * Main stock market screen. Layout: static Sidebar on the left, scrollable market content on the
- * right.
+ * View for the stock market screen.
+ *
+ * <p>Lists all stocks available on the exchange with current prices, weekly gainers and losers,
+ * and provides dialogs for buying shares and placing limit orders.
+ * Implements {@link ExchangeObserver} so prices and rankings refresh after each week advance.
  */
 public class StockMarketView implements ExchangeObserver {
 
@@ -114,7 +118,7 @@ public class StockMarketView implements ExchangeObserver {
   private TableView<Stock> buildTable() {
     TableView<Stock> tv = new TableView<>(stockList);
     tv.getStyleClass().add("stock-table");
-    tv.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    tv.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
     tv.setPlaceholder(new Label("No stocks found"));
 
     TableColumn<Stock, String> symbolCol = new TableColumn<>("Symbol");
