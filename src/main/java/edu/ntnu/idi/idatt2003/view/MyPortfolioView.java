@@ -64,7 +64,6 @@ public class MyPortfolioView implements ExchangeObserver {
       FXCollections.observableArrayList();
 
   private BiConsumer<String, BigDecimal> onSellQuantity;
-  private Runnable onSellAll;
   private Consumer<LimitOrder> onPlaceSellOrder;
   private PriceChart portfolioChart;
 
@@ -97,7 +96,6 @@ public class MyPortfolioView implements ExchangeObserver {
       Runnable onAdvanceWeek,
       Consumer<LimitOrder> onPlaceSellOrder) {
     this.onSellQuantity = onSellQuantity;
-    this.onSellAll = onSellAll;
     this.onPlaceSellOrder = onPlaceSellOrder;
 
     Label title = new Label("My Portfolio");
@@ -170,7 +168,7 @@ public class MyPortfolioView implements ExchangeObserver {
 
   private TableView<PortfolioPosition> buildTable() {
     TableView<PortfolioPosition> tv = new TableView<>(positionList);
-    tv.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    tv.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
     tv.setPlaceholder(new Label("You own no shares yet."));
     tv.getStyleClass().add("stock-table");
 
@@ -283,7 +281,7 @@ public class MyPortfolioView implements ExchangeObserver {
             });
     sellCol.setMaxWidth(90);
 
-    tv.getColumns().addAll(companyCol, qtyCol, buyPriceCol, currentCol, gainCol, sellCol);
+    tv.getColumns().addAll(List.of(companyCol, qtyCol, buyPriceCol, currentCol, gainCol, sellCol));
     return tv;
   }
 
