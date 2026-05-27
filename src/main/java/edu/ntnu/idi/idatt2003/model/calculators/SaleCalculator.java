@@ -4,13 +4,11 @@ import edu.ntnu.idi.idatt2003.model.core.Share;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-
 /**
- *Calculates financial values for sale transactions.
+ * Calculates financial values for sale transactions.
  *
- *<p>Commission rate for a sale is 1% off the gross value.
- * Tax for a sale is at 30% on the profit that you get after gross value -
- * commission - sales price</p>
+ * <p>Commission rate for a sale is 1% off the gross value. Tax for a sale is at 30% on the profit
+ * that you get after gross value - commission - sales price
  */
 public class SaleCalculator implements TransactionCalculator {
 
@@ -23,7 +21,7 @@ public class SaleCalculator implements TransactionCalculator {
   private final BigDecimal salesPrice;
 
   /**
-   *Constructs a sales calculator for the sale.
+   * Constructs a sales calculator for the sale.
    *
    * @param share the share that is involved in the sale
    * @throws NullPointerException if share is {@code null}
@@ -36,9 +34,9 @@ public class SaleCalculator implements TransactionCalculator {
   }
 
   /**
-   *Calculates the gross value of the sale.
+   * Calculates the gross value of the sale.
    *
-   * <p>The gross value is calculated by salesPrice*quantity</p>
+   * <p>The gross value is calculated by salesPrice*quantity
    *
    * @return the gross value
    */
@@ -48,9 +46,9 @@ public class SaleCalculator implements TransactionCalculator {
   }
 
   /**
-   *Calculates the commission fee.
+   * Calculates the commission fee.
    *
-   * <p>The fee is 1% of the gross value</p>
+   * <p>The fee is 1% of the gross value
    *
    * @return the commission amount
    */
@@ -60,39 +58,35 @@ public class SaleCalculator implements TransactionCalculator {
   }
 
   /**
-   *Calculates tax of the sale.
+   * Calculates tax of the sale.
    *
-   * <p>The tax is calculated by gross value - commission - purchase price</p>
+   * <p>The tax is calculated by gross value - commission - purchase price
    *
-   * <p>If the profit is less than zero the tax is zero.</p>
+   * <p>If the profit is less than zero the tax is zero.
    *
    * @return the tax amount
    */
   @Override
   public BigDecimal calculateTax() {
-    BigDecimal profit = calculateGross()
-              .subtract(purchasePrice.multiply(quantity))
-              .subtract(calculateCommission());
+    BigDecimal profit =
+        calculateGross().subtract(purchasePrice.multiply(quantity)).subtract(calculateCommission());
 
     if (profit.signum() <= 0) {
       return zero;
     } else {
       return profit.multiply(tax);
     }
-
   }
 
   /**
-   *Calculates the total sales cost.
+   * Calculates the net proceeds from the sale.
    *
-   * <p>The total is gross value + commission fee + tax</p>
+   * <p>The proceeds are the gross value minus commission fee and tax.
    *
-   * @return the total sales price
+   * @return the net amount the player receives after costs
    */
   @Override
   public BigDecimal calculateTotal() {
-    return calculateGross()
-            .add(calculateCommission())
-            .add(calculateTax());
+    return calculateGross().subtract(calculateCommission()).subtract(calculateTax());
   }
 }

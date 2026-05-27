@@ -5,20 +5,29 @@ import edu.ntnu.idi.idatt2003.model.observer.Subject;
 import edu.ntnu.idi.idatt2003.model.transactions.Player;
 import edu.ntnu.idi.idatt2003.model.transactions.Transaction;
 import edu.ntnu.idi.idatt2003.model.transactions.TransactionFactory;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
  * Represents a stock exchange that tracks listed stocks and the current game week.
  *
- * <p>The exchange can look up and search stocks, create buy and sell transactions, and advance
- * to the next week by applying random price changes to all listed stocks.
+ * <p>The exchange can look up and search stocks, create buy and sell transactions, and advance to
+ * the next week by applying random price changes to all listed stocks.
  */
 public class Exchange implements Subject {
 
+  private static final double MAX_PRICE_CHANGE = 0.05;
+  private static final BigDecimal MIN_STOCK_PRICE = new BigDecimal("0.01");
   private final String name;
   private int week;
   private final Map<String, Stock> stockMap;
@@ -45,7 +54,7 @@ public class Exchange implements Subject {
       stockMap.put(stock.getSymbol(), stock);
     }
   }
-   
+
   public String getName() {
     return name;
   }
@@ -97,9 +106,11 @@ public class Exchange implements Subject {
     String term = searchTerm.toLowerCase(Locale.ROOT);
 
     return stockMap.values().stream()
-              .filter(s -> s.getSymbol().toLowerCase(Locale.ROOT).contains(term)
-                      || s.getCompany().toLowerCase(Locale.ROOT).contains(term))
-              .collect(Collectors.toList());
+        .filter(
+            s ->
+                s.getSymbol().toLowerCase(Locale.ROOT).contains(term)
+                    || s.getCompany().toLowerCase(Locale.ROOT).contains(term))
+        .collect(Collectors.toList());
   }
 
   /**
@@ -133,8 +144,8 @@ public class Exchange implements Subject {
   /**
    * Creates a sale transaction for a share.
    *
-   * <p>The stock in the share must be listed on this exchange. The transaction is created for
-   * the current week and is not committed by this method.
+   * <p>The stock in the share must be listed on this exchange. The transaction is created for the
+   * current week and is not committed by this method.
    *
    * @param share the share to sell
    * @param player the player creating the sale
@@ -154,10 +165,45 @@ public class Exchange implements Subject {
   }
 
   /**
+   * Sells {@code quantity} shares of {@code symbol} from the player's portfolio, iterating through
+   * owned lots (whole lots first, splitting the last lot if needed).
+   */
+  public void sellQuantity(String symbol, BigDecimal quantity, Player player) {
+    Objects.requireNonNull(symbol);
+    Objects.requireNonNull(quantity);
+    Objects.requireNonNull(player);
+    if (quantity.signum() <= 0) {
+      throw new IllegalArgumentException("quantity must be > 0");
+    }
+
+    java.util.List<Share> lots = java.util.List.copyOf(player.getPortfolio().getShares(symbol));
+    BigDecimal remaining = quantity;
+
+    for (Share lot : lots) {
+      if (remaining.compareTo(BigDecimal.ZERO) <= 0) {
+        break;
+      }
+      if (lot.getQuantity().compareTo(remaining) <= 0) {
+        sell(lot, player).commit(player);
+        remaining = remaining.subtract(lot.getQuantity());
+      } else {
+
+        BigDecimal keepQty = lot.getQuantity().subtract(remaining);
+        player.getPortfolio().removeShare(lot);
+        player.getPortfolio().addShare(new Share(lot.getStock(), keepQty, lot.getPurchasePrice()));
+        Share sellPart = new Share(lot.getStock(), remaining, lot.getPurchasePrice());
+        player.getPortfolio().addShare(sellPart);
+        sell(sellPart, player).commit(player);
+        remaining = BigDecimal.ZERO;
+      }
+    }
+  }
+
+  /**
    * Advances the exchange to the next week and updates all stock prices.
    *
-   * <p>Each stock receives a random price change in the range -5% to +5%, rounded to two
-   * decimals, with a minimum price of 0.01.
+   * <p>Each stock receives a random price change in the range -5% to +5%, rounded to two decimals,
+   * with a minimum price of 0.01.
    */
   public void advance() {
     week++;
@@ -165,16 +211,13 @@ public class Exchange implements Subject {
     for (Stock stock : stockMap.values()) {
       BigDecimal current = stock.getSalesPrice();
 
-
-      double changePercent = (random.nextDouble() * 0.10) - 0.05;
+      double changePercent = (random.nextDouble() * MAX_PRICE_CHANGE * 2) - MAX_PRICE_CHANGE;
       BigDecimal factor = BigDecimal.ONE.add(BigDecimal.valueOf(changePercent));
       BigDecimal newPrice = current.multiply(factor);
 
-
-      if (newPrice.compareTo(new BigDecimal("0.01")) < 0) {
-        newPrice = new BigDecimal("0.01");
+      if (newPrice.compareTo(MIN_STOCK_PRICE) < 0) {
+        newPrice = MIN_STOCK_PRICE;
       }
-
 
       newPrice = newPrice.setScale(2, RoundingMode.HALF_UP);
 
@@ -194,27 +237,36 @@ public class Exchange implements Subject {
       return List.of();
     }
     return stockMap.values().stream()
-            .filter(stock -> stock.getLatestPriceChange().compareTo(BigDecimal.ZERO) > 0)
-            .sorted(Comparator.comparing(Stock::getLatestPriceChange).reversed())
-      .limit(limit)
+        .filter(stock -> stock.getLatestPriceChange().compareTo(BigDecimal.ZERO) > 0)
+        .sorted(Comparator.comparing(Stock::getLatestPriceChange).reversed())
+        .limit(limit)
+        .toList();
+  }
 
-      .toList();
+  /**
+   * Returns an unmodifiable view of all stocks listed on this exchange.
+   *
+   * @return all listed stocks
+   */
+  public List<Stock> getAllStocks() {
+    return List.copyOf(stockMap.values());
   }
 
   /**
    * Going through the stocks and filters a limited list of losers.
+   *
    * @param limit the limit of how many stocks to be shown
    * @return a limited list off losers on the market this week
    */
   public List<Stock> getLosers(int limit) {
-    if  (limit < 1) {
+    if (limit < 1) {
       return List.of();
     }
     return stockMap.values().stream()
-             .filter(stock -> stock.getLatestPriceChange().compareTo(BigDecimal.ZERO) < 0)
-             .sorted(Comparator.comparing(Stock::getLatestPriceChange))
-             .limit(limit)
-             .toList();
+        .filter(stock -> stock.getLatestPriceChange().compareTo(BigDecimal.ZERO) < 0)
+        .sorted(Comparator.comparing(Stock::getLatestPriceChange))
+        .limit(limit)
+        .toList();
   }
 
   @Override
@@ -236,11 +288,10 @@ public class Exchange implements Subject {
   /**
    * Notifies all registered observers of a state change.
    *
-   * <p>Call this after committing a transaction so the view reflects
-   * the updated portfolio and player balance.
+   * <p>Call this after committing a transaction so the view reflects the updated portfolio and
+   * player balance.
    */
   public void refresh() {
     notifyObservers();
   }
 }
-

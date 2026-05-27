@@ -14,20 +14,19 @@ import java.util.List;
 /**
  * Handles persistence of {@link Stock} data in CSV format.
  *
- * <p>Each non-comment line in the CSV must have the format
- * {@code symbol,company,salesPrice}. Blank lines and lines that start with
- * {@code #} are ignored when loading.
+ * <p>Each non-comment line in the CSV must have the format {@code symbol,company,salesPrice}. Blank
+ * lines and lines that start with {@code #} are ignored when loading.
  */
 public class StockCsvRepository {
   /**
    * Loads stocks from a CSV file.
    *
-   * <p>The method skips blank lines and comment lines that start with {@code #}.</p>
+   * <p>The method skips blank lines and comment lines that start with {@code #}.
    *
    * @param path the path to the CSV file
    * @return a list of stocks loaded from the file
-   * @throws IOException if the file cannot be read, if a line has invalid CSV format,
-   *         or if a sales price cannot be parsed
+   * @throws IOException if the file cannot be read, if a line has invalid CSV format, or if a sales
+   *     price cannot be parsed
    */
   public List<Stock> load(Path path) throws IOException {
     List<Stock> stocks = new ArrayList<>();
@@ -68,7 +67,7 @@ public class StockCsvRepository {
   /**
    * Saves stocks to a CSV file.
    *
-   * <p>Each stock is written in the format {@code symbol,company,salesPrice}.</p>
+   * <p>Each stock is written in the format {@code symbol,company,salesPrice}.
    *
    * @param path the path to the target CSV file
    * @param stocks the stocks to write
@@ -79,11 +78,7 @@ public class StockCsvRepository {
 
       for (Stock stock : stocks) {
 
-        writer.write(
-                stock.getSymbol() + ","
-                + stock.getCompany() + ","
-                + stock.getSalesPrice()
-        );
+        writer.write(stock.getSymbol() + "," + stock.getCompany() + "," + stock.getSalesPrice());
 
         writer.newLine();
       }

@@ -2,28 +2,34 @@
    Global Theme (all scenes)
    =============================== */
 .root {
-    -color-bg-top: #112850;
-    -color-bg-bottom: #112850;
-    -color-primary: #1f5eff;
-    -color-primary-hover: #184ad0;
-    -color-primary-pressed: #1239a7;
-    -color-secondary: #ffffff;
-    -color-secondary-hover: #eef4ff;
-    -color-secondary-pressed: #dce8ff;
-    -color-exit: #d6334f;
-    -color-exit-hover: #ba2943;
-    -color-exit-pressed: #961f35;
-    -color-text-main: #dee0e6;
-    -color-text-soft: #42526b;
-    -color-text-on-dark: #ffffff;
+    -color-bg:            #0f1923;
+    -color-sidebar-bg:    #162030;
+    -color-surface:       #1a2535;
+    -color-primary:       #3b82f6;
+    -color-primary-hover: #2563eb;
+    -color-primary-pressed:#1d4ed8;
+    -color-exit:          #d6334f;
+    -color-exit-hover:    #ba2943;
+    -color-exit-pressed:  #961f35;
+    -color-text-main:     #e2e8f0;
+    -color-text-soft:     #64748b;
+    -color-text-on-dark:  #ffffff;
+    -color-winner-bg:     #1a3328;
+    -color-loser-bg:      #3a1c22;
+    -color-winner-text:   #4ade80;
+    -color-loser-text:    #f87171;
+    -color-border-subtle: rgba(255,255,255,0.06);
+    -color-input-bg:      rgba(255,255,255,0.08);
+    -color-input-border:  rgba(255,255,255,0.15);
     -fx-font-family: "Segoe UI", "Verdana", "Arial";
-    -fx-background-color: linear-gradient(to bottom, -color-bg-top, -color-bg-bottom);
+    -fx-background-color: -color-bg;
 }
 
 /* ===============================
    Launch Page
    =============================== */
 .launch-root {
+    -fx-background-color: -color-bg;
     -fx-alignment: center;
     -fx-spacing: 14;
     -fx-padding: 40 48 40 48;
@@ -52,48 +58,458 @@
     -fx-cursor: hand;
 }
 
-.action-button:focused {
-    -fx-border-color: rgba(17, 24, 39, 0.45);
-}
+.action-button:focused { -fx-border-color: rgba(17,24,39,0.45); }
 
 .primary-button {
     -fx-background-color: -color-primary;
     -fx-border-color: transparent;
     -fx-text-fill: -color-text-on-dark;
 }
-
-.primary-button:hover {
-    -fx-background-color: -color-primary-hover;
-}
-
-.primary-button:pressed {
-    -fx-background-color: -color-primary-pressed;
-}
+.primary-button:hover   { -fx-background-color: -color-primary-hover; }
+.primary-button:pressed { -fx-background-color: -color-primary-pressed; }
 
 .secondary-button {
-    -fx-background-color: -color-secondary;
-    -fx-border-color: #c6d8ff;
-    -fx-text-fill: -color-text-soft;
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-border-color: rgba(255,255,255,0.12);
+    -fx-text-fill: -color-text-main;
 }
-
-.secondary-button:hover {
-    -fx-background-color: -color-secondary-hover;
-}
-
-.secondary-button:pressed {
-    -fx-background-color: -color-secondary-pressed;
-}
+.secondary-button:hover   { -fx-background-color: rgba(255,255,255,0.10); }
+.secondary-button:pressed { -fx-background-color: rgba(255,255,255,0.16); }
 
 .exit-button {
     -fx-background-color: -color-exit;
     -fx-border-color: transparent;
     -fx-text-fill: -color-text-on-dark;
 }
+.exit-button:hover   { -fx-background-color: -color-exit-hover; }
+.exit-button:pressed { -fx-background-color: -color-exit-pressed; }
 
-.exit-button:hover {
-    -fx-background-color: -color-exit-hover;
+/* ===============================
+   New Game Page
+   =============================== */
+.new-game-root {
+    -fx-background-color: -color-bg;
+    -fx-alignment: center;
+    -fx-spacing: 16;
+    -fx-padding: 40 48 40 48;
 }
 
-.exit-button:pressed {
-    -fx-background-color: -color-exit-pressed;
+.input-bar, .file-bar {
+    -fx-pref-width: 360;
+    -fx-pref-height: 48;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: -color-input-border;
+    -fx-border-width: 1;
+    -fx-background-color: -color-input-bg;
+}
+
+.input-bar {
+    -fx-text-fill: -color-text-main;
+    -fx-prompt-text-fill: -color-text-soft;
+    -fx-font-size: 15px;
+    -fx-padding: 0 14 0 14;
+}
+.input-bar:focused { -fx-border-color: -color-primary; }
+
+.file-bar {
+    -fx-padding: 0 8 0 14;
+    -fx-alignment: center-left;
+}
+
+.file-label {
+    -fx-text-fill: -color-text-soft;
+    -fx-font-size: 14px;
+}
+
+/* ===============================
+   Sidebar
+   =============================== */
+.sidebar {
+    -fx-pref-width: 220;
+    -fx-min-width: 180;
+    -fx-background-color: -color-sidebar-bg;
+    -fx-border-color: transparent -color-border-subtle transparent transparent;
+    -fx-border-width: 1;
+    -fx-padding: 24 20 24 20;
+    -fx-spacing: 10;
+}
+
+.sidebar-app-title {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 22px;
+    -fx-font-weight: 800;
+    -fx-padding: 0 0 4 0;
+}
+
+.sidebar-section-label {
+    -fx-text-fill: -color-text-soft;
+    -fx-font-size: 10px;
+    -fx-font-weight: 700;
+    -fx-padding: 6 0 0 0;
+}
+
+.sidebar-value {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+}
+
+.sidebar-value-primary {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 17px;
+    -fx-font-weight: 700;
+}
+
+.sidebar-value-week {
+    -fx-text-fill: -color-primary;
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+}
+
+/* ===============================
+   Sidebar nav buttons
+   =============================== */
+.sidebar-nav-btn {
+    -fx-background-color: rgba(255,255,255,0.07);
+    -fx-border-color: rgba(255,255,255,0.10);
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+    -fx-padding: 8 12 8 12;
+}
+.sidebar-nav-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.13);
+    -fx-border-color: rgba(255,255,255,0.20);
+}
+.sidebar-nav-btn:pressed {
+    -fx-background-color: -color-primary;
+    -fx-text-fill: -color-text-on-dark;
+}
+
+.sidebar-exit-btn {
+    -fx-background-color: -color-exit;
+    -fx-border-color: transparent;
+    -fx-text-fill: -color-text-on-dark;
+    -fx-font-weight: 700;
+}
+.sidebar-exit-btn:hover   { -fx-background-color: -color-exit-hover; }
+.sidebar-exit-btn:pressed { -fx-background-color: -color-exit-pressed; }
+
+/* ===============================
+   Stock Market Page
+   =============================== */
+.market-root  { -fx-background-color: -color-bg; }
+
+.market-center {
+    -fx-padding: 20 24 20 24;
+    -fx-spacing: 12;
+}
+
+.top-bar {
+    -fx-alignment: center-left;
+    -fx-spacing: 12;
+}
+
+.search-field {
+    -fx-pref-height: 40;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: -color-input-border;
+    -fx-border-width: 1;
+    -fx-background-color: -color-input-bg;
+    -fx-text-fill: -color-text-main;
+    -fx-prompt-text-fill: -color-text-soft;
+    -fx-font-size: 14px;
+    -fx-padding: 0 12 0 12;
+}
+.search-field:focused { -fx-border-color: -color-primary; }
+
+.stock-table {
+    -fx-background-color: -color-surface;
+    -fx-background-radius: 10;
+    -fx-table-cell-border-color: transparent;
+}
+.stock-table .column-header-background { -fx-background-color: rgba(255,255,255,0.05); }
+.stock-table .column-header .label {
+    -fx-text-fill: -color-text-soft;
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+}
+.stock-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text-main;
+}
+.stock-table .table-row-cell:odd      { -fx-background-color: rgba(255,255,255,0.03); }
+.stock-table .table-row-cell:selected { -fx-background-color: rgba(59,130,246,0.25); }
+.stock-table .placeholder .label      { -fx-text-fill: -color-text-soft; -fx-font-size: 14px; }
+.stock-table .table-cell {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 14px;
+}
+.stock-table .table-row-cell:selected .table-cell { -fx-text-fill: -color-text-on-dark; }
+
+.positive-change, .negative-change { -fx-font-weight: 700; }
+.positive-change { -fx-text-fill: -color-winner-text; }
+.negative-change { -fx-text-fill: -color-loser-text; }
+
+.bottom-panel {
+    -fx-pref-height: 180;
+    -fx-min-height: 150;
+    -fx-spacing: 16;
+}
+
+.mini-panel {
+    -fx-background-color: -color-surface;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 14 16 14 16;
+    -fx-spacing: 6;
+}
+
+.mini-panel-winner, .mini-panel-loser {
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 14 16 14 16;
+    -fx-spacing: 4;
+}
+.mini-panel-winner {
+    -fx-background-color: -color-winner-bg;
+    -fx-border-color: rgba(74,222,128,0.2);
+}
+.mini-panel-loser {
+    -fx-background-color: -color-loser-bg;
+    -fx-border-color: rgba(248,113,113,0.2);
+}
+
+.panel-header {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-padding: 0 0 4 0;
+}
+
+.mini-row { -fx-alignment: center-left; -fx-padding: 2 0 2 0; }
+
+.mini-symbol {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-min-width: 60;
+}
+
+.mini-price {
+    -fx-text-fill: -color-text-soft;
+    -fx-font-size: 13px;
+}
+
+/* ===============================
+   Page title
+   =============================== */
+.page-title {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 22px;
+    -fx-font-weight: 800;
+}
+
+/* ===============================
+   Transaction type badges
+   =============================== */
+.type-badge {
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+}
+.badge-buy {
+    -fx-background-color: rgba(59,130,246,0.18);
+    -fx-text-fill: #60a5fa;
+    -fx-border-color: rgba(59,130,246,0.35);
+}
+.badge-sell {
+    -fx-background-color: rgba(248,113,113,0.18);
+    -fx-text-fill: -color-loser-text;
+    -fx-border-color: rgba(248,113,113,0.35);
+}
+
+/* ===============================
+   Statistics cards
+   =============================== */
+.stat-card {
+    -fx-background-color: -color-surface;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-width: 1;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 18 20 18 20;
+    -fx-spacing: 8;
+}
+.stat-card-header, .stat-card-value {
+    -fx-text-fill: -color-text-main;
+    -fx-font-weight: 700;
+}
+.stat-card-header { -fx-font-size: 14px; -fx-padding: 0 0 6 0; }
+.stat-card-value  { -fx-font-size: 16px; }
+
+/* ===============================
+   Dialog / Alert theming
+   =============================== */
+.dialog-pane { -fx-background-color: -color-surface; }
+
+.dialog-pane > .header-panel,
+.dialog-pane > .button-bar > .container {
+    -fx-background-color: -color-sidebar-bg;
+}
+.dialog-pane > .header-panel {
+    -fx-border-color: transparent transparent -color-border-subtle transparent;
+    -fx-border-width: 1;
+}
+.dialog-pane > .header-panel > .label {
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+}
+.dialog-pane > .content {
+    -fx-background-color: transparent;
+    -fx-padding: 12 20 8 20;
+}
+.dialog-pane > .button-bar > .container {
+    -fx-border-color: -color-border-subtle transparent transparent transparent;
+    -fx-border-width: 1;
+    -fx-padding: 8 12 8 12;
+}
+.dialog-pane .label          { -fx-text-fill: -color-text-main; }
+.dialog-pane .separator *.line {
+    -fx-border-color: -color-border-subtle;
+    -fx-border-style: solid;
+}
+.dialog-pane .text-field {
+    -fx-background-color: -color-input-bg;
+    -fx-border-color: -color-input-border;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: -color-text-main;
+    -fx-prompt-text-fill: -color-text-soft;
+    -fx-font-size: 14px;
+    -fx-padding: 6 12 6 12;
+}
+.dialog-pane .text-field:focused { -fx-border-color: -color-primary; }
+
+.dialog-pane .button {
+    -fx-background-color: -color-input-bg;
+    -fx-text-fill: -color-text-main;
+    -fx-border-color: rgba(255,255,255,0.12);
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-padding: 6 14 6 14;
+}
+.dialog-pane .button:hover { -fx-background-color: rgba(255,255,255,0.13); }
+.dialog-pane .button:default {
+    -fx-background-color: -color-primary;
+    -fx-text-fill: -color-text-on-dark;
+    -fx-border-color: transparent;
+}
+.dialog-pane .button:default:hover { -fx-background-color: -color-primary-hover; }
+
+.dialog-info { -fx-font-size: 13px; }
+
+/* ===============================
+   Buy / Sell preview panels
+   =============================== */
+.buy-preview, .sell-preview {
+    -fx-border-width: 1;
+    -fx-padding: 8;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+}
+.buy-preview {
+    -fx-background-color: rgba(59,130,246,0.12);
+    -fx-border-color: rgba(59,130,246,0.25);
+}
+.sell-preview {
+    -fx-background-color: rgba(248,113,113,0.12);
+    -fx-border-color: rgba(248,113,113,0.25);
+}
+
+/* ===============================
+   Info / receipt labels
+   =============================== */
+.info-value, .info-section-title {
+    -fx-text-fill: -color-text-main;
+    -fx-font-weight: bold;
+}
+.info-section-title { -fx-padding: 8 0 4 0; }
+
+.info-key {
+    -fx-text-fill: -color-text-soft;
+    -fx-font-size: 12px;
+}
+
+/* ===============================
+   Price history list
+   =============================== */
+.history-list {
+    -fx-background-color: -color-bg;
+    -fx-background-insets: 0;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+.history-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 13px;
+}
+.history-list .list-cell:odd      { -fx-background-color: rgba(255,255,255,0.03); }
+.history-list .list-cell:selected { -fx-background-color: rgba(59,130,246,0.25); }
+
+/* ===============================
+   TabPane (Transactions page)
+   =============================== */
+.tab-pane {
+    -fx-background-color: transparent;
+}
+.tab-pane > .tab-header-area {
+    -fx-background-color: -color-foreground;
+    -fx-padding: 0 0 0 0;
+}
+.tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color: -color-foreground;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 4 4 0 0;
+    -fx-padding: 6 16 6 16;
+    -fx-cursor: hand;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab .tab-label {
+    -fx-text-fill: -color-text-soft;
+    -fx-font-size: 13px;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: -color-bg;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:selected .tab-label {
+    -fx-text-fill: -color-primary;
+    -fx-font-weight: bold;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:hover .tab-label {
+    -fx-text-fill: -color-text-main;
+}
+.tab-pane > .tab-content-area {
+    -fx-background-color: -color-bg;
+    -fx-padding: 0;
 }

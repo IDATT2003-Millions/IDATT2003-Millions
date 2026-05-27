@@ -1,0 +1,4051 @@
+{
+  "playerName": "kristoffer",
+  "startingMoney": "100000",
+  "currentMoney": "96744.60400",
+  "portfolio": [
+    {
+      "symbol": "TER",
+      "company": "Teradyne",
+      "quantity": "10",
+      "purchasePrice": "323.92"
+    }
+  ],
+  "transactions": [
+    {
+      "type": "BUY",
+      "symbol": "TER",
+      "company": "Teradyne",
+      "quantity": "10",
+      "purchasePrice": "323.92",
+      "week": 1
+    }
+  ],
+  "exchangeName": "Millions Exchange",
+  "week": 2,
+  "stocks": [
+    {
+      "symbol": "TER",
+      "company": "Teradyne",
+      "prices": [
+        "323.92",
+        "323.14"
+      ]
+    },
+    {
+      "symbol": "SNDK",
+      "company": "Sandisk Corporation",
+      "prices": [
+        "607.86",
+        "631.90"
+      ]
+    },
+    {
+      "symbol": "LVS",
+      "company": "Las Vegas Sands",
+      "prices": [
+        "57.75",
+        "60.50"
+      ]
+    },
+    {
+      "symbol": "WYNN",
+      "company": "Wynn Resorts",
+      "prices": [
+        "115.18",
+        "119.90"
+      ]
+    },
+    {
+      "symbol": "TFC",
+      "company": "Truist Financial",
+      "prices": [
+        "54.42",
+        "55.87"
+      ]
+    },
+    {
+      "symbol": "TSLA",
+      "company": "Tesla Inc.",
+      "prices": [
+        "426.52",
+        "431.01"
+      ]
+    },
+    {
+      "symbol": "GLW",
+      "company": "Corning Inc.",
+      "prices": [
+        "134.16",
+        "135.49"
+      ]
+    },
+    {
+      "symbol": "CDW",
+      "company": "CDW",
+      "prices": [
+        "135.32",
+        "138.05"
+      ]
+    },
+    {
+      "symbol": "BBY",
+      "company": "Best Buy",
+      "prices": [
+        "66.84",
+        "69.62"
+      ]
+    },
+    {
+      "symbol": "UHS",
+      "company": "Universal Health Services",
+      "prices": [
+        "231.22",
+        "224.11"
+      ]
+    },
+    {
+      "symbol": "CEG",
+      "company": "Constellation Energy",
+      "prices": [
+        "274.37",
+        "278.47"
+      ]
+    },
+    {
+      "symbol": "HON",
+      "company": "Honeywell",
+      "prices": [
+        "243.56",
+        "255.00"
+      ]
+    },
+    {
+      "symbol": "ABBV",
+      "company": "AbbVie",
+      "prices": [
+        "220.17",
+        "216.18"
+      ]
+    },
+    {
+      "symbol": "WMB",
+      "company": "Williams Companies",
+      "prices": [
+        "71.48",
+        "71.65"
+      ]
+    },
+    {
+      "symbol": "IQV",
+      "company": "IQVIA",
+      "prices": [
+        "175.80",
+        "168.90"
+      ]
+    },
+    {
+      "symbol": "DGX",
+      "company": "Quest Diagnostics",
+      "prices": [
+        "209.53",
+        "214.76"
+      ]
+    },
+    {
+      "symbol": "EIX",
+      "company": "Edison International",
+      "prices": [
+        "66.94",
+        "68.60"
+      ]
+    },
+    {
+      "symbol": "XOM",
+      "company": "ExxonMobil",
+      "prices": [
+        "155.28",
+        "160.58"
+      ]
+    },
+    {
+      "symbol": "POOL",
+      "company": "Pool Corporation",
+      "prices": [
+        "270.70",
+        "260.75"
+      ]
+    },
+    {
+      "symbol": "RCL",
+      "company": "Royal Caribbean Group",
+      "prices": [
+        "331.76",
+        "330.19"
+      ]
+    },
+    {
+      "symbol": "HPE",
+      "company": "Hewlett Packard Enterprise",
+      "prices": [
+        "23.62",
+        "22.91"
+      ]
+    },
+    {
+      "symbol": "WMT",
+      "company": "Walmart",
+      "prices": [
+        "128.75",
+        "127.74"
+      ]
+    },
+    {
+      "symbol": "BA",
+      "company": "Boeing",
+      "prices": [
+        "236.98",
+        "227.20"
+      ]
+    },
+    {
+      "symbol": "TGT",
+      "company": "Target Corporation",
+      "prices": [
+        "114.12",
+        "113.40"
+      ]
+    },
+    {
+      "symbol": "A",
+      "company": "Agilent Technologies",
+      "prices": [
+        "128.22",
+        "125.18"
+      ]
+    },
+    {
+      "symbol": "NDAQ",
+      "company": "Nasdaq Inc.",
+      "prices": [
+        "81.05",
+        "83.48"
+      ]
+    },
+    {
+      "symbol": "C",
+      "company": "Citigroup",
+      "prices": [
+        "117.93",
+        "120.42"
+      ]
+    },
+    {
+      "symbol": "D",
+      "company": "Dominion Energy",
+      "prices": [
+        "64.61",
+        "64.20"
+      ]
+    },
+    {
+      "symbol": "DHI",
+      "company": "D. R. Horton",
+      "prices": [
+        "163.35",
+        "168.00"
+      ]
+    },
+    {
+      "symbol": "IRM",
+      "company": "Iron Mountain",
+      "prices": [
+        "99.67",
+        "98.06"
+      ]
+    },
+    {
+      "symbol": "CFG",
+      "company": "Citizens Financial Group",
+      "prices": [
+        "66.87",
+        "66.48"
+      ]
+    },
+    {
+      "symbol": "BG",
+      "company": "Bunge Global",
+      "prices": [
+        "121.39",
+        "123.64"
+      ]
+    },
+    {
+      "symbol": "F",
+      "company": "Ford Motor Company",
+      "prices": [
+        "13.78",
+        "13.95"
+      ]
+    },
+    {
+      "symbol": "AXON",
+      "company": "Axon Enterprise",
+      "prices": [
+        "436.36",
+        "454.71"
+      ]
+    },
+    {
+      "symbol": "HPQ",
+      "company": "HP Inc.",
+      "prices": [
+        "19.63",
+        "19.25"
+      ]
+    },
+    {
+      "symbol": "BK",
+      "company": "BNY Mellon",
+      "prices": [
+        "122.83",
+        "122.42"
+      ]
+    },
+    {
+      "symbol": "J",
+      "company": "Jacobs Solutions",
+      "prices": [
+        "142.70",
+        "140.51"
+      ]
+    },
+    {
+      "symbol": "L",
+      "company": "Loews Corporation",
+      "prices": [
+        "110.15",
+        "111.31"
+      ]
+    },
+    {
+      "symbol": "DHR",
+      "company": "Danaher Corporation",
+      "prices": [
+        "219.80",
+        "220.29"
+      ]
+    },
+    {
+      "symbol": "O",
+      "company": "Realty Income",
+      "prices": [
+        "64.39",
+        "62.96"
+      ]
+    },
+    {
+      "symbol": "FICO",
+      "company": "Fair Isaac",
+      "prices": [
+        "1369.86",
+        "1359.11"
+      ]
+    },
+    {
+      "symbol": "BR",
+      "company": "Broadridge Financial Solutions",
+      "prices": [
+        "167.88",
+        "161.70"
+      ]
+    },
+    {
+      "symbol": "Q",
+      "company": "Qnity Electronics",
+      "prices": [
+        "114.06",
+        "118.86"
+      ]
+    },
+    {
+      "symbol": "NTAP",
+      "company": "NetApp",
+      "prices": [
+        "105.69",
+        "108.12"
+      ]
+    },
+    {
+      "symbol": "ABT",
+      "company": "Abbott Laboratories",
+      "prices": [
+        "112.97",
+        "116.70"
+      ]
+    },
+    {
+      "symbol": "T",
+      "company": "AT\u0026T",
+      "prices": [
+        "28.21",
+        "27.59"
+      ]
+    },
+    {
+      "symbol": "LYB",
+      "company": "LyondellBasell",
+      "prices": [
+        "59.29",
+        "59.69"
+      ]
+    },
+    {
+      "symbol": "V",
+      "company": "Visa Inc.",
+      "prices": [
+        "329.54",
+        "339.67"
+      ]
+    },
+    {
+      "symbol": "BX",
+      "company": "Blackstone Inc.",
+      "prices": [
+        "133.29",
+        "133.65"
+      ]
+    },
+    {
+      "symbol": "BDX",
+      "company": "Becton Dickinson",
+      "prices": [
+        "179.62",
+        "174.70"
+      ]
+    },
+    {
+      "symbol": "LRCX",
+      "company": "Lam Research",
+      "prices": [
+        "236.60",
+        "237.25"
+      ]
+    },
+    {
+      "symbol": "VLO",
+      "company": "Valero Energy",
+      "prices": [
+        "203.89",
+        "196.65"
+      ]
+    },
+    {
+      "symbol": "ZTS",
+      "company": "Zoetis",
+      "prices": [
+        "128.19",
+        "122.31"
+      ]
+    },
+    {
+      "symbol": "CB",
+      "company": "Chubb Limited",
+      "prices": [
+        "328.82",
+        "317.91"
+      ]
+    },
+    {
+      "symbol": "NVDA",
+      "company": "Nvidia",
+      "prices": [
+        "191.27",
+        "191.50"
+      ]
+    },
+    {
+      "symbol": "IBKR",
+      "company": "Interactive Brokers Group",
+      "prices": [
+        "76.54",
+        "76.74"
+      ]
+    },
+    {
+      "symbol": "CF",
+      "company": "CF Industries",
+      "prices": [
+        "97.23",
+        "96.93"
+      ]
+    },
+    {
+      "symbol": "CI",
+      "company": "Cigna",
+      "prices": [
+        "292.46",
+        "300.04"
+      ]
+    },
+    {
+      "symbol": "JBHT",
+      "company": "J.B. Hunt",
+      "prices": [
+        "231.62",
+        "227.00"
+      ]
+    },
+    {
+      "symbol": "SMCI",
+      "company": "Supermicro",
+      "prices": [
+        "31.69",
+        "32.94"
+      ]
+    },
+    {
+      "symbol": "LYV",
+      "company": "Live Nation Entertainment",
+      "prices": [
+        "150.60",
+        "153.46"
+      ]
+    },
+    {
+      "symbol": "MTCH",
+      "company": "Match Group",
+      "prices": [
+        "31.27",
+        "29.80"
+      ]
+    },
+    {
+      "symbol": "CL",
+      "company": "Colgate-Palmolive",
+      "prices": [
+        "95.04",
+        "92.01"
+      ]
+    },
+    {
+      "symbol": "BEN",
+      "company": "Franklin Resources",
+      "prices": [
+        "27.64",
+        "28.42"
+      ]
+    },
+    {
+      "symbol": "ACN",
+      "company": "Accenture",
+      "prices": [
+        "230.79",
+        "220.62"
+      ]
+    },
+    {
+      "symbol": "VMC",
+      "company": "Vulcan Materials Company",
+      "prices": [
+        "321.01",
+        "330.83"
+      ]
+    },
+    {
+      "symbol": "DIS",
+      "company": "Walt Disney Company (The)",
+      "prices": [
+        "108.30",
+        "106.69"
+      ]
+    },
+    {
+      "symbol": "REG",
+      "company": "Regency Centers",
+      "prices": [
+        "76.49",
+        "74.54"
+      ]
+    },
+    {
+      "symbol": "INCY",
+      "company": "Incyte",
+      "prices": [
+        "99.35",
+        "94.57"
+      ]
+    },
+    {
+      "symbol": "GPC",
+      "company": "Genuine Parts Company",
+      "prices": [
+        "149.43",
+        "155.26"
+      ]
+    },
+    {
+      "symbol": "CTAS",
+      "company": "Cintas",
+      "prices": [
+        "201.10",
+        "194.50"
+      ]
+    },
+    {
+      "symbol": "FAST",
+      "company": "Fastenal",
+      "prices": [
+        "47.14",
+        "49.44"
+      ]
+    },
+    {
+      "symbol": "AMZN",
+      "company": "Amazon",
+      "prices": [
+        "204.62",
+        "195.01"
+      ]
+    },
+    {
+      "symbol": "CHD",
+      "company": "Church \u0026 Dwight",
+      "prices": [
+        "100.17",
+        "101.07"
+      ]
+    },
+    {
+      "symbol": "DD",
+      "company": "DuPont",
+      "prices": [
+        "51.29",
+        "50.69"
+      ]
+    },
+    {
+      "symbol": "DE",
+      "company": "Deere \u0026 Company",
+      "prices": [
+        "610.03",
+        "622.82"
+      ]
+    },
+    {
+      "symbol": "ARES",
+      "company": "Ares Management Corporation",
+      "prices": [
+        "137.90",
+        "144.66"
+      ]
+    },
+    {
+      "symbol": "CINF",
+      "company": "Cincinnati Financial",
+      "prices": [
+        "164.11",
+        "165.00"
+      ]
+    },
+    {
+      "symbol": "DG",
+      "company": "Dollar General",
+      "prices": [
+        "147.49",
+        "154.06"
+      ]
+    },
+    {
+      "symbol": "HRL",
+      "company": "Hormel Foods",
+      "prices": [
+        "23.79",
+        "23.31"
+      ]
+    },
+    {
+      "symbol": "GPN",
+      "company": "Global Payments",
+      "prices": [
+        "72.67",
+        "75.02"
+      ]
+    },
+    {
+      "symbol": "ADI",
+      "company": "Analog Devices",
+      "prices": [
+        "336.71",
+        "327.65"
+      ]
+    },
+    {
+      "symbol": "ADM",
+      "company": "Archer Daniels Midland",
+      "prices": [
+        "69.24",
+        "72.15"
+      ]
+    },
+    {
+      "symbol": "ADP",
+      "company": "Automatic Data Processing",
+      "prices": [
+        "217.59",
+        "225.68"
+      ]
+    },
+    {
+      "symbol": "ITW",
+      "company": "Illinois Tool Works",
+      "prices": [
+        "298.50",
+        "291.13"
+      ]
+    },
+    {
+      "symbol": "ELV",
+      "company": "Elevance Health",
+      "prices": [
+        "329.59",
+        "336.44"
+      ]
+    },
+    {
+      "symbol": "ACGL",
+      "company": "Arch Capital Group",
+      "prices": [
+        "98.49",
+        "102.64"
+      ]
+    },
+    {
+      "symbol": "EA",
+      "company": "Electronic Arts",
+      "prices": [
+        "201.72",
+        "201.06"
+      ]
+    },
+    {
+      "symbol": "EME",
+      "company": "EMCOR Group Inc.",
+      "prices": [
+        "803.53",
+        "832.04"
+      ]
+    },
+    {
+      "symbol": "PAYC",
+      "company": "Paycom",
+      "prices": [
+        "117.68",
+        "113.12"
+      ]
+    },
+    {
+      "symbol": "ED",
+      "company": "Consolidated Edison",
+      "prices": [
+        "109.36",
+        "104.12"
+      ]
+    },
+    {
+      "symbol": "AEE",
+      "company": "Ameren",
+      "prices": [
+        "106.08",
+        "105.36"
+      ]
+    },
+    {
+      "symbol": "EG",
+      "company": "Everest Group",
+      "prices": [
+        "331.67",
+        "327.13"
+      ]
+    },
+    {
+      "symbol": "TJX",
+      "company": "TJX Companies",
+      "prices": [
+        "150.56",
+        "146.76"
+      ]
+    },
+    {
+      "symbol": "SHW",
+      "company": "Sherwin-Williams",
+      "prices": [
+        "364.16",
+        "367.94"
+      ]
+    },
+    {
+      "symbol": "EL",
+      "company": "Estée Lauder Companies (The)",
+      "prices": [
+        "106.09",
+        "106.72"
+      ]
+    },
+    {
+      "symbol": "MSCI",
+      "company": "MSCI",
+      "prices": [
+        "519.16",
+        "538.32"
+      ]
+    },
+    {
+      "symbol": "HST",
+      "company": "Host Hotels \u0026 Resorts",
+      "prices": [
+        "19.98",
+        "20.26"
+      ]
+    },
+    {
+      "symbol": "EMR",
+      "company": "Emerson Electric",
+      "prices": [
+        "156.30",
+        "158.58"
+      ]
+    },
+    {
+      "symbol": "AEP",
+      "company": "American Electric Power",
+      "prices": [
+        "122.18",
+        "119.81"
+      ]
+    },
+    {
+      "symbol": "ES",
+      "company": "Eversource Energy",
+      "prices": [
+        "69.77",
+        "73.11"
+      ]
+    },
+    {
+      "symbol": "FOX",
+      "company": "Fox Corporation (Class B)",
+      "prices": [
+        "56.02",
+        "57.17"
+      ]
+    },
+    {
+      "symbol": "HSY",
+      "company": "Hershey Company (The)",
+      "prices": [
+        "231.46",
+        "220.66"
+      ]
+    },
+    {
+      "symbol": "AES",
+      "company": "AES Corporation",
+      "prices": [
+        "16.45",
+        "16.34"
+      ]
+    },
+    {
+      "symbol": "YUM",
+      "company": "Yum! Brands",
+      "prices": [
+        "160.35",
+        "155.86"
+      ]
+    },
+    {
+      "symbol": "EW",
+      "company": "Edwards Lifesciences",
+      "prices": [
+        "78.67",
+        "77.55"
+      ]
+    },
+    {
+      "symbol": "TRMB",
+      "company": "Trimble Inc.",
+      "prices": [
+        "65.06",
+        "62.29"
+      ]
+    },
+    {
+      "symbol": "PCG",
+      "company": "PG\u0026E Corporation",
+      "prices": [
+        "17.02",
+        "17.57"
+      ]
+    },
+    {
+      "symbol": "DECK",
+      "company": "Deckers Brands",
+      "prices": [
+        "115.15",
+        "109.42"
+      ]
+    },
+    {
+      "symbol": "TKO",
+      "company": "TKO Group Holdings",
+      "prices": [
+        "210.88",
+        "219.26"
+      ]
+    },
+    {
+      "symbol": "FE",
+      "company": "FirstEnergy",
+      "prices": [
+        "47.94",
+        "45.97"
+      ]
+    },
+    {
+      "symbol": "SOLV",
+      "company": "Solventum",
+      "prices": [
+        "81.25",
+        "79.16"
+      ]
+    },
+    {
+      "symbol": "TROW",
+      "company": "T. Rowe Price",
+      "prices": [
+        "94.24",
+        "91.25"
+      ]
+    },
+    {
+      "symbol": "CSCO",
+      "company": "Cisco",
+      "prices": [
+        "85.82",
+        "87.91"
+      ]
+    },
+    {
+      "symbol": "WRB",
+      "company": "W. R. Berkley Corporation",
+      "prices": [
+        "71.20",
+        "67.91"
+      ]
+    },
+    {
+      "symbol": "AFL",
+      "company": "Aflac",
+      "prices": [
+        "116.20",
+        "114.57"
+      ]
+    },
+    {
+      "symbol": "DLR",
+      "company": "Digital Realty",
+      "prices": [
+        "174.16",
+        "181.13"
+      ]
+    },
+    {
+      "symbol": "IVZ",
+      "company": "Invesco",
+      "prices": [
+        "26.42",
+        "25.61"
+      ]
+    },
+    {
+      "symbol": "UNH",
+      "company": "UnitedHealth Group",
+      "prices": [
+        "278.79",
+        "277.05"
+      ]
+    },
+    {
+      "symbol": "MSFT",
+      "company": "Microsoft",
+      "prices": [
+        "404.68",
+        "398.15"
+      ]
+    },
+    {
+      "symbol": "UNP",
+      "company": "Union Pacific Corporation",
+      "prices": [
+        "261.95",
+        "265.65"
+      ]
+    },
+    {
+      "symbol": "SJM",
+      "company": "J.M. Smucker Company (The)",
+      "prices": [
+        "109.98",
+        "105.48"
+      ]
+    },
+    {
+      "symbol": "EOG",
+      "company": "EOG Resources",
+      "prices": [
+        "117.39",
+        "117.24"
+      ]
+    },
+    {
+      "symbol": "GD",
+      "company": "General Dynamics",
+      "prices": [
+        "348.79",
+        "364.84"
+      ]
+    },
+    {
+      "symbol": "GE",
+      "company": "GE Aerospace",
+      "prices": [
+        "314.37",
+        "319.33"
+      ]
+    },
+    {
+      "symbol": "GOOG",
+      "company": "Alphabet Inc. (Class C)",
+      "prices": [
+        "311.62",
+        "296.25"
+      ]
+    },
+    {
+      "symbol": "HUM",
+      "company": "Humana",
+      "prices": [
+        "176.34",
+        "170.12"
+      ]
+    },
+    {
+      "symbol": "GL",
+      "company": "Globe Life",
+      "prices": [
+        "144.35",
+        "141.68"
+      ]
+    },
+    {
+      "symbol": "WELL",
+      "company": "Welltower",
+      "prices": [
+        "208.65",
+        "213.82"
+      ]
+    },
+    {
+      "symbol": "GM",
+      "company": "General Motors",
+      "prices": [
+        "79.78",
+        "78.42"
+      ]
+    },
+    {
+      "symbol": "GS",
+      "company": "Goldman Sachs",
+      "prices": [
+        "949.29",
+        "915.24"
+      ]
+    },
+    {
+      "symbol": "WSM",
+      "company": "Williams-Sonoma",
+      "prices": [
+        "214.52",
+        "220.31"
+      ]
+    },
+    {
+      "symbol": "LULU",
+      "company": "Lululemon Athletica",
+      "prices": [
+        "176.88",
+        "169.87"
+      ]
+    },
+    {
+      "symbol": "HOLX",
+      "company": "Hologic",
+      "prices": [
+        "75.11",
+        "74.39"
+      ]
+    },
+    {
+      "symbol": "PEG",
+      "company": "Public Service Enterprise Group",
+      "prices": [
+        "83.85",
+        "81.99"
+      ]
+    },
+    {
+      "symbol": "PAYX",
+      "company": "Paychex",
+      "prices": [
+        "94.49",
+        "90.67"
+      ]
+    },
+    {
+      "symbol": "TMO",
+      "company": "Thermo Fisher Scientific",
+      "prices": [
+        "525.00",
+        "520.02"
+      ]
+    },
+    {
+      "symbol": "WST",
+      "company": "West Pharmaceutical Services",
+      "prices": [
+        "247.87",
+        "253.31"
+      ]
+    },
+    {
+      "symbol": "PEP",
+      "company": "PepsiCo",
+      "prices": [
+        "168.71",
+        "164.21"
+      ]
+    },
+    {
+      "symbol": "HD",
+      "company": "Home Depot (The)",
+      "prices": [
+        "389.46",
+        "383.25"
+      ]
+    },
+    {
+      "symbol": "ISRG",
+      "company": "Intuitive Surgical",
+      "prices": [
+        "496.14",
+        "499.91"
+      ]
+    },
+    {
+      "symbol": "BF.B",
+      "company": "Brown–Forman",
+      "prices": [
+        "30.11",
+        "31.52"
+      ]
+    },
+    {
+      "symbol": "SLB",
+      "company": "Schlumberger",
+      "prices": [
+        "51.14",
+        "53.46"
+      ]
+    },
+    {
+      "symbol": "FRT",
+      "company": "Federal Realty Investment Trust",
+      "prices": [
+        "107.14",
+        "104.88"
+      ]
+    },
+    {
+      "symbol": "PFE",
+      "company": "Pfizer",
+      "prices": [
+        "27.77",
+        "28.24"
+      ]
+    },
+    {
+      "symbol": "CLX",
+      "company": "Clorox",
+      "prices": [
+        "125.65",
+        "128.24"
+      ]
+    },
+    {
+      "symbol": "RJF",
+      "company": "Raymond James Financial",
+      "prices": [
+        "159.60",
+        "153.51"
+      ]
+    },
+    {
+      "symbol": "PFG",
+      "company": "Principal Financial Group",
+      "prices": [
+        "92.86",
+        "89.42"
+      ]
+    },
+    {
+      "symbol": "SBUX",
+      "company": "Starbucks",
+      "prices": [
+        "99.03",
+        "95.52"
+      ]
+    },
+    {
+      "symbol": "KVUE",
+      "company": "Kenvue",
+      "prices": [
+        "18.44",
+        "18.00"
+      ]
+    },
+    {
+      "symbol": "UPS",
+      "company": "United Parcel Service",
+      "prices": [
+        "119.93",
+        "122.61"
+      ]
+    },
+    {
+      "symbol": "DOC",
+      "company": "Healthpeak Properties",
+      "prices": [
+        "16.95",
+        "16.48"
+      ]
+    },
+    {
+      "symbol": "CME",
+      "company": "CME Group",
+      "prices": [
+        "303.44",
+        "300.84"
+      ]
+    },
+    {
+      "symbol": "WTW",
+      "company": "Willis Towers Watson",
+      "prices": [
+        "282.86",
+        "280.84"
+      ]
+    },
+    {
+      "symbol": "CMG",
+      "company": "Chipotle Mexican Grill",
+      "prices": [
+        "37.35",
+        "37.89"
+      ]
+    },
+    {
+      "symbol": "CMI",
+      "company": "Cummins",
+      "prices": [
+        "601.45",
+        "617.08"
+      ]
+    },
+    {
+      "symbol": "HWM",
+      "company": "Howmet Aerospace",
+      "prices": [
+        "233.13",
+        "241.91"
+      ]
+    },
+    {
+      "symbol": "AIG",
+      "company": "American International Group",
+      "prices": [
+        "79.36",
+        "79.92"
+      ]
+    },
+    {
+      "symbol": "DLTR",
+      "company": "Dollar Tree",
+      "prices": [
+        "125.35",
+        "122.09"
+      ]
+    },
+    {
+      "symbol": "IP",
+      "company": "International Paper",
+      "prices": [
+        "48.64",
+        "48.07"
+      ]
+    },
+    {
+      "symbol": "EQR",
+      "company": "Equity Residential",
+      "prices": [
+        "65.09",
+        "67.49"
+      ]
+    },
+    {
+      "symbol": "BKR",
+      "company": "Baker Hughes",
+      "prices": [
+        "61.16",
+        "62.01"
+      ]
+    },
+    {
+      "symbol": "CMS",
+      "company": "CMS Energy",
+      "prices": [
+        "74.16",
+        "73.80"
+      ]
+    },
+    {
+      "symbol": "IR",
+      "company": "Ingersoll Rand",
+      "prices": [
+        "96.98",
+        "100.36"
+      ]
+    },
+    {
+      "symbol": "EQT",
+      "company": "EQT Corporation",
+      "prices": [
+        "56.73",
+        "58.68"
+      ]
+    },
+    {
+      "symbol": "DOV",
+      "company": "Dover Corporation",
+      "prices": [
+        "232.52",
+        "238.54"
+      ]
+    },
+    {
+      "symbol": "IT",
+      "company": "Gartner",
+      "prices": [
+        "160.21",
+        "160.76"
+      ]
+    },
+    {
+      "symbol": "MAA",
+      "company": "Mid-America Apartment Communities",
+      "prices": [
+        "136.74",
+        "131.91"
+      ]
+    },
+    {
+      "symbol": "DOW",
+      "company": "Dow Inc.",
+      "prices": [
+        "33.98",
+        "35.18"
+      ]
+    },
+    {
+      "symbol": "AIZ",
+      "company": "Assurant",
+      "prices": [
+        "216.77",
+        "206.70"
+      ]
+    },
+    {
+      "symbol": "VST",
+      "company": "Vistra Corp.",
+      "prices": [
+        "160.43",
+        "162.26"
+      ]
+    },
+    {
+      "symbol": "CNC",
+      "company": "Centene Corporation",
+      "prices": [
+        "40.26",
+        "40.20"
+      ]
+    },
+    {
+      "symbol": "PGR",
+      "company": "Progressive Corporation",
+      "prices": [
+        "209.33",
+        "217.17"
+      ]
+    },
+    {
+      "symbol": "MCHP",
+      "company": "Microchip Technology",
+      "prices": [
+        "80.90",
+        "79.94"
+      ]
+    },
+    {
+      "symbol": "HOOD",
+      "company": "Robinhood Markets Inc.",
+      "prices": [
+        "77.55",
+        "77.01"
+      ]
+    },
+    {
+      "symbol": "AJG",
+      "company": "Arthur J. Gallagher \u0026 Co.",
+      "prices": [
+        "207.61",
+        "198.89"
+      ]
+    },
+    {
+      "symbol": "MAS",
+      "company": "Masco",
+      "prices": [
+        "76.24",
+        "78.83"
+      ]
+    },
+    {
+      "symbol": "MAR",
+      "company": "Marriott International",
+      "prices": [
+        "360.71",
+        "352.02"
+      ]
+    },
+    {
+      "symbol": "BLK",
+      "company": "BlackRock",
+      "prices": [
+        "1083.35",
+        "1058.95"
+      ]
+    },
+    {
+      "symbol": "AMAT",
+      "company": "Applied Materials",
+      "prices": [
+        "342.19",
+        "347.51"
+      ]
+    },
+    {
+      "symbol": "MDLZ",
+      "company": "Mondelez International",
+      "prices": [
+        "61.45",
+        "59.94"
+      ]
+    },
+    {
+      "symbol": "PCAR",
+      "company": "Paccar",
+      "prices": [
+        "129.93",
+        "129.23"
+      ]
+    },
+    {
+      "symbol": "CNP",
+      "company": "CenterPoint Energy",
+      "prices": [
+        "40.91",
+        "42.47"
+      ]
+    },
+    {
+      "symbol": "CSGP",
+      "company": "CoStar Group",
+      "prices": [
+        "48.09",
+        "46.41"
+      ]
+    },
+    {
+      "symbol": "SNA",
+      "company": "Snap-on",
+      "prices": [
+        "383.21",
+        "370.29"
+      ]
+    },
+    {
+      "symbol": "FTV",
+      "company": "Fortive",
+      "prices": [
+        "58.93",
+        "56.39"
+      ]
+    },
+    {
+      "symbol": "URI",
+      "company": "United Rentals",
+      "prices": [
+        "870.17",
+        "843.19"
+      ]
+    },
+    {
+      "symbol": "DPZ",
+      "company": "Domino\u0027s",
+      "prices": [
+        "385.50",
+        "374.14"
+      ]
+    },
+    {
+      "symbol": "TPL",
+      "company": "Texas Pacific Land Corporation",
+      "prices": [
+        "416.14",
+        "430.34"
+      ]
+    },
+    {
+      "symbol": "FOXA",
+      "company": "Fox Corporation (Class A)",
+      "prices": [
+        "61.76",
+        "61.38"
+      ]
+    },
+    {
+      "symbol": "PHM",
+      "company": "PulteGroup",
+      "prices": [
+        "139.04",
+        "135.77"
+      ]
+    },
+    {
+      "symbol": "VTR",
+      "company": "Ventas",
+      "prices": [
+        "85.29",
+        "86.31"
+      ]
+    },
+    {
+      "symbol": "TPR",
+      "company": "Tapestry Inc.",
+      "prices": [
+        "154.43",
+        "161.84"
+      ]
+    },
+    {
+      "symbol": "VTRS",
+      "company": "Viatris",
+      "prices": [
+        "16.02",
+        "15.92"
+      ]
+    },
+    {
+      "symbol": "COF",
+      "company": "Capital One",
+      "prices": [
+        "214.93",
+        "211.54"
+      ]
+    },
+    {
+      "symbol": "PLTR",
+      "company": "Palantir Technologies",
+      "prices": [
+        "135.59",
+        "130.56"
+      ]
+    },
+    {
+      "symbol": "NFLX",
+      "company": "Netflix",
+      "prices": [
+        "79.94",
+        "78.70"
+      ]
+    },
+    {
+      "symbol": "KLAC",
+      "company": "KLA Corporation",
+      "prices": [
+        "1492.27",
+        "1491.14"
+      ]
+    },
+    {
+      "symbol": "COO",
+      "company": "Cooper Companies (The)",
+      "prices": [
+        "82.84",
+        "86.30"
+      ]
+    },
+    {
+      "symbol": "KO",
+      "company": "Coca-Cola Company (The)",
+      "prices": [
+        "78.51",
+        "78.60"
+      ]
+    },
+    {
+      "symbol": "ESS",
+      "company": "Essex Property Trust",
+      "prices": [
+        "262.76",
+        "271.83"
+      ]
+    },
+    {
+      "symbol": "COP",
+      "company": "ConocoPhillips",
+      "prices": [
+        "110.75",
+        "111.52"
+      ]
+    },
+    {
+      "symbol": "USB",
+      "company": "U.S. Bancorp",
+      "prices": [
+        "59.25",
+        "56.49"
+      ]
+    },
+    {
+      "symbol": "GWW",
+      "company": "W. W. Grainger",
+      "prices": [
+        "1202.13",
+        "1175.02"
+      ]
+    },
+    {
+      "symbol": "COR",
+      "company": "Cencora",
+      "prices": [
+        "365.43",
+        "373.07"
+      ]
+    },
+    {
+      "symbol": "NXPI",
+      "company": "NXP Semiconductors",
+      "prices": [
+        "249.26",
+        "257.46"
+      ]
+    },
+    {
+      "symbol": "KR",
+      "company": "Kroger",
+      "prices": [
+        "68.68",
+        "68.30"
+      ]
+    },
+    {
+      "symbol": "RMD",
+      "company": "ResMed",
+      "prices": [
+        "259.29",
+        "269.08"
+      ]
+    },
+    {
+      "symbol": "XYL",
+      "company": "Xylem Inc.",
+      "prices": [
+        "126.71",
+        "132.73"
+      ]
+    },
+    {
+      "symbol": "MCD",
+      "company": "McDonald\u0027s",
+      "prices": [
+        "323.50",
+        "311.51"
+      ]
+    },
+    {
+      "symbol": "NEE",
+      "company": "NextEra Energy",
+      "prices": [
+        "91.19",
+        "87.68"
+      ]
+    },
+    {
+      "symbol": "BMY",
+      "company": "Bristol Myers Squibb",
+      "prices": [
+        "60.18",
+        "61.80"
+      ]
+    },
+    {
+      "symbol": "MCK",
+      "company": "McKesson Corporation",
+      "prices": [
+        "944.20",
+        "977.51"
+      ]
+    },
+    {
+      "symbol": "CPB",
+      "company": "Campbell Soup Company",
+      "prices": [
+        "29.16",
+        "30.22"
+      ]
+    },
+    {
+      "symbol": "CHRW",
+      "company": "C.H. Robinson",
+      "prices": [
+        "196.77",
+        "198.82"
+      ]
+    },
+    {
+      "symbol": "NEM",
+      "company": "Newmont",
+      "prices": [
+        "123.89",
+        "121.08"
+      ]
+    },
+    {
+      "symbol": "ALB",
+      "company": "Albemarle Corporation",
+      "prices": [
+        "176.03",
+        "177.23"
+      ]
+    },
+    {
+      "symbol": "MCO",
+      "company": "Moody\u0027s Corporation",
+      "prices": [
+        "415.20",
+        "399.27"
+      ]
+    },
+    {
+      "symbol": "ROST",
+      "company": "Ross Stores",
+      "prices": [
+        "192.31",
+        "187.79"
+      ]
+    },
+    {
+      "symbol": "XYZ",
+      "company": "Block Inc.",
+      "prices": [
+        "53.87",
+        "55.13"
+      ]
+    },
+    {
+      "symbol": "CVNA",
+      "company": "Carvana Co.",
+      "prices": [
+        "365.94",
+        "355.49"
+      ]
+    },
+    {
+      "symbol": "IDXX",
+      "company": "Idexx Laboratories",
+      "prices": [
+        "647.63",
+        "652.97"
+      ]
+    },
+    {
+      "symbol": "GNRC",
+      "company": "Generac",
+      "prices": [
+        "214.94",
+        "220.76"
+      ]
+    },
+    {
+      "symbol": "DRI",
+      "company": "Darden Restaurants",
+      "prices": [
+        "212.58",
+        "205.48"
+      ]
+    },
+    {
+      "symbol": "CPAY",
+      "company": "Corpay",
+      "prices": [
+        "346.25",
+        "355.36"
+      ]
+    },
+    {
+      "symbol": "LH",
+      "company": "LabCorp",
+      "prices": [
+        "289.08",
+        "280.81"
+      ]
+    },
+    {
+      "symbol": "ETN",
+      "company": "Eaton Corporation",
+      "prices": [
+        "394.94",
+        "394.18"
+      ]
+    },
+    {
+      "symbol": "ODFL",
+      "company": "Old Dominion",
+      "prices": [
+        "195.74",
+        "187.94"
+      ]
+    },
+    {
+      "symbol": "TTWO",
+      "company": "Take-Two Interactive",
+      "prices": [
+        "204.25",
+        "211.22"
+      ]
+    },
+    {
+      "symbol": "LDOS",
+      "company": "Leidos",
+      "prices": [
+        "174.83",
+        "167.63"
+      ]
+    },
+    {
+      "symbol": "ALL",
+      "company": "Allstate",
+      "prices": [
+        "205.91",
+        "201.73"
+      ]
+    },
+    {
+      "symbol": "ANET",
+      "company": "Arista Networks",
+      "prices": [
+        "141.06",
+        "136.65"
+      ]
+    },
+    {
+      "symbol": "ETR",
+      "company": "Entergy",
+      "prices": [
+        "100.79",
+        "96.74"
+      ]
+    },
+    {
+      "symbol": "AMCR",
+      "company": "Amcor",
+      "prices": [
+        "49.62",
+        "49.96"
+      ]
+    },
+    {
+      "symbol": "CPT",
+      "company": "Camden Property Trust",
+      "prices": [
+        "111.66",
+        "108.14"
+      ]
+    },
+    {
+      "symbol": "ABNB",
+      "company": "Airbnb",
+      "prices": [
+        "119.56",
+        "120.98"
+      ]
+    },
+    {
+      "symbol": "SPG",
+      "company": "Simon Property Group",
+      "prices": [
+        "195.66",
+        "205.17"
+      ]
+    },
+    {
+      "symbol": "LW",
+      "company": "Lamb Weston",
+      "prices": [
+        "50.33",
+        "50.00"
+      ]
+    },
+    {
+      "symbol": "MA",
+      "company": "Mastercard",
+      "prices": [
+        "539.52",
+        "528.02"
+      ]
+    },
+    {
+      "symbol": "AMD",
+      "company": "Advanced Micro Devices",
+      "prices": [
+        "213.00",
+        "211.82"
+      ]
+    },
+    {
+      "symbol": "TRV",
+      "company": "Travelers Companies (The)",
+      "prices": [
+        "299.75",
+        "301.40"
+      ]
+    },
+    {
+      "symbol": "AME",
+      "company": "Ametek",
+      "prices": [
+        "236.33",
+        "230.96"
+      ]
+    },
+    {
+      "symbol": "MDT",
+      "company": "Medtronic",
+      "prices": [
+        "100.87",
+        "101.97"
+      ]
+    },
+    {
+      "symbol": "MO",
+      "company": "Altria",
+      "prices": [
+        "65.72",
+        "64.52"
+      ]
+    },
+    {
+      "symbol": "AMP",
+      "company": "Ameriprise Financial",
+      "prices": [
+        "489.27",
+        "486.35"
+      ]
+    },
+    {
+      "symbol": "ADSK",
+      "company": "Autodesk",
+      "prices": [
+        "232.93",
+        "224.23"
+      ]
+    },
+    {
+      "symbol": "MS",
+      "company": "Morgan Stanley",
+      "prices": [
+        "176.86",
+        "178.16"
+      ]
+    },
+    {
+      "symbol": "MU",
+      "company": "Micron Technology",
+      "prices": [
+        "411.25",
+        "403.74"
+      ]
+    },
+    {
+      "symbol": "AMT",
+      "company": "American Tower",
+      "prices": [
+        "179.46",
+        "180.27"
+      ]
+    },
+    {
+      "symbol": "ORCL",
+      "company": "Oracle Corporation",
+      "prices": [
+        "157.08",
+        "149.89"
+      ]
+    },
+    {
+      "symbol": "PKG",
+      "company": "Packaging Corporation of America",
+      "prices": [
+        "244.06",
+        "241.03"
+      ]
+    },
+    {
+      "symbol": "ROL",
+      "company": "Rollins Inc.",
+      "prices": [
+        "65.74",
+        "62.86"
+      ]
+    },
+    {
+      "symbol": "TSN",
+      "company": "Tyson Foods",
+      "prices": [
+        "64.52",
+        "61.75"
+      ]
+    },
+    {
+      "symbol": "ROK",
+      "company": "Rockwell Automation",
+      "prices": [
+        "413.43",
+        "431.10"
+      ]
+    },
+    {
+      "symbol": "ROP",
+      "company": "Roper Technologies",
+      "prices": [
+        "333.96",
+        "348.44"
+      ]
+    },
+    {
+      "symbol": "DTE",
+      "company": "DTE Energy",
+      "prices": [
+        "139.17",
+        "138.32"
+      ]
+    },
+    {
+      "symbol": "EBAY",
+      "company": "eBay",
+      "prices": [
+        "82.95",
+        "82.36"
+      ]
+    },
+    {
+      "symbol": "CRH",
+      "company": "CRH plc",
+      "prices": [
+        "127.89",
+        "132.55"
+      ]
+    },
+    {
+      "symbol": "SNPS",
+      "company": "Synopsys",
+      "prices": [
+        "433.56",
+        "430.19"
+      ]
+    },
+    {
+      "symbol": "NI",
+      "company": "NiSource",
+      "prices": [
+        "44.78",
+        "46.79"
+      ]
+    },
+    {
+      "symbol": "CHTR",
+      "company": "Charter Communications",
+      "prices": [
+        "241.08",
+        "235.91"
+      ]
+    },
+    {
+      "symbol": "CRL",
+      "company": "Charles River Laboratories",
+      "prices": [
+        "164.83",
+        "170.32"
+      ]
+    },
+    {
+      "symbol": "MET",
+      "company": "MetLife",
+      "prices": [
+        "78.87",
+        "81.45"
+      ]
+    },
+    {
+      "symbol": "CRM",
+      "company": "Salesforce",
+      "prices": [
+        "184.94",
+        "190.48"
+      ]
+    },
+    {
+      "symbol": "TTD",
+      "company": "The Trade Desk Inc.",
+      "prices": [
+        "27.19",
+        "26.98"
+      ]
+    },
+    {
+      "symbol": "SRE",
+      "company": "Sempra",
+      "prices": [
+        "90.83",
+        "91.68"
+      ]
+    },
+    {
+      "symbol": "EXPD",
+      "company": "Expeditors International",
+      "prices": [
+        "163.06",
+        "166.08"
+      ]
+    },
+    {
+      "symbol": "EXPE",
+      "company": "Expedia Group",
+      "prices": [
+        "235.08",
+        "238.90"
+      ]
+    },
+    {
+      "symbol": "AKAM",
+      "company": "Akamai Technologies",
+      "prices": [
+        "95.00",
+        "94.08"
+      ]
+    },
+    {
+      "symbol": "PLD",
+      "company": "Prologis",
+      "prices": [
+        "140.35",
+        "138.41"
+      ]
+    },
+    {
+      "symbol": "FFIV",
+      "company": "F5 Inc.",
+      "prices": [
+        "282.22",
+        "273.68"
+      ]
+    },
+    {
+      "symbol": "NCLH",
+      "company": "Norwegian Cruise Line Holdings",
+      "prices": [
+        "22.76",
+        "22.01"
+      ]
+    },
+    {
+      "symbol": "KEYS",
+      "company": "Keysight Technologies",
+      "prices": [
+        "237.88",
+        "249.45"
+      ]
+    },
+    {
+      "symbol": "DUK",
+      "company": "Duke Energy",
+      "prices": [
+        "124.86",
+        "128.19"
+      ]
+    },
+    {
+      "symbol": "DELL",
+      "company": "Dell Technologies",
+      "prices": [
+        "124.37",
+        "120.75"
+      ]
+    },
+    {
+      "symbol": "ON",
+      "company": "ON Semiconductor",
+      "prices": [
+        "70.68",
+        "67.67"
+      ]
+    },
+    {
+      "symbol": "AON",
+      "company": "Aon",
+      "prices": [
+        "314.02",
+        "302.84"
+      ]
+    },
+    {
+      "symbol": "PYPL",
+      "company": "PayPal",
+      "prices": [
+        "40.26",
+        "40.34"
+      ]
+    },
+    {
+      "symbol": "BALL",
+      "company": "Ball Corporation",
+      "prices": [
+        "67.29",
+        "64.66"
+      ]
+    },
+    {
+      "symbol": "AOS",
+      "company": "A. O. Smith",
+      "prices": [
+        "80.03",
+        "78.15"
+      ]
+    },
+    {
+      "symbol": "OKE",
+      "company": "ONEOK",
+      "prices": [
+        "85.03",
+        "81.05"
+      ]
+    },
+    {
+      "symbol": "CSX",
+      "company": "CSX Corporation",
+      "prices": [
+        "41.30",
+        "39.81"
+      ]
+    },
+    {
+      "symbol": "OTIS",
+      "company": "Otis Worldwide",
+      "prices": [
+        "89.85",
+        "90.57"
+      ]
+    },
+    {
+      "symbol": "DVA",
+      "company": "DaVita",
+      "prices": [
+        "144.55",
+        "146.87"
+      ]
+    },
+    {
+      "symbol": "EXC",
+      "company": "Exelon",
+      "prices": [
+        "44.57",
+        "45.54"
+      ]
+    },
+    {
+      "symbol": "APA",
+      "company": "APA Corporation",
+      "prices": [
+        "28.11",
+        "26.96"
+      ]
+    },
+    {
+      "symbol": "MGM",
+      "company": "MGM Resorts",
+      "prices": [
+        "36.39",
+        "35.55"
+      ]
+    },
+    {
+      "symbol": "EXE",
+      "company": "Expand Energy",
+      "prices": [
+        "103.09",
+        "101.93"
+      ]
+    },
+    {
+      "symbol": "NWSA",
+      "company": "News Corp (Class A)",
+      "prices": [
+        "23.30",
+        "23.48"
+      ]
+    },
+    {
+      "symbol": "LEN",
+      "company": "Lennar",
+      "prices": [
+        "120.76",
+        "123.03"
+      ]
+    },
+    {
+      "symbol": "APD",
+      "company": "Air Products",
+      "prices": [
+        "293.38",
+        "303.83"
+      ]
+    },
+    {
+      "symbol": "PG",
+      "company": "Procter \u0026 Gamble",
+      "prices": [
+        "159.45",
+        "160.56"
+      ]
+    },
+    {
+      "symbol": "PH",
+      "company": "Parker Hannifin",
+      "prices": [
+        "998.24",
+        "971.56"
+      ]
+    },
+    {
+      "symbol": "APH",
+      "company": "Amphenol",
+      "prices": [
+        "144.60",
+        "139.04"
+      ]
+    },
+    {
+      "symbol": "CDNS",
+      "company": "Cadence Design Systems",
+      "prices": [
+        "298.74",
+        "305.30"
+      ]
+    },
+    {
+      "symbol": "GILD",
+      "company": "Gilead Sciences",
+      "prices": [
+        "155.71",
+        "154.49"
+      ]
+    },
+    {
+      "symbol": "PM",
+      "company": "Philip Morris International",
+      "prices": [
+        "185.99",
+        "188.71"
+      ]
+    },
+    {
+      "symbol": "DVN",
+      "company": "Devon Energy",
+      "prices": [
+        "44.78",
+        "42.96"
+      ]
+    },
+    {
+      "symbol": "EXR",
+      "company": "Extra Space Storage",
+      "prices": [
+        "142.02",
+        "140.44"
+      ]
+    },
+    {
+      "symbol": "BRO",
+      "company": "Brown \u0026 Brown",
+      "prices": [
+        "67.07",
+        "66.27"
+      ]
+    },
+    {
+      "symbol": "APO",
+      "company": "Apollo Global Management",
+      "prices": [
+        "127.53",
+        "126.21"
+      ]
+    },
+    {
+      "symbol": "APP",
+      "company": "AppLovin Corporation",
+      "prices": [
+        "459.27",
+        "467.48"
+      ]
+    },
+    {
+      "symbol": "AAPL",
+      "company": "Apple Inc.",
+      "prices": [
+        "276.43",
+        "268.36"
+      ]
+    },
+    {
+      "symbol": "PNC",
+      "company": "PNC Financial Services",
+      "prices": [
+        "237.28",
+        "235.76"
+      ]
+    },
+    {
+      "symbol": "STE",
+      "company": "Steris",
+      "prices": [
+        "243.09",
+        "245.06"
+      ]
+    },
+    {
+      "symbol": "AMGN",
+      "company": "Amgen",
+      "prices": [
+        "364.77",
+        "381.27"
+      ]
+    },
+    {
+      "symbol": "STT",
+      "company": "State Street Corporation",
+      "prices": [
+        "131.37",
+        "127.64"
+      ]
+    },
+    {
+      "symbol": "GDDY",
+      "company": "GoDaddy",
+      "prices": [
+        "91.44",
+        "94.99"
+      ]
+    },
+    {
+      "symbol": "JBL",
+      "company": "Jabil",
+      "prices": [
+        "260.92",
+        "266.91"
+      ]
+    },
+    {
+      "symbol": "PNR",
+      "company": "Pentair",
+      "prices": [
+        "99.79",
+        "99.03"
+      ]
+    },
+    {
+      "symbol": "STX",
+      "company": "Seagate Technology",
+      "prices": [
+        "409.41",
+        "391.69"
+      ]
+    },
+    {
+      "symbol": "KDP",
+      "company": "Keurig Dr Pepper",
+      "prices": [
+        "29.84",
+        "29.23"
+      ]
+    },
+    {
+      "symbol": "STZ",
+      "company": "Constellation Brands",
+      "prices": [
+        "163.02",
+        "155.36"
+      ]
+    },
+    {
+      "symbol": "PNW",
+      "company": "Pinnacle West",
+      "prices": [
+        "95.57",
+        "92.93"
+      ]
+    },
+    {
+      "symbol": "META",
+      "company": "Meta Platforms",
+      "prices": [
+        "669.41",
+        "697.26"
+      ]
+    },
+    {
+      "symbol": "ZBH",
+      "company": "Zimmer Biomet",
+      "prices": [
+        "95.21",
+        "94.94"
+      ]
+    },
+    {
+      "symbol": "OMC",
+      "company": "Omnicom Group",
+      "prices": [
+        "69.53",
+        "71.39"
+      ]
+    },
+    {
+      "symbol": "BSX",
+      "company": "Boston Scientific",
+      "prices": [
+        "73.76",
+        "72.83"
+      ]
+    },
+    {
+      "symbol": "RSG",
+      "company": "Republic Services",
+      "prices": [
+        "226.72",
+        "228.95"
+      ]
+    },
+    {
+      "symbol": "NKE",
+      "company": "Nike Inc.",
+      "prices": [
+        "62.43",
+        "65.52"
+      ]
+    },
+    {
+      "symbol": "HUBB",
+      "company": "Hubbell Incorporated",
+      "prices": [
+        "513.63",
+        "502.56"
+      ]
+    },
+    {
+      "symbol": "JKHY",
+      "company": "Jack Henry \u0026 Associates",
+      "prices": [
+        "165.63",
+        "168.30"
+      ]
+    },
+    {
+      "symbol": "JCI",
+      "company": "Johnson Controls",
+      "prices": [
+        "140.75",
+        "135.11"
+      ]
+    },
+    {
+      "symbol": "RF",
+      "company": "Regions Financial Corporation",
+      "prices": [
+        "30.86",
+        "32.00"
+      ]
+    },
+    {
+      "symbol": "ARE",
+      "company": "Alexandria Real Estate Equities",
+      "prices": [
+        "53.92",
+        "56.48"
+      ]
+    },
+    {
+      "symbol": "EPAM",
+      "company": "EPAM Systems",
+      "prices": [
+        "180.79",
+        "189.37"
+      ]
+    },
+    {
+      "symbol": "RL",
+      "company": "Ralph Lauren Corporation",
+      "prices": [
+        "359.55",
+        "351.10"
+      ]
+    },
+    {
+      "symbol": "VRSK",
+      "company": "Verisk Analytics",
+      "prices": [
+        "171.87",
+        "174.19"
+      ]
+    },
+    {
+      "symbol": "MRNA",
+      "company": "Moderna",
+      "prices": [
+        "40.21",
+        "41.28"
+      ]
+    },
+    {
+      "symbol": "KEY",
+      "company": "KeyCorp",
+      "prices": [
+        "22.67",
+        "22.08"
+      ]
+    },
+    {
+      "symbol": "VRSN",
+      "company": "Verisign",
+      "prices": [
+        "215.66",
+        "225.11"
+      ]
+    },
+    {
+      "symbol": "CVS",
+      "company": "CVS Health",
+      "prices": [
+        "76.36",
+        "75.78"
+      ]
+    },
+    {
+      "symbol": "CVX",
+      "company": "Chevron Corporation",
+      "prices": [
+        "185.66",
+        "182.60"
+      ]
+    },
+    {
+      "symbol": "INTU",
+      "company": "Intuit",
+      "prices": [
+        "401.05",
+        "399.77"
+      ]
+    },
+    {
+      "symbol": "FISV",
+      "company": "Fiserv Inc.",
+      "prices": [
+        "62.72",
+        "61.00"
+      ]
+    },
+    {
+      "symbol": "PPG",
+      "company": "PPG Industries",
+      "prices": [
+        "130.53",
+        "127.40"
+      ]
+    },
+    {
+      "symbol": "DDOG",
+      "company": "Datadog",
+      "prices": [
+        "126.70",
+        "130.29"
+      ]
+    },
+    {
+      "symbol": "BLDR",
+      "company": "Builders FirstSource",
+      "prices": [
+        "125.44",
+        "129.49"
+      ]
+    },
+    {
+      "symbol": "TXN",
+      "company": "Texas Instruments",
+      "prices": [
+        "226.34",
+        "224.04"
+      ]
+    },
+    {
+      "symbol": "ALGN",
+      "company": "Align Technology",
+      "prices": [
+        "197.24",
+        "189.36"
+      ]
+    },
+    {
+      "symbol": "PPL",
+      "company": "PPL Corporation",
+      "prices": [
+        "35.97",
+        "37.27"
+      ]
+    },
+    {
+      "symbol": "FITB",
+      "company": "Fifth Third Bancorp",
+      "prices": [
+        "54.59",
+        "57.23"
+      ]
+    },
+    {
+      "symbol": "TXT",
+      "company": "Textron",
+      "prices": [
+        "96.68",
+        "101.45"
+      ]
+    },
+    {
+      "symbol": "IBM",
+      "company": "IBM",
+      "prices": [
+        "273.86",
+        "286.76"
+      ]
+    },
+    {
+      "symbol": "RTX",
+      "company": "RTX Corporation",
+      "prices": [
+        "197.56",
+        "205.35"
+      ]
+    },
+    {
+      "symbol": "SO",
+      "company": "Southern Company",
+      "prices": [
+        "90.86",
+        "91.68"
+      ]
+    },
+    {
+      "symbol": "LHX",
+      "company": "L3Harris",
+      "prices": [
+        "341.14",
+        "326.85"
+      ]
+    },
+    {
+      "symbol": "SW",
+      "company": "Smurfit WestRock",
+      "prices": [
+        "50.23",
+        "52.13"
+      ]
+    },
+    {
+      "symbol": "MKC",
+      "company": "McCormick \u0026 Company",
+      "prices": [
+        "70.30",
+        "70.01"
+      ]
+    },
+    {
+      "symbol": "TYL",
+      "company": "Tyler Technologies",
+      "prices": [
+        "339.51",
+        "355.76"
+      ]
+    },
+    {
+      "symbol": "SWK",
+      "company": "Stanley Black \u0026 Decker",
+      "prices": [
+        "90.31",
+        "88.05"
+      ]
+    },
+    {
+      "symbol": "VRTX",
+      "company": "Vertex Pharmaceuticals",
+      "prices": [
+        "459.93",
+        "437.99"
+      ]
+    },
+    {
+      "symbol": "ICE",
+      "company": "Intercontinental Exchange",
+      "prices": [
+        "153.60",
+        "153.31"
+      ]
+    },
+    {
+      "symbol": "CBOE",
+      "company": "Cboe Global Markets",
+      "prices": [
+        "271.99",
+        "284.40"
+      ]
+    },
+    {
+      "symbol": "LII",
+      "company": "Lennox International",
+      "prices": [
+        "553.57",
+        "572.32"
+      ]
+    },
+    {
+      "symbol": "LIN",
+      "company": "Linde plc",
+      "prices": [
+        "466.04",
+        "456.21"
+      ]
+    },
+    {
+      "symbol": "VICI",
+      "company": "Vici Properties",
+      "prices": [
+        "29.18",
+        "30.41"
+      ]
+    },
+    {
+      "symbol": "HAL",
+      "company": "Halliburton",
+      "prices": [
+        "34.84",
+        "36.22"
+      ]
+    },
+    {
+      "symbol": "INTC",
+      "company": "Intel",
+      "prices": [
+        "47.85",
+        "45.99"
+      ]
+    },
+    {
+      "symbol": "GEHC",
+      "company": "GE HealthCare",
+      "prices": [
+        "79.29",
+        "82.01"
+      ]
+    },
+    {
+      "symbol": "HAS",
+      "company": "Hasbro",
+      "prices": [
+        "105.26",
+        "103.96"
+      ]
+    },
+    {
+      "symbol": "REGN",
+      "company": "Regeneron Pharmaceuticals",
+      "prices": [
+        "780.09",
+        "741.20"
+      ]
+    },
+    {
+      "symbol": "ATO",
+      "company": "Atmos Energy",
+      "prices": [
+        "175.22",
+        "176.45"
+      ]
+    },
+    {
+      "symbol": "CTRA",
+      "company": "Coterra",
+      "prices": [
+        "31.48",
+        "30.57"
+      ]
+    },
+    {
+      "symbol": "TT",
+      "company": "Trane Technologies",
+      "prices": [
+        "473.75",
+        "495.98"
+      ]
+    },
+    {
+      "symbol": "HBAN",
+      "company": "Huntington Bancshares",
+      "prices": [
+        "18.02",
+        "17.45"
+      ]
+    },
+    {
+      "symbol": "EVRG",
+      "company": "Evergy",
+      "prices": [
+        "78.94",
+        "77.94"
+      ]
+    },
+    {
+      "symbol": "KHC",
+      "company": "Kraft Heinz",
+      "prices": [
+        "24.88",
+        "24.03"
+      ]
+    },
+    {
+      "symbol": "COIN",
+      "company": "Coinbase Global",
+      "prices": [
+        "152.61",
+        "154.85"
+      ]
+    },
+    {
+      "symbol": "MLM",
+      "company": "Martin Marietta Materials",
+      "prices": [
+        "663.38",
+        "674.56"
+      ]
+    },
+    {
+      "symbol": "PRU",
+      "company": "Prudential Financial",
+      "prices": [
+        "105.34",
+        "109.13"
+      ]
+    },
+    {
+      "symbol": "PSKY",
+      "company": "Paramount Skydance Corp",
+      "prices": [
+        "10.96",
+        "10.63"
+      ]
+    },
+    {
+      "symbol": "ORLY",
+      "company": "O\u0027Reilly Auto Parts",
+      "prices": [
+        "93.87",
+        "94.85"
+      ]
+    },
+    {
+      "symbol": "SBAC",
+      "company": "SBA Communications",
+      "prices": [
+        "190.43",
+        "181.66"
+      ]
+    },
+    {
+      "symbol": "CTSH",
+      "company": "Cognizant",
+      "prices": [
+        "71.22",
+        "71.36"
+      ]
+    },
+    {
+      "symbol": "PODD",
+      "company": "Insulet Corporation",
+      "prices": [
+        "253.09",
+        "257.57"
+      ]
+    },
+    {
+      "symbol": "MRSH",
+      "company": "Marsh \u0026 McLennan Companies Inc.",
+      "prices": [
+        "174.09",
+        "180.56"
+      ]
+    },
+    {
+      "symbol": "PSA",
+      "company": "Public Storage",
+      "prices": [
+        "293.33",
+        "285.04"
+      ]
+    },
+    {
+      "symbol": "SYF",
+      "company": "Synchrony Financial",
+      "prices": [
+        "72.95",
+        "71.97"
+      ]
+    },
+    {
+      "symbol": "NOC",
+      "company": "Northrop Grumman",
+      "prices": [
+        "680.45",
+        "709.12"
+      ]
+    },
+    {
+      "symbol": "NTRS",
+      "company": "Northern Trust",
+      "prices": [
+        "147.45",
+        "143.43"
+      ]
+    },
+    {
+      "symbol": "SYK",
+      "company": "Stryker Corporation",
+      "prices": [
+        "362.53",
+        "363.01"
+      ]
+    },
+    {
+      "symbol": "HCA",
+      "company": "HCA Healthcare",
+      "prices": [
+        "531.83",
+        "533.53"
+      ]
+    },
+    {
+      "symbol": "ERIE",
+      "company": "Erie Indemnity",
+      "prices": [
+        "279.84",
+        "266.46"
+      ]
+    },
+    {
+      "symbol": "MMM",
+      "company": "3M",
+      "prices": [
+        "173.46",
+        "174.01"
+      ]
+    },
+    {
+      "symbol": "AVB",
+      "company": "AvalonBay Communities",
+      "prices": [
+        "179.80",
+        "183.47"
+      ]
+    },
+    {
+      "symbol": "KIM",
+      "company": "Kimco Realty",
+      "prices": [
+        "21.96",
+        "21.14"
+      ]
+    },
+    {
+      "symbol": "TECH",
+      "company": "Bio-Techne",
+      "prices": [
+        "63.46",
+        "63.99"
+      ]
+    },
+    {
+      "symbol": "SYY",
+      "company": "Sysco",
+      "prices": [
+        "88.04",
+        "85.75"
+      ]
+    },
+    {
+      "symbol": "PSX",
+      "company": "Phillips 66",
+      "prices": [
+        "161.13",
+        "166.99"
+      ]
+    },
+    {
+      "symbol": "INVH",
+      "company": "Invitation Homes",
+      "prices": [
+        "27.16",
+        "27.94"
+      ]
+    },
+    {
+      "symbol": "NDSN",
+      "company": "Nordson Corporation",
+      "prices": [
+        "295.64",
+        "305.54"
+      ]
+    },
+    {
+      "symbol": "NOW",
+      "company": "ServiceNow",
+      "prices": [
+        "101.55",
+        "99.81"
+      ]
+    },
+    {
+      "symbol": "WAB",
+      "company": "Wabtec",
+      "prices": [
+        "255.15",
+        "254.63"
+      ]
+    },
+    {
+      "symbol": "BXP",
+      "company": "BXP Inc.",
+      "prices": [
+        "61.61",
+        "59.60"
+      ]
+    },
+    {
+      "symbol": "IEX",
+      "company": "IDEX Corporation",
+      "prices": [
+        "211.28",
+        "206.60"
+      ]
+    },
+    {
+      "symbol": "PTC",
+      "company": "PTC Inc.",
+      "prices": [
+        "155.52",
+        "149.68"
+      ]
+    },
+    {
+      "symbol": "CTVA",
+      "company": "Corteva",
+      "prices": [
+        "75.48",
+        "73.74"
+      ]
+    },
+    {
+      "symbol": "VZ",
+      "company": "Verizon",
+      "prices": [
+        "48.55",
+        "48.90"
+      ]
+    },
+    {
+      "symbol": "AVY",
+      "company": "Avery Dennison",
+      "prices": [
+        "192.77",
+        "188.36"
+      ]
+    },
+    {
+      "symbol": "BRK.B",
+      "company": "Berkshire Hathaway",
+      "prices": [
+        "501.05",
+        "504.19"
+      ]
+    },
+    {
+      "symbol": "IFF",
+      "company": "International Flavors \u0026 Fragrances",
+      "prices": [
+        "76.65",
+        "80.23"
+      ]
+    },
+    {
+      "symbol": "WAT",
+      "company": "Waters Corporation",
+      "prices": [
+        "331.52",
+        "320.18"
+      ]
+    },
+    {
+      "symbol": "CBRE",
+      "company": "CBRE Group",
+      "prices": [
+        "151.76",
+        "154.96"
+      ]
+    },
+    {
+      "symbol": "AWK",
+      "company": "American Water Works",
+      "prices": [
+        "123.54",
+        "119.79"
+      ]
+    },
+    {
+      "symbol": "WM",
+      "company": "Waste Management",
+      "prices": [
+        "234.67",
+        "229.76"
+      ]
+    },
+    {
+      "symbol": "LLY",
+      "company": "Lilly (Eli)",
+      "prices": [
+        "1014.43",
+        "965.06"
+      ]
+    },
+    {
+      "symbol": "WBD",
+      "company": "Warner Bros. Discovery",
+      "prices": [
+        "28.01",
+        "27.48"
+      ]
+    },
+    {
+      "symbol": "WY",
+      "company": "Weyerhaeuser",
+      "prices": [
+        "27.09",
+        "28.16"
+      ]
+    },
+    {
+      "symbol": "MOH",
+      "company": "Molina Healthcare",
+      "prices": [
+        "122.46",
+        "119.03"
+      ]
+    },
+    {
+      "symbol": "SWKS",
+      "company": "Skyworks Solutions",
+      "prices": [
+        "63.62",
+        "65.74"
+      ]
+    },
+    {
+      "symbol": "APTV",
+      "company": "Aptiv",
+      "prices": [
+        "83.64",
+        "85.96"
+      ]
+    },
+    {
+      "symbol": "TMUS",
+      "company": "T-Mobile US",
+      "prices": [
+        "207.62",
+        "208.15"
+      ]
+    },
+    {
+      "symbol": "MOS",
+      "company": "Mosaic Company (The)",
+      "prices": [
+        "31.21",
+        "31.88"
+      ]
+    },
+    {
+      "symbol": "LMT",
+      "company": "Lockheed Martin",
+      "prices": [
+        "630.54",
+        "626.73"
+      ]
+    },
+    {
+      "symbol": "CMCSA",
+      "company": "Comcast",
+      "prices": [
+        "32.53",
+        "32.77"
+      ]
+    },
+    {
+      "symbol": "KKR",
+      "company": "KKR",
+      "prices": [
+        "105.28",
+        "101.03"
+      ]
+    },
+    {
+      "symbol": "AXP",
+      "company": "American Express",
+      "prices": [
+        "355.18",
+        "337.92"
+      ]
+    },
+    {
+      "symbol": "ALLE",
+      "company": "Allegion",
+      "prices": [
+        "179.40",
+        "181.44"
+      ]
+    },
+    {
+      "symbol": "EQIX",
+      "company": "Equinix",
+      "prices": [
+        "863.66",
+        "894.66"
+      ]
+    },
+    {
+      "symbol": "XEL",
+      "company": "Xcel Energy",
+      "prices": [
+        "77.79",
+        "79.61"
+      ]
+    },
+    {
+      "symbol": "MPC",
+      "company": "Marathon Petroleum",
+      "prices": [
+        "207.85",
+        "211.00"
+      ]
+    },
+    {
+      "symbol": "CARR",
+      "company": "Carrier Global",
+      "prices": [
+        "66.80",
+        "66.61"
+      ]
+    },
+    {
+      "symbol": "NRG",
+      "company": "NRG Energy",
+      "prices": [
+        "160.11",
+        "161.71"
+      ]
+    },
+    {
+      "symbol": "TSCO",
+      "company": "Tractor Supply",
+      "prices": [
+        "54.53",
+        "55.31"
+      ]
+    },
+    {
+      "symbol": "LNT",
+      "company": "Alliant Energy",
+      "prices": [
+        "68.17",
+        "68.03"
+      ]
+    },
+    {
+      "symbol": "WDC",
+      "company": "Western Digital",
+      "prices": [
+        "277.26",
+        "279.79"
+      ]
+    },
+    {
+      "symbol": "NSC",
+      "company": "Norfolk Southern Railway",
+      "prices": [
+        "316.73",
+        "328.40"
+      ]
+    },
+    {
+      "symbol": "KMB",
+      "company": "Kimberly-Clark",
+      "prices": [
+        "107.35",
+        "108.96"
+      ]
+    },
+    {
+      "symbol": "KMI",
+      "company": "Kinder Morgan",
+      "prices": [
+        "31.64",
+        "30.07"
+      ]
+    },
+    {
+      "symbol": "PWR",
+      "company": "Quanta Services",
+      "prices": [
+        "523.69",
+        "517.28"
+      ]
+    },
+    {
+      "symbol": "GEN",
+      "company": "Gen Digital",
+      "prices": [
+        "24.64",
+        "25.26"
+      ]
+    },
+    {
+      "symbol": "FSLR",
+      "company": "First Solar",
+      "prices": [
+        "227.60",
+        "221.64"
+      ]
+    },
+    {
+      "symbol": "WEC",
+      "company": "WEC Energy Group",
+      "prices": [
+        "113.19",
+        "113.47"
+      ]
+    },
+    {
+      "symbol": "LOW",
+      "company": "Lowe\u0027s",
+      "prices": [
+        "286.57",
+        "291.49"
+      ]
+    },
+    {
+      "symbol": "FTNT",
+      "company": "Fortinet",
+      "prices": [
+        "87.72",
+        "86.77"
+      ]
+    },
+    {
+      "symbol": "AZO",
+      "company": "AutoZone",
+      "prices": [
+        "3733.09",
+        "3562.40"
+      ]
+    },
+    {
+      "symbol": "GEV",
+      "company": "GE Vernova",
+      "prices": [
+        "822.50",
+        "841.03"
+      ]
+    },
+    {
+      "symbol": "FCX",
+      "company": "Freeport-McMoRan",
+      "prices": [
+        "65.30",
+        "65.15"
+      ]
+    },
+    {
+      "symbol": "UAL",
+      "company": "United Airlines Holdings",
+      "prices": [
+        "113.50",
+        "110.31"
+      ]
+    },
+    {
+      "symbol": "HSIC",
+      "company": "Henry Schein",
+      "prices": [
+        "81.21",
+        "82.16"
+      ]
+    },
+    {
+      "symbol": "MRK",
+      "company": "Merck \u0026 Co.",
+      "prices": [
+        "118.79",
+        "119.42"
+      ]
+    },
+    {
+      "symbol": "FDS",
+      "company": "FactSet",
+      "prices": [
+        "193.29",
+        "198.07"
+      ]
+    },
+    {
+      "symbol": "WFC",
+      "company": "Wells Fargo",
+      "prices": [
+        "89.07",
+        "88.81"
+      ]
+    },
+    {
+      "symbol": "QCOM",
+      "company": "Qualcomm",
+      "prices": [
+        "141.90",
+        "147.55"
+      ]
+    },
+    {
+      "symbol": "FDX",
+      "company": "FedEx",
+      "prices": [
+        "368.49",
+        "366.44"
+      ]
+    },
+    {
+      "symbol": "PANW",
+      "company": "Palo Alto Networks",
+      "prices": [
+        "165.49",
+        "167.41"
+      ]
+    },
+    {
+      "symbol": "NUE",
+      "company": "Nucor",
+      "prices": [
+        "194.78",
+        "200.66"
+      ]
+    },
+    {
+      "symbol": "MSI",
+      "company": "Motorola Solutions",
+      "prices": [
+        "423.10",
+        "411.85"
+      ]
+    },
+    {
+      "symbol": "CRWD",
+      "company": "CrowdStrike",
+      "prices": [
+        "414.94",
+        "404.07"
+      ]
+    },
+    {
+      "symbol": "ULTA",
+      "company": "Ulta Beauty",
+      "prices": [
+        "684.25",
+        "654.32"
+      ]
+    },
+    {
+      "symbol": "HIG",
+      "company": "Hartford (The)",
+      "prices": [
+        "142.02",
+        "147.05"
+      ]
+    },
+    {
+      "symbol": "HII",
+      "company": "Huntington Ingalls Industries",
+      "prices": [
+        "392.15",
+        "410.89"
+      ]
+    },
+    {
+      "symbol": "DAL",
+      "company": "Delta Air Lines",
+      "prices": [
+        "71.16",
+        "70.28"
+      ]
+    },
+    {
+      "symbol": "ECL",
+      "company": "Ecolab",
+      "prices": [
+        "301.35",
+        "287.12"
+      ]
+    },
+    {
+      "symbol": "CPRT",
+      "company": "Copart",
+      "prices": [
+        "39.73",
+        "39.29"
+      ]
+    },
+    {
+      "symbol": "SCHW",
+      "company": "Charles Schwab Corporation",
+      "prices": [
+        "95.50",
+        "97.23"
+      ]
+    },
+    {
+      "symbol": "MTB",
+      "company": "M\u0026T Bank",
+      "prices": [
+        "235.06",
+        "231.44"
+      ]
+    },
+    {
+      "symbol": "MTD",
+      "company": "Mettler Toledo",
+      "prices": [
+        "1391.33",
+        "1346.98"
+      ]
+    },
+    {
+      "symbol": "ZBRA",
+      "company": "Zebra Technologies",
+      "prices": [
+        "250.71",
+        "257.70"
+      ]
+    },
+    {
+      "symbol": "GOOGL",
+      "company": "Alphabet Inc. (Class A)",
+      "prices": [
+        "311.20",
+        "314.78"
+      ]
+    },
+    {
+      "symbol": "TAP",
+      "company": "Molson Coors Beverage Company",
+      "prices": [
+        "52.98",
+        "53.67"
+      ]
+    },
+    {
+      "symbol": "JNJ",
+      "company": "Johnson \u0026 Johnson",
+      "prices": [
+        "240.70",
+        "230.47"
+      ]
+    },
+    {
+      "symbol": "NVR",
+      "company": "NVR Inc.",
+      "prices": [
+        "8082.38",
+        "7979.72"
+      ]
+    },
+    {
+      "symbol": "DASH",
+      "company": "DoorDash",
+      "prices": [
+        "175.41",
+        "182.81"
+      ]
+    },
+    {
+      "symbol": "CIEN",
+      "company": "Ciena Corporation",
+      "prices": [
+        "301.11",
+        "312.20"
+      ]
+    },
+    {
+      "symbol": "OXY",
+      "company": "Occidental Petroleum",
+      "prices": [
+        "47.34",
+        "46.02"
+      ]
+    },
+    {
+      "symbol": "FANG",
+      "company": "Diamondback Energy",
+      "prices": [
+        "168.93",
+        "170.65"
+      ]
+    },
+    {
+      "symbol": "VLTO",
+      "company": "Veralto",
+      "prices": [
+        "95.33",
+        "99.93"
+      ]
+    },
+    {
+      "symbol": "MPWR",
+      "company": "Monolithic Power Systems",
+      "prices": [
+        "1197.55",
+        "1172.31"
+      ]
+    },
+    {
+      "symbol": "UDR",
+      "company": "UDR Inc.",
+      "prices": [
+        "39.84",
+        "40.62"
+      ]
+    },
+    {
+      "symbol": "CAG",
+      "company": "Conagra Brands",
+      "prices": [
+        "19.95",
+        "19.72"
+      ]
+    },
+    {
+      "symbol": "CAH",
+      "company": "Cardinal Health",
+      "prices": [
+        "225.15",
+        "229.79"
+      ]
+    },
+    {
+      "symbol": "NWS",
+      "company": "News Corp (Class B)",
+      "prices": [
+        "26.91",
+        "28.17"
+      ]
+    },
+    {
+      "symbol": "GIS",
+      "company": "General Mills",
+      "prices": [
+        "48.40",
+        "47.23"
+      ]
+    },
+    {
+      "symbol": "CAT",
+      "company": "Caterpillar Inc.",
+      "prices": [
+        "773.53",
+        "800.22"
+      ]
+    },
+    {
+      "symbol": "ADBE",
+      "company": "Adobe Inc.",
+      "prices": [
+        "258.39",
+        "253.21"
+      ]
+    },
+    {
+      "symbol": "STLD",
+      "company": "Steel Dynamics",
+      "prices": [
+        "206.43",
+        "214.88"
+      ]
+    },
+    {
+      "symbol": "BIIB",
+      "company": "Biogen",
+      "prices": [
+        "191.29",
+        "192.58"
+      ]
+    },
+    {
+      "symbol": "TRGP",
+      "company": "Targa Resources",
+      "prices": [
+        "222.03",
+        "213.33"
+      ]
+    },
+    {
+      "symbol": "AVGO",
+      "company": "Broadcom",
+      "prices": [
+        "343.35",
+        "352.05"
+      ]
+    },
+    {
+      "symbol": "JPM",
+      "company": "JPMorgan Chase",
+      "prices": [
+        "311.14",
+        "310.78"
+      ]
+    },
+    {
+      "symbol": "HLT",
+      "company": "Hilton Worldwide",
+      "prices": [
+        "327.38",
+        "313.31"
+      ]
+    },
+    {
+      "symbol": "COST",
+      "company": "Costco",
+      "prices": [
+        "979.71",
+        "976.84"
+      ]
+    },
+    {
+      "symbol": "TDG",
+      "company": "TransDigm Group",
+      "prices": [
+        "1325.26",
+        "1352.16"
+      ]
+    },
+    {
+      "symbol": "EFX",
+      "company": "Equifax",
+      "prices": [
+        "197.29",
+        "193.27"
+      ]
+    },
+    {
+      "symbol": "SPGI",
+      "company": "S\u0026P Global",
+      "prices": [
+        "396.65",
+        "387.52"
+      ]
+    },
+    {
+      "symbol": "UBER",
+      "company": "Uber",
+      "prices": [
+        "70.72",
+        "67.42"
+      ]
+    },
+    {
+      "symbol": "BKNG",
+      "company": "Booking Holdings",
+      "prices": [
+        "4322.85",
+        "4345.86"
+      ]
+    },
+    {
+      "symbol": "DXCM",
+      "company": "Dexcom",
+      "prices": [
+        "68.19",
+        "65.03"
+      ]
+    },
+    {
+      "symbol": "BAC",
+      "company": "Bank of America",
+      "prices": [
+        "54.06",
+        "54.69"
+      ]
+    },
+    {
+      "symbol": "MNST",
+      "company": "Monster Beverage",
+      "prices": [
+        "80.88",
+        "80.52"
+      ]
+    },
+    {
+      "symbol": "CCI",
+      "company": "Crown Castle",
+      "prices": [
+        "85.66",
+        "87.82"
+      ]
+    },
+    {
+      "symbol": "TDY",
+      "company": "Teledyne Technologies",
+      "prices": [
+        "657.92",
+        "671.14"
+      ]
+    },
+    {
+      "symbol": "LUV",
+      "company": "Southwest Airlines",
+      "prices": [
+        "51.66",
+        "49.12"
+      ]
+    },
+    {
+      "symbol": "CCL",
+      "company": "Carnival",
+      "prices": [
+        "32.80",
+        "32.55"
+      ]
+    },
+    {
+      "symbol": "GRMN",
+      "company": "Garmin",
+      "prices": [
+        "206.52",
+        "214.41"
+      ]
+    },
+    {
+      "symbol": "WDAY",
+      "company": "Workday Inc.",
+      "prices": [
+        "145.19",
+        "150.82"
+      ]
+    },
+    {
+      "symbol": "RVTY",
+      "company": "Revvity",
+      "prices": [
+        "100.89",
+        "105.26"
+      ]
+    },
+    {
+      "symbol": "FIS",
+      "company": "Fidelity National Information Services",
+      "prices": [
+        "48.73",
+        "51.06"
+      ]
+    },
+    {
+      "symbol": "FIX",
+      "company": "Comfort Systems USA Inc.",
+      "prices": [
+        "1345.62",
+        "1385.48"
+      ]
+    },
+    {
+      "symbol": "BAX",
+      "company": "Baxter International",
+      "prices": [
+        "22.30",
+        "22.99"
+      ]
+    },
+    {
+      "symbol": "TEL",
+      "company": "TE Connectivity",
+      "prices": [
+        "227.16",
+        "230.49"
+      ]
+    }
+  ]
+}

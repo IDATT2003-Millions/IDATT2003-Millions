@@ -4,12 +4,11 @@ import edu.ntnu.idi.idatt2003.model.core.Share;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-
 /**
  * Calculates financial values for purchasing transaction.
  *
- * <p>Commission rate for a purchase is 0.5% of the gross value.
- * There is no tax when purchasing a share.</p>
+ * <p>Commission rate for a purchase is 0.5% of the gross value. There is no tax when purchasing a
+ * share.
  */
 public class PurchaseCalculator implements TransactionCalculator {
 
@@ -34,7 +33,7 @@ public class PurchaseCalculator implements TransactionCalculator {
   /**
    * Calculates the gross value of the purchase.
    *
-   * <p>The gross value is calculated by quantity x purchase price</p>
+   * <p>The gross value is calculated by quantity x purchase price
    *
    * @return the gross value
    */
@@ -46,7 +45,7 @@ public class PurchaseCalculator implements TransactionCalculator {
   /**
    * Calculates the commission fee.
    *
-   *  <p>The fee is 0.5% of the gross value</p>
+   * <p>The fee is 0.5% of the gross value
    *
    * @return the commission amount
    */
@@ -54,11 +53,11 @@ public class PurchaseCalculator implements TransactionCalculator {
   public BigDecimal calculateCommission() {
     return calculateGross().multiply(commission_rate);
   }
-    
+
   /**
    * Calculates tax of the purchase.
    *
-   *  <p>There is no tax for purchasing a share</p>
+   * <p>There is no tax for purchasing a share
    *
    * @return {@code zero}
    */
@@ -70,7 +69,7 @@ public class PurchaseCalculator implements TransactionCalculator {
   /**
    * Calculates the total purchase cost.
    *
-   * <p>The total is gross value + commission fee + tax</p>
+   * <p>The total is gross value + commission fee + tax
    *
    * @return the total purchase cost
    */

@@ -6,20 +6,18 @@ import edu.ntnu.idi.idatt2003.model.core.Share;
 /**
  * Represents a sale transaction in the stock market.
  *
- *<p>A sale is created with a specific share and week number.
- *The transaction is completed when {@link #commit(Player)} is called.</p>
+ * <p>A sale is created with a specific share and week number. The transaction is completed when
+ * {@link #commit(Player)} is called.
  *
- *<p>When committed, the total proceeds are added to the player's balance,
- *the share is removed from the player's portfolio, and the transaction
- *is stored in the player's transaction archive.</p>
+ * <p>When committed, the total proceeds are added to the player's balance, the share is removed
+ * from the player's portfolio, and the transaction is stored in the player's transaction archive.
  */
 public class Sale extends Transaction {
 
   /**
    * Creates a new sale transaction.
    *
-   * <p>The transaction uses a {@link SaleCalculator}
-   * to calculate costs</p>
+   * <p>The transaction uses a {@link SaleCalculator} to calculate costs
    *
    * @param share the share to sell
    * @param week the week of the sale
@@ -35,7 +33,7 @@ public class Sale extends Transaction {
     }
 
     if (isCommitted()) {
-      throw new IllegalArgumentException("This sale has already been committed.");
+      throw new IllegalStateException("This sale has already been committed.");
     }
 
     if (!player.getPortfolio().contains(getShare())) {

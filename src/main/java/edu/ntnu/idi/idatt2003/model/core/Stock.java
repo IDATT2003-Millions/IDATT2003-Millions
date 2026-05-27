@@ -5,16 +5,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 /**
- *Represents a stock with a unique symbol, company name,
- * and a history of recorded sales prices.
+ * Represents a stock with a unique symbol, company name, and a history of recorded sales prices.
  *
- *<p>A stock must always have a symbol, a company name, and at least one
- *initial sales price. All prices must be positive values.
+ * <p>A stock must always have a symbol, a company name, and at least one initial sales price. All
+ * prices must be positive values.
  *
- *<p>The class stores all historical sales prices in the order they were added.
- * The most recent price represents the current sales price.
+ * <p>The class stores all historical sales prices in the order they were added. The most recent
+ * price represents the current sales price.
  */
 public class Stock {
   private final String symbol;
@@ -27,8 +25,8 @@ public class Stock {
    * @param symbol the unique symbol of a stock
    * @param company the name of the company
    * @param salesPrice the sales price of a stock, must be {@code positive}
-   * @throws IllegalArgumentException if symbol or company is {@code null/blank},
-   or if salesPrice is {@code null} or {@code not positive}
+   * @throws IllegalArgumentException if symbol or company is {@code null/blank}, or if salesPrice
+   *     is {@code null} or {@code not positive}
    */
   public Stock(String symbol, String company, BigDecimal salesPrice) {
     if (symbol == null || symbol.isBlank()) {
@@ -60,7 +58,7 @@ public class Stock {
   }
 
   /**
-   *Add new sales price to the stocks price history.
+   * Add new sales price to the stocks price history.
    *
    * @param price the new price sales price to add, must be {@code positive}
    * @throws IllegalArgumentException if price is {@code null} or {@code positive}
@@ -87,8 +85,7 @@ public class Stock {
   /**
    * Gets and calculates the latest change in price.
    *
-   * <p>If there ar no or one registered price the change will
-   * just return zero</p>
+   * <p>If there ar no or one registered price the change will just return zero
    *
    * @return the difference in the two last prices
    */

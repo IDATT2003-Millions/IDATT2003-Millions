@@ -7,17 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *Stores and manages a players completed transactions.
+ * Stores and manages a players completed transactions.
  *
- * <p>The archive keeps track of all committed transactions
- * and allows filtering by week and transaction type.</p>
+ * <p>The archive keeps track of all committed transactions and allows filtering by week and
+ * transaction type.
  */
 public class TransactionArchive {
   private final List<Transaction> transactions;
 
-  /**
-   * Creates an empty transaction archive.
-   */
+  /** Creates an empty transaction archive. */
   public TransactionArchive() {
     this.transactions = new ArrayList<>();
   }
@@ -52,9 +50,7 @@ public class TransactionArchive {
       throw new IllegalArgumentException("Week must not be 0 or a negative number");
     }
 
-    return transactions.stream()
-            .filter(transaction -> transaction.getWeek() == week)
-            .toList();
+    return transactions.stream().filter(transaction -> transaction.getWeek() == week).toList();
   }
 
   /**
@@ -70,9 +66,9 @@ public class TransactionArchive {
     }
 
     return transactions.stream()
-          .filter(transaction -> transaction instanceof Purchase && transaction.getWeek() == week)
-          .map(transaction -> (Purchase) transaction)
-          .toList();
+        .filter(transaction -> transaction instanceof Purchase && transaction.getWeek() == week)
+        .map(transaction -> (Purchase) transaction)
+        .toList();
   }
 
   /**
@@ -88,21 +84,26 @@ public class TransactionArchive {
     }
 
     return transactions.stream()
-                .filter(transaction -> transaction instanceof Sale && transaction.getWeek() == week)
-                .map(transaction -> (Sale) transaction)
-                .toList();
+        .filter(transaction -> transaction instanceof Sale && transaction.getWeek() == week)
+        .map(transaction -> (Sale) transaction)
+        .toList();
   }
 
   /**
-   * Returns the number of distinct weeks represented
-   * in the transaction archive.
+   * Returns an unmodifiable view of all transactions in the archive.
+   *
+   * @return all transactions in insertion order
+   */
+  public List<Transaction> getAll() {
+    return List.copyOf(transactions);
+  }
+
+  /**
+   * Returns the number of distinct weeks represented in the transaction archive.
    *
    * @return the number of unique transaction weeks
    */
   public int countDistinctWeeks() {
-    return (int) transactions.stream()
-                .map(Transaction::getWeek)
-                .distinct()
-                .count();
+    return (int) transactions.stream().map(Transaction::getWeek).distinct().count();
   }
 }

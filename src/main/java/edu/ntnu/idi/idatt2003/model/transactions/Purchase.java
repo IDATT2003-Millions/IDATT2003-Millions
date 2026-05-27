@@ -6,20 +6,18 @@ import edu.ntnu.idi.idatt2003.model.core.Share;
 /**
  * Represents a purchase done on the market.
  *
- * <p>A purchase is created with a specific share and week number.
- * The transaction is completed when {@link #commit(Player)} is called.</p>
+ * <p>A purchase is created with a specific share and week number. The transaction is completed when
+ * {@link #commit(Player)} is called.
  *
- * <p>When committed, the total cost is withdrawn from the players balance,
- * the share is added to the players portfolio, and the transaction is stored
- * in the players transaction archive</p>
+ * <p>When committed, the total cost is withdrawn from the players balance, the share is added to
+ * the players portfolio, and the transaction is stored in the players transaction archive
  */
 public class Purchase extends Transaction {
 
   /**
    * Creates a new purchase transaction.
    *
-   * <p>The transaction uses a {@link PurchaseCalculator}
-   *to calculate costs.</p>
+   * <p>The transaction uses a {@link PurchaseCalculator} to calculate costs.
    *
    * @param share the share being purchased
    * @param week the week of the purchase
@@ -27,7 +25,6 @@ public class Purchase extends Transaction {
   public Purchase(Share share, int week) {
     super(share, week, new PurchaseCalculator(share));
   }
-
 
   @Override
   public void commit(Player player) {

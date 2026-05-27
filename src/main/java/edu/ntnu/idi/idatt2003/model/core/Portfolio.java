@@ -1,23 +1,19 @@
 package edu.ntnu.idi.idatt2003.model.core;
 
-import edu.ntnu.idi.idatt2003.model.calculators.SaleCalculator;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *Represents a players portfolio of shares.
+ * Represents a players portfolio of shares.
  *
- * <p>The portfolio stores all shares currently owned by a player.
- * Shares can be added, removed, and queried by stock symbol.</p>
+ * <p>The portfolio stores all shares currently owned by a player. Shares can be added, removed, and
+ * queried by stock symbol.
  */
 public class Portfolio {
   private List<Share> shares;
 
-  /**
-   * Creates an empty portfolio.
-   */
+  /** Creates an empty portfolio. */
   public Portfolio() {
     this.shares = new ArrayList<>();
   }
@@ -57,7 +53,7 @@ public class Portfolio {
   }
 
   /**
-   *Returns an immutable list of al shares in the portfolio.
+   * Returns an immutable list of al shares in the portfolio.
    *
    * @param symbol the stock symbol to search for
    * @return a copy of the portfolios share
@@ -68,9 +64,7 @@ public class Portfolio {
       throw new IllegalArgumentException("Symbol cannot be blank or null");
     }
 
-    return shares.stream()
-            .filter(s -> s.getStock().getSymbol().equalsIgnoreCase(symbol))
-            .toList();
+    return shares.stream().filter(s -> s.getStock().getSymbol().equalsIgnoreCase(symbol)).toList();
   }
 
   /**
@@ -89,12 +83,15 @@ public class Portfolio {
   }
 
   /**
-   * Calculates and returns the total sale value of all shares in this portfolio.
-   * @return total portfolio value as the sum of all shares' sale totals
+   * Calculates and returns the current market value of all shares in this portfolio. The value is
+   * based on the current sales price of each stock multiplied by quantity, without deducting any
+   * commissions or taxes.
+   *
+   * @return total market value of all shares
    */
   public BigDecimal getNetWorth() {
     return shares.stream()
-            .map(share -> new SaleCalculator(share).calculateTotal())
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
+        .map(share -> share.getStock().getSalesPrice().multiply(share.getQuantity()))
+        .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 }
